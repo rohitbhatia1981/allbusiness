@@ -1,7 +1,7 @@
 <?php
 function showList() {
     global $database, $page, $pagingObject;
-    $sql = "SELECT * FROM tbl_members WHERE member_type=1";
+    $sql = "SELECT * FROM tbl_members WHERE member_type=2";
 
     if ($_GET['txtSearchByTitle'] != "") {
         $sql .= " AND (member_firstname LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_lastname LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_email LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_phone LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%')";
@@ -27,16 +27,11 @@ function saveFormValues() {
         'member_lastname' => $_POST['txtLastName'],
         'member_email' => $_POST['txtEmail'],
         'member_password' => md5($password),
-        'member_phone' => $_POST['txtPhone'],
-        'member_company' => $_POST['txtCompany'],
-        'member_tradingname' => $_POST['txtTradingName'],
-        'member_website' => $_POST['txtWebsite'],
-        'member_address' => $_POST['txtAddress'],
+        'member_phone' => $_POST['txtPhone'],       
         'member_ip' => $_SERVER['REMOTE_ADDR'],
         'member_regdate' => $curDateTime,
-        'member_type' => 1,
-        'member_email_verify' => 1,
-        'member_phone_verify' => 1,
+        'member_type' => 2,
+        'member_email_verify' => 1,       
         'member_status' => $_POST['rdoPublished']
     );
 
@@ -68,11 +63,7 @@ function saveModificationsOperation() {
         'member_firstname' => $_POST['txtFirstName'],
         'member_lastname' => $_POST['txtLastName'],
         'member_email' => $_POST['txtEmail'],
-        'member_phone' => $_POST['txtPhone'],
-        'member_company' => $_POST['txtCompany'],
-        'member_tradingname' => $_POST['txtTradingName'],
-        'member_website' => $_POST['txtWebsite'],
-        'member_address' => $_POST['txtAddress'],
+        'member_phone' => $_POST['txtPhone'],       
         'member_status' => $_POST['rdoPublished']
     );
 
