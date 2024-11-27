@@ -5,9 +5,15 @@ error_reporting(E_ALL);*/
 
 date_default_timezone_set('Australia/Melbourne');
 
+if (preg_match('/localhost/', $_SERVER['HTTP_HOST'])) {
 define("URL","http://{$_SERVER['SERVER_NAME']}/allbusiness/");
 define("PATH","{$_SERVER['DOCUMENT_ROOT']}/allbusiness/");
-
+}
+else
+{
+define("URL","https://{$_SERVER['SERVER_NAME']}/projects/allbusiness/");
+define("PATH","{$_SERVER['DOCUMENT_ROOT']}/projects/allbusiness/");
+}
 
 include_once(PATH."private/filenames.php");
 include_once(PATH."private/configuration.php");
