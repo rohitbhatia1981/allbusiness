@@ -343,7 +343,7 @@ else
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
 	<div class="page-leftheader">
-	<h4 class="page-title">Broker : <?php if ($_GET['task']=="edit") echo 'Edit'; else if ($_GET['task']=="add") echo 'Add'; else if ($_GET['task']=="detail") echo 'Detail'; ?></h4>
+	<h4 class="page-title">Private Seller : <?php if ($_GET['task']=="edit") echo 'Edit'; else if ($_GET['task']=="add") echo 'Add'; else if ($_GET['task']=="detail") echo 'Detail'; ?></h4>
 	</div>
 	<div class="page-rightheader ml-md-auto">
 		<div class=" btn-list">
@@ -460,7 +460,7 @@ else
                                             <label class="custom-control custom-radio">
                                                 <input type="checkbox"  class="" name="ckEmail" id="ckEmail" value="1" >
                                                 &nbsp;
-                                                Send Welcome Email and Password to Broker</label></div>
+                                                Send Welcome Email and Password to Private Seller</label></div>
                                      </div>
                                   </div>	
                    				</div>
@@ -536,7 +536,7 @@ $("#adminForm").validate({
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
 	<div class="page-leftheader">
-	<h4 class="page-title">Brokers : Full detail</h4>
+	<h4 class="page-title">Private Seller : Full detail</h4>
 	</div>
 	<div class="page-rightheader ml-md-auto">
 		<div class=" btn-list">
@@ -805,7 +805,7 @@ $("#adminForm").validate({
                                
 								<div class="table-responsive table-lg mt-3">
                                 <div style="height:22px"></div>
-                                <h4>Business Listings Coming soon</h4>
+                                <h6>No listing yet</h6>
 									<!--<table class="table table-bordered border-top text-nowrap" id="example1" width="100%">
 										<thead>
 											<tr>

@@ -625,7 +625,7 @@ $("#adminForm").validate({
 										<!-- Tabs -->
 										<ul class="nav panel-tabs">
 											<li class="ml-4"><a href="#tab5" class="active"  data-toggle="tab">Details</a></li>
-											<li><a href="#tab6" data-toggle="tab">Business Listings</a></li>
+											<!--<li><a href="#tab6" data-toggle="tab">Business Listings</a></li>-->
 											<li><a href="#tab11" data-toggle="tab">Leads</a></li>
 										</ul>
 									</div>
@@ -1055,7 +1055,7 @@ else
                                                 <div class="table-responsive">
                                                 
                                                 <div style="height:22px"></div>
-                                <h4>Leads Coming Soon</h4>
+                                <h6>No leads yet</h6>
 													
 													
                                                     
