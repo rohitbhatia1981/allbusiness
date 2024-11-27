@@ -1,0 +1,36 @@
+@import url('owl.carousel.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css');
+@import url('custom.css');
+@font-face {
+    font-family: 'hvdtrial_brandon_textbold';
+    src: url('../fonts/hvdtrial_brandon_text_bold-bf6514e9eb720dc-webfont.woff2') format('woff2'),
+         url('../fonts/hvdtrial_brandon_text_bold-bf6514e9eb720dc-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'hvdtrial_brandon_textregular';
+    src: url('../fonts/hvdtrial_brandon_text_regular-bf6514e9eb617a0-webfont.woff2') format('woff2'),
+         url('../fonts/hvdtrial_brandon_text_regular-bf6514e9eb617a0-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'hvdtrial_brandon_textthin';
+    src: url('../fonts/hvdtrial_brandon_text_thin-bf6514e9eb4f386-webfont.woff2') format('woff2'),
+         url('../fonts/hvdtrial_brandon_text_thin-bf6514e9eb4f386-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'hvdtrial_brandon_textmedium';
+    src: url('../fonts/hvdtrial_brandon_text_medium-bf6514e9eb272a3-webfont.woff2') format('woff2'),
+         url('../fonts/hvdtrial_brandon_text_medium-bf6514e9eb272a3-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

@@ -1269,6 +1269,74 @@ function getparentid($id)
 		return $name=$rowCategory['categories_name'];
 }
 
+function getBusinessCategoryName($id)
+{
+    global $database;
+    $ids = explode(',', $id);
+	 // Split comma-separated IDs into an array
+    $categoryNames = array(); // Array to store category names
+	
+
+    foreach ($ids as $id) {
+      $sqlCategory = "SELECT bc_name FROM tbl_business_category WHERE bc_id='" . $database->filter($id) . "'";
+	
+        $loadCategory = $database->get_results($sqlCategory);
+        $rowCategory = $loadCategory[0];
+
+		$categoryName = $rowCategory['bc_name'];
+		
+    
+   		 // Check if the category name already exists in the array
+   		 if (!in_array($categoryName, $categoryNames))
+        	$categoryNames[] = $categoryName; // Store category name in the array
+   		 }
+		
+
+   return $categoryString = implode(', ', $categoryNames); // Convert array to comma-separated string
+    
+}
+
+function getBusinessAddress($id)
+{
+	global $database;
+	
+	$sqlBusiness="select * from tbl_business where business_id='".$database->filter($id)."'";
+	$resBusiness=$database->get_results($sqlBusiness);
+	$rowBusiness=$resBusiness[0];
+	
+	//if ($rowBusiness['business_owner_id']>0)
+	//{
+	if ($rowBusiness['business_address_display']==1)
+	{
+		$address=$rowBusiness['business_address'];
+		
+	//$address=$rowBusiness['business_street'];
+	//$address.=" ".$rowBusiness['business_suburb'].", ".$rowBusiness['business_state'].", ".$rowBusiness['business_postcode'];
+	}
+	else if ($rowBusiness['business_address_display']==2)
+	$address=$rowBusiness['business_suburb'].", ".$rowBusiness['business_state'].", ".$rowBusiness['business_postcode'];
+	
+	else if ($rowBusiness['business_address_display']==3)
+	$address=$rowBusiness['business_state'];
+	//}
+	//else
+	//$address=$rowBusiness['business_address'];
+	
+	
+	$address=str_replace(", AUS","",$address);
+	
+	return $address;
+}
+
+function removeSpecialCharacters($value) {
+    // Define a regular expression pattern to match special characters
+    $pattern = '/[^a-zA-Z0-9\s]/';
+    
+    // Replace special characters with an empty string
+    $cleanedValue = preg_replace($pattern, '', $value);
+    
+    return $cleanedValue;
+}
 
 
 ?>

@@ -3,10 +3,10 @@
 							<div class="container-fluid">
 								<div class="d-flex">
 									<a class="header-brand" href="#">
-										<img src="<?php echo URL?>images/localbuilderfinder-logo.svg" class="header-brand-img desktop-lgo" alt="">
-										<img src="<?php echo URL?>images/localbuilderfinder-logo.svg" class="header-brand-img dark-logo" alt="">
-										<img src="<?php echo URL?>images/localbuilderfinder-logo.svg" class="header-brand-img mobile-logo" alt="">
-										<img src="<?php echo URL?>images/localbuilderfinder-logo.svg" class="header-brand-img darkmobile-logo" alt="">
+										<img src="<?php echo URL?>images/logo.png" class="header-brand-img desktop-lgo" alt="">
+										<img src="<?php echo URL?>images/logo.png" class="header-brand-img dark-logo" alt="">
+										<img src="<?php echo URL?>images/logo.png" class="header-brand-img mobile-logo" alt="">
+										<img src="<?php echo URL?>images/logo.png" class="header-brand-img darkmobile-logo" alt="">
 									</a>
 									<div class="app-sidebar__toggle" data-toggle="sidebar">
 										<a class="open-toggle" href="#">

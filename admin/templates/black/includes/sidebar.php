@@ -37,12 +37,12 @@ if ($_GET['c']!="")
 		<div class="app-sidebar__user">
 			<div class="dropdown user-pro-body text-center">
 				<div class="user-pic">
-					<img src="<?php echo URL?>images/localbuilderfinder-logo.svg" alt="" >
+					<img src="<?php echo URL?>images/logo.png" alt="" >
                     
 				</div>
                 <div style="height:20px"></div>
 				<div class="user-info">
-					<h5 class=" mb-2">Admin Dashboard</h5>
+					<h5 class=" mb-2" style="color:#333">Admin Dashboard</h5>
 					
 				</div>
 			</div>

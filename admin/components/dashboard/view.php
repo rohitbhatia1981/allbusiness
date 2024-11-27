@@ -32,11 +32,11 @@ global $database;
 						<div class="row">
 							<div class="col-xl-3 col-lg-6 col-md-12">
 								<div class="card">
-									<a href="#">
+									<a href="index.php?c=business">
 										<div class="card-body">
 											<div class="row">
 												<div class="col-7">
-													<div class="mt-0 text-left">
+													<div class="mt-0 text-left" >
                                                     
                                                     <?php
 													//$statsSql = "SELECT * FROM tbl_patients where 1";
@@ -45,8 +45,13 @@ global $database;
 									
 													?>
                                                     
-														<span class="fs-16 font-weight-semibold"> Business Listed</span>
-													  <h3 class="mb-0 mt-1 text-danger  fs-25">0<?php //echo $statsCount; ?></h3>
+														<span class="fs-16 font-weight-semibold">Total Business</span>
+													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
+													$statsSql = "SELECT * FROM tbl_business where 1";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
+									
+													?></h3>
 													</div>
 												</div>
 												<div class="col-5">
@@ -59,7 +64,7 @@ global $database;
 							</div>
 							<div class="col-xl-3 col-lg-6 col-md-12">
 								<div class="card">
-									<a href="#">
+									<a href="index.php?c=brokers">
 										<div class="card-body">
 											<div class="row">
 												<div class="col-7">
@@ -68,10 +73,10 @@ global $database;
 														<h3 class="mb-0 mt-1 text-primary  fs-25">
                                                         
                                                         <?php
-													//$statsSql = "SELECT * FROM tbl_pharmacies where 1";
-													//$stats = $database->get_results( $statsSql );
-													//echo $statsCount = count($stats);
-													echo "0";
+													$statsSql = "SELECT * FROM tbl_members where member_type=1";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
+													
 									
 													?>
                                                         
@@ -88,7 +93,7 @@ global $database;
 							</div>
 							<div class="col-xl-3 col-lg-6 col-md-12">
 								<div class="card">
-									<a href="#">
+									<a href="index.php?c=private-sellers">
 										<div class="card-body">
 											<div class="row">
 												<div class="col-7">
@@ -97,11 +102,10 @@ global $database;
 														<h3 class="mb-0 mt-1 text-secondary fs-25">
                                                         
                                                          <?php
-													//$statsSql = "SELECT * FROM tbl_prescribers where 1";
-													//$stats = $database->get_results( $statsSql );
-													//echo $statsCount = count($stats);
+													$statsSql = "SELECT * FROM tbl_members where member_type=2";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
 													
-													echo "0";
 									
 													?>
                                                         
@@ -118,7 +122,7 @@ global $database;
 								</div>
 							</div>
 							<div class="col-xl-3 col-lg-6 col-md-12">
-								<a href="#">
+								<a href="index.php?c=messages">
 									<div class="card">
 										<div class="card-body">
 											<div class="row">
@@ -203,9 +207,9 @@ global $database;
 							<div class="col-xl-6 col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-header border-bottom-0">
-										<h4 class="card-title">Recent Jobs </h4>
+										<h4 class="card-title">Recent Business Added </h4>
 										<div class="card-options mr-3">
-											<div > <a href="index.php?c=prescriptions" class="btn ripple btn-outline-light dropdown-toggle" > See All  </a>
+											<div > <a href="index.php?c=business" class="btn ripple btn-outline-light dropdown-toggle" > See All  </a>
 												
 											</div>
 										</div>
@@ -228,6 +232,14 @@ global $database;
 													<table class="table mg-b-0 text-nowrap">
 														<tbody>
                                                         
+                                                        <?php
+															$sqlBizDash = "select * from tbl_business,tbl_members where business_owner_id=member_id order by business_id desc limit 0,3";
+															$resBizDash=$database->get_results($sqlBizDash);
+															
+															for ($j=0;$j<count($resBizDash);$j++)
+															{
+																$rowBiz=$resBizDash[$j];
+															?>
                                                        
 															<tr class="border-bottom">
 																<td>
@@ -236,82 +248,27 @@ global $database;
 																			&nbsp;
 																		</div>
 																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="#" style="color:#06F; text-decoration:underline">LF-454566</a></h6>
+																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="?c=business&task=edit&id=<?php echo $rowBiz['business_id']; ?>" style="color:#06F; text-decoration:underline">AB-<?php echo $rowBiz['business_id']; ?></a></h6>
 																			<div class="clearfix"></div>
-																			<small class="text-muted">Looking for a Painter by Roger Fedrer  <br /> Category: Painter</small>
+																			<small class="text-muted"><?php echo $rowBiz['business_name']; ?>  <br /> Category: <?php echo getBusinessCategoryName($rowBiz['business_category']); ?></small>
 																		</div>
 																	</div>
 																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i>05/08/2023</td>
+																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i><?php echo  date("d/m/Y",strtotime($rowBiz['business_added_date'])); ?></td>
 																
 																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
+																	<a href="?c=business&task=edit&id=<?php echo $rowBiz['business_id']; ?>" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
 																	
 																</td>
 															</tr>
                                                             
-                                                            <tr class="border-bottom">
-																<td>
-																	<div class="d-flex">
-																		<div class="mr-3">
-																			&nbsp;
-																		</div>
-																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="#" style="color:#06F; text-decoration:underline">LF-454566</a></h6>
-																			<div class="clearfix"></div>
-																			<small class="text-muted">Looking for a Painter by Roger Fedrer  <br /> Category: Painter</small>
-																		</div>
-																	</div>
-																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i>05/08/2023</td>
-																
-																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
-																	
-																</td>
-															</tr>
+                                                            <?php } 
+															
+															?>
                                                             
-                                                            <tr class="border-bottom">
-																<td>
-																	<div class="d-flex">
-																		<div class="mr-3">
-																			&nbsp;
-																		</div>
-																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="#" style="color:#06F; text-decoration:underline">LF-454566</a></h6>
-																			<div class="clearfix"></div>
-																			<small class="text-muted">Looking for a Painter by Roger Fedrer  <br /> Category: Painter</small>
-																		</div>
-																	</div>
-																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i>05/08/2023</td>
-																
-																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
-																	
-																</td>
-															</tr>
                                                             
-                                                            <tr class="border-bottom">
-																<td>
-																	<div class="d-flex">
-																		<div class="mr-3">
-																			&nbsp;
-																		</div>
-																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="#" style="color:#06F; text-decoration:underline">LF-454566</a></h6>
-																			<div class="clearfix"></div>
-																			<small class="text-muted">Looking for a Painter by Roger Fedrer  <br /> Category: Painter</small>
-																		</div>
-																	</div>
-																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i>05/08/2023</td>
-																
-																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
-																	
-																</td>
-															</tr>
+                                                            
+                                                            
 															
 														
 															
@@ -320,179 +277,11 @@ global $database;
 													</table>
 												</div>
 											</div>
-											<div class="tab-pane" id="tab6">
-												<div class="table-responsive recent_jobs p-0 card-body">
-													<table class="table mg-b-0 text-nowrap">
-														<tbody>
-                                                        
-                                                         <?php
-														$sql = "select * from tbl_prescriptions where  pres_stage=2 order by pres_id desc limit 0,4";
-														$res=$database->get_results($sql);
-														if (count($res)>0)
-														{
-															for ($j=0;$j<count($res);$j++)
-															{
-																$rowPres=$res[$j];
-														?>
-															<tr class="border-bottom">
-																<td>
-																	<div class="d-flex">
-																		<div class="mr-3">
-																			&nbsp;
-																		</div>
-																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="?c=prescriptions&task=detail&id=<?php echo $rowPres['pres_id']; ?>" style="color:#06F; text-decoration:underline">PH-<?php echo $rowPres['pres_id'] ?></a></h6>
-																			<div class="clearfix"></div>
-																			<small class="text-muted"><?php echo getConditionName($rowPres['pres_condition']); ?> by <?php echo $rowPres['patient_first_name']." ".$rowPres['patient_middle_name']." ".$rowPres['patient_last_name']; ?> <br /> Pharmacy: <?php echo getPharmacyName($rowPres['patient_pharmacy']); ?></small>
-																		</div>
-																	</div>
-																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i><?php echo  date("d/m/Y",strtotime($rowPres['pres_date'])); ?></td>
-																<td class="text-left"><?php echo getPrescriptionStatus($rowPres['pres_stage'],$rowPres['pres_id']); ?></td>
-																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
-																	<!--<a href="#" class="action-btns1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather feather-more-vertical text-primary"></i></a>
-																	<ul class="dropdown-menu dropdown-menu-right" role="menu">
-																		<li><a href="#"><i class="feather feather-eye mr-2"></i>View</a></li>
-																		<li><a href="#"><i class="feather feather-plus-circle mr-2"></i>Add</a></li>
-																		<li><a href="#"><i class="feather feather-trash-2 mr-2"></i>Remove</a></li>
-																		<li><a href="#"><i class="feather feather-settings mr-2"></i>More</a></li>
-																	</ul>-->
-																</td>
-															</tr>
-															
-														<?php
-															}
-														} else {
-														?>	
-                                                        
-                                                        <tr class="border-bottom">
-																<td colspan="4">No record found</td>
-                                                         </tr>
-                                                        
-                                                        <?php } ?>
-															
-															
-														</tbody>
-													</table>
-												</div>
-											</div>
-											<div class="tab-pane " id="tab7">
-												<div class="table-responsive recent_jobs p-0 card-body">
-													<table class="table mg-b-0 text-nowrap">
-														<tbody>
-                                                        
-                                                         <?php
-														$sql = "select * from tbl_prescriptions where  (pres_stage=4 || pres_stage=6) order by pres_id desc limit 0,4";
-														$res=$database->get_results($sql);
-														if (count($res)>0)
-														{
-															for ($j=0;$j<count($res);$j++)
-															{
-																$rowPres=$res[$j];
-														?>
-															<tr class="border-bottom">
-																<td>
-																	<div class="d-flex">
-																		<div class="mr-3">
-																			&nbsp;
-																		</div>
-																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="?c=prescriptions&task=detail&id=<?php echo $rowPres['pres_id']; ?>" style="color:#06F; text-decoration:underline">PH-<?php echo $rowPres['pres_id'] ?></a></h6>
-																			<div class="clearfix"></div>
-																			<small class="text-muted"><?php echo getConditionName($rowPres['pres_condition']); ?> by <?php echo $rowPres['patient_first_name']." ".$rowPres['patient_middle_name']." ".$rowPres['patient_last_name']; ?> <br /> Pharmacy: <?php echo getPharmacyName($rowPres['patient_pharmacy']); ?></small>
-																		</div>
-																	</div>
-																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i><?php echo  date("d/m/Y",strtotime($rowPres['pres_date'])); ?></td>
-																<td class="text-left"><?php echo getPrescriptionStatus($rowPres['pres_stage'],$rowPres['pres_id']); ?></td>
-																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
-																	<!--<a href="#" class="action-btns1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather feather-more-vertical text-primary"></i></a>
-																	<ul class="dropdown-menu dropdown-menu-right" role="menu">
-																		<li><a href="#"><i class="feather feather-eye mr-2"></i>View</a></li>
-																		<li><a href="#"><i class="feather feather-plus-circle mr-2"></i>Add</a></li>
-																		<li><a href="#"><i class="feather feather-trash-2 mr-2"></i>Remove</a></li>
-																		<li><a href="#"><i class="feather feather-settings mr-2"></i>More</a></li>
-																	</ul>-->
-																</td>
-															</tr>
-															
-														<?php
-															}
-														} else {
-														?>	
-                                                        
-                                                        <tr class="border-bottom">
-																<td colspan="4">No record found</td>
-                                                         </tr>
-                                                        
-                                                        <?php } ?>
-															
-															
-														</tbody>
-													</table>
-												</div>
-											</div>
+											
+											
                                             
                                             
-                                            <div class="tab-pane " id="tab8">
-												<div class="table-responsive recent_jobs p-0 card-body">
-													<table class="table mg-b-0 text-nowrap">
-														<tbody>
-                                                        
-                                                         <?php
-														$sql = "select * from tbl_prescriptions where  (pres_stage=4) order by pres_id desc limit 0,4";
-														$res=$database->get_results($sql);
-														if (count($res)>0)
-														{
-															for ($j=0;$j<count($res);$j++)
-															{
-																$rowPres=$res[$j];
-														?>
-															<tr class="border-bottom">
-																<td>
-																	<div class="d-flex">
-																		<div class="mr-3">
-																			&nbsp;
-																		</div>
-																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="?c=prescriptions&task=detail&id=<?php echo $rowPres['pres_id']; ?>" style="color:#06F; text-decoration:underline">PH-<?php echo $rowPres['pres_id'] ?></a></h6>
-																			<div class="clearfix"></div>
-																			<small class="text-muted"><?php echo getConditionName($rowPres['pres_condition']); ?> by <?php echo $rowPres['patient_first_name']." ".$rowPres['patient_middle_name']." ".$rowPres['patient_last_name']; ?> <br /> Pharmacy: <?php echo getPharmacyName($rowPres['patient_pharmacy']); ?></small>
-																		</div>
-																	</div>
-																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i><?php echo  date("d/m/Y",strtotime($rowPres['pres_date'])); ?></td>
-																<td class="text-left"><?php echo getPrescriptionStatus($rowPres['pres_stage'],$rowPres['pres_id']); ?></td>
-																<td class="text-left d-flex mt-1">
-																	<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>
-																	<!--<a href="#" class="action-btns1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather feather-more-vertical text-primary"></i></a>
-																	<ul class="dropdown-menu dropdown-menu-right" role="menu">
-																		<li><a href="#"><i class="feather feather-eye mr-2"></i>View</a></li>
-																		<li><a href="#"><i class="feather feather-plus-circle mr-2"></i>Add</a></li>
-																		<li><a href="#"><i class="feather feather-trash-2 mr-2"></i>Remove</a></li>
-																		<li><a href="#"><i class="feather feather-settings mr-2"></i>More</a></li>
-																	</ul>-->
-																</td>
-															</tr>
-															
-														<?php
-															}
-														} else {
-														?>	
-                                                        
-                                                        <tr class="border-bottom">
-																<td colspan="4">No record found</td>
-                                                         </tr>
-                                                        
-                                                        <?php } ?>
-															
-															
-														</tbody>
-													</table>
-												</div>
-											</div>
+                                            
                                             
                                             
                                             
@@ -612,7 +401,7 @@ global $database;
 									?>
                                                 
 												<tr class="border-bottom fs-15">
-													<td class="text-center d-flex"><span class="bg-orange brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">New Jobs</span></td>
+													<td class="text-center d-flex"><span class="bg-orange brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Private Seller</span></td>
 													<td class="font-weight-semibold"><?php //echo fnCalPatients(1,'patient_id','tbl_patients','patient_registered_date') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(7,'patient_id','tbl_patients','patient_registered_date') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(30,'patient_id','tbl_patients','patient_registered_date') ?>0</td>
@@ -621,7 +410,7 @@ global $database;
                                                     
 												</tr>
                                                 <tr class="border-bottom fs-15">
-													<td class="text-center d-flex"><span class="bg-info brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">New Professionals</span></td>
+													<td class="text-center d-flex"><span class="bg-info brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Broker</span></td>
 													<td class="font-weight-semibold"><?php //echo fnCalPatients(1,'pharmacy_id','tbl_pharmacies','pharmacy_reg_date','and pharmacy_status=1') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(7,'pharmacy_id','tbl_pharmacies','pharmacy_reg_date','and pharmacy_status=1') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(30,'pharmacy_id','tbl_pharmacies','pharmacy_reg_date','and pharmacy_status=1') ?>0</td>
@@ -631,7 +420,7 @@ global $database;
 												</tr>
                                                 
                                                 <tr class="border-bottom fs-15">
-													<td class="text-center d-flex"><span class="bg-warning brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">New Builders</span></td>
+													<td class="text-center d-flex"><span class="bg-warning brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Business Listing</span></td>
 													<td class="font-weight-semibold"><?php //echo fnCalPatients(1,'pres_id','tbl_prescriptions','pres_date','and pres_stage>0') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(7,'pres_id','tbl_prescriptions','pres_date','and pres_stage>0') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(30,'pres_id','tbl_prescriptions','pres_date','and pres_stage>0') ?>0</td>
@@ -641,7 +430,7 @@ global $database;
 												</tr>
                                                 
                                                 <tr class="border-bottom fs-15">
-													<td class="text-center d-flex"><span class="bg-secondary brround d-block mr-3 mt-1 h-3 w-3"></span>New Homeowners</td>
+													<td class="text-center d-flex"><span class="bg-secondary brround d-block mr-3 mt-1 h-3 w-3"></span>Leads</td>
 													<td class="font-weight-semibold"><?php //echo fnCalPatients(1,'pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(7,'pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
 													<td class="text-center text-muted"><?php //echo fnCalPatients(30,'pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
@@ -649,15 +438,7 @@ global $database;
                                                     <td class="text-center text-muted"><?php //echo fnCalPatients('last month','pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
                                                     
 												</tr>
-                                                <tr class="border-bottom fs-15">
-													<td class="text-center d-flex"><span class="bg-warning brround d-block mr-3 mt-1 h-3 w-3"></span>New Homeowners</td>
-													<td class="font-weight-semibold"><?php //echo fnCalPatients(1,'pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
-													<td class="text-center text-muted"><?php //echo fnCalPatients(7,'pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
-													<td class="text-center text-muted"><?php //echo fnCalPatients(30,'pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
-                                                    <td class="text-center text-muted"><?php //echo fnCalPatients('this month','pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
-                                                    <td class="text-center text-muted"><?php //echo fnCalPatients('last month','pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?>0</td>
-                                                    
-												</tr>
+                                                
 												<tr class="border-bottom fs-15">
 													<td class="text-center d-flex"><span class="bg-primary brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Payments Received</span></td>
 													<td class="font-weight-semibold fs-15">&dollar;0</td>
@@ -682,35 +463,7 @@ global $database;
 										</table>
 									</div>
                                     
-									<div class="row mb-0 pb-0">
-                                    
-										<div class="col-2 text-center py-5 border-right">
-											<h5>Payments </h5>
-											<div class="justify-content-center text-center d-flex my-auto"><span class="text-primary fs-20 font-weight-semibold">&dollar; 0</span></div>
-										</div>
-                                        
-										<div class="col-2 text-center py-5 border-right">
-											<h5>Jobs </h5>
-											<div class="justify-content-center text-center d-flex my-auto"><span class="text-danger fs-20 font-weight-semibold"><?php echo fnCalPatients('total','patient_id','tbl_patients','patient_registered_date') ?></span></div>
-										</div>
-										<div class="col-3 text-center py-5 border-right">
-											<h5>Professionals </h5>
-											<div class="justify-content-center text-center d-flex my-auto"><span class="fs-20 font-weight-semibold"><?php echo fnCalPatients('total','pres_id','tbl_prescriptions','pres_date','and pres_stage>0') ?></span></div>
-										</div>
-                                        <div class="col-2 text-center py-5 border-right">
-											<h5>Builders </h5>
-											<div class="justify-content-center text-center d-flex my-auto"><span class="fs-20 font-weight-semibold"><?php echo fnCalPatients('total','pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?></span></div>
-										</div>
-                                         <div class="col-3 text-center py-5 border-right">
-											<h5>Homeowners </h5>
-											<div class="justify-content-center text-center d-flex my-auto"><span class="fs-20 font-weight-semibold"><?php echo fnCalPatients('total','pres_id','tbl_prescriptions','pres_date','and (pres_stage=3 || pres_stage=6)') ?></span></div>
-										</div>
-                                        
-                                        
-                                        
-                                        
-                                        
-									</div>
+									
 								</div>
 							</div>
 							<div class="col-xl-6 col-md-12">

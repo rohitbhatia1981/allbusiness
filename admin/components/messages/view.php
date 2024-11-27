@@ -120,7 +120,7 @@
 															<div class="input-group">
 																<div class="input-group-prepend">
 																	
-																</div><input class="form-control fc-datepicker" name="txtSearchByTitle" value="<?php echo $_GET['txtSearchByTitle']?>" placeholder="Order Id, Subject, Text" type="text">
+																</div><input class="form-control fc-datepicker" name="txtSearchByTitle" value="<?php echo $_GET['txtSearchByTitle']?>" placeholder="Business ID, Subject, Text" type="text">
 															</div>
 														</div>
 													</div>
@@ -176,7 +176,7 @@
 												</label>
 												</th>
 												
-                                                <th width="27%" class="border-bottom-0">Subject</th>
+                                                <th width="27%" class="border-bottom-0">Message</th>
                                                 <th width="39%" class="border-bottom-0">Sent by</th> 
                                                
                                                 <th width="17%" class="border-bottom-0">Sent Date</th>
@@ -218,7 +218,7 @@
 									<div class="card-body pb-0 pt-3">
 										<div>
 											<label class="form-label mb-0"><?php echo $row['message_subject']; ?></label>
-											<p class="" style="font-weight:<?php echo $readStatus?>">Order id: <a href="?c=<?php echo $_GET['c']?>&txtSearchByTitle=PH-<?php echo $row['message_pres_id']?>" style="color:#09C">PH-<?php echo $row['message_pres_id']; ?></a>, <?php echo getConditionName($row['pres_condition']); ?>, dt: <?php echo displayDateFormat($row['message_date']); ?></p>
+											<p class="" style="font-weight:<?php echo $readStatus?>">Business id: <a href="?c=<?php echo $_GET['c']?>&txtSearchByTitle=PH-<?php echo $row['message_pres_id']?>" style="color:#09C">AB-<?php echo $row['message_pres_id']; ?></a>, <?php echo getConditionName($row['pres_condition']); ?>, dt: <?php echo displayDateFormat($row['message_date']); ?></p>
 										</div>
 									</div>	
 												
@@ -236,7 +236,7 @@
 												else if ($row['message_sender_type']=="Pharmacy") $color="orange"; 
 												
 												
-												echo getUserNameByType(strtolower($row['message_sender_type']),$row['message_sender_id']); ?> &nbsp;  <span class="tag tag-<?php echo $color; ?>"> <?php echo $row['message_sender_type']; ?></span>
+												echo getUserNameByType(strtolower($row['message_sender_type']),$row['message_sender_id']); ?> &nbsp;  <span class="tag tag-<?php echo $color; ?>"> Website user</span>
 											
 									</td>
                                     
