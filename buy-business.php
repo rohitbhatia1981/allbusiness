@@ -12,9 +12,12 @@
   	<nav class="navbar navbar-expand-lg navbar-light bg-light top_navi">
   <div class="container">
     <a class="navbar-brand" href="#"><img alt="Logo" width="208px" src="images/logo.png"></a>
+    <div class="sign_in_right">
+    	<a class="sign_in " style="display: none;" href="#">Sign In</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -99,11 +102,15 @@
 <section class="new_listings">
 	<div class="container">
 		<div class="filter_box">
-			93 Motel Businesses for Sale in VIC
+			<span>93 Motel Businesses for Sale in VIC</span>
 
 			<div class="right">
 				Sort by: <select class="form-select"><option>Featured</option></select>
 			</div>
+			<button style="display: none;" class="filter_button">Filters <i class="fa-light fa-sliders-simple"></i></button>
+		</div>
+		<div class="filter_box only_for_mobile" style="display: none;">
+			93 Motel Businesses for Sale in VIC
 		</div>
 		<div class="new_listings_row">
 			<div class="new_listings_bx">
@@ -385,6 +392,14 @@ Find your perfect business for sale today with Magicbricks.</p>
 		        }
 		    }
 		})
+
+
+    </script>
+    <script type="text/javascript">
+    	$(".filter_button").click(function(){
+  $(".top_from").toggleClass("main");
+   $("body").scrollTop(0);
+});  
     </script>
   </body>
 </html>

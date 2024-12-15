@@ -223,106 +223,69 @@
 		  
 		  
 		function displayLinks_adlisting()
-		  {
-		  	global $currentTemplate;
-		  //db connection
-		    $d2=new DB();
-		  
-		    global $_GET;
-			
-			
-		/* while(list($key, $value) = each($_GET))
-			{
-				if($key	!="pageNo"){
-					$this->queryString.="&";
-					$this->queryString.=$key."=";
-					$this->queryString.=$value;}
-				}
-			
-			if (strlen($this->queryString)>0 )
-			$this->queryString=substr($this->queryString,1);*/
-			
-			
-			$queryString_pick=$_SERVER['QUERY_STRING'];
-			
-			$key = 'pageNo';
-			
-			$queryString_pick = preg_replace('/(?:&|(\?))' . $key . '=[^&]*(?(1)&|)?/i', "$1", $queryString_pick);
-   			$queryString_pick = rtrim($queryString_pick, '?');
-   			$queryString_mod = rtrim($queryString_pick, '&');
-			
-			
-			// Remove specific parameter from query string
-			//$queryString_mod = preg_replace('~(\?|&)'.$key.'=[^&]*~', '$1', $queryString_pick);
-			
-			
-			$resultRes=$d2->get_results( $this->pageQuery );
-			 $totalRecs=$d2->num_rows($this->pageQuery);
-			
-			if($totalRecs > 0 )
-			 {
-			   $this->totalPages=ceil($totalRecs/$this->maxRecords);
-			 }
-			
-			$prevRec=$this->pageNumber-1;
-			$nextRec=$this->pageNumber+1;
-			if($prevRec<=0)
-			  $prevRec="";
-			if($nextRec > $this->totalPages)
-			  $nextRec=$this->totalPages;
-			  
-			$s="<div align='center' class='page_navi'>";
-			
-			
-			if($this->pageNumber!=1)
-			{
-				$s.="<a href='?".$queryString_mod."&pageNo=1' class=bluefont11>First</a> &nbsp;
-			      <a href='?".$queryString_mod."&pageNo=".$prevRec."' class=bluefont11>Prev</a>&nbsp;|&nbsp;&nbsp;&nbsp;"; 
-			}
-			
-			//$s .= "<span class='darkgrey12'>Pages :</span> ";
-			
-			//-----changes made by rohit bhatia 6 june----------
-			
-			 $pageMultiple=ceil($this->pageNumber/9);
-			 $totalPages=10*$pageMultiple;
-			if ($totalPages>$this->totalPages)
-			$totalPages=$this->totalPages;
-			
-			if ($pageMultiple>1)
-			$ctrVal=$totalPages-10;
-			else
-			$ctrVal=$totalPages-9;
-			
-			if($ctrVal<=0)
-			{
-				$ctrVal=1;
-			}
-			//--------------end changes----------
-			for($pageCounter=$ctrVal;$pageCounter<=$totalPages;$pageCounter++)
-			 {
-			 	
-			   if($pageCounter==$this->pageNumber)
-			     $s.="<font style='background-color:#587dff; color: #fff; padding:10px 12px; border:1px solid #234ddc'>".$pageCounter."</font>&nbsp;";			
-			   else
-			    $s.="<a href='?".$queryString_mod."&pageNo=".$pageCounter."' style='background-color:#e5eafa; color: #000; padding:10px 12px; border:1px solid #dde3f3'>".$pageCounter."</a>&nbsp;";			
-			 }
-			 
-			 if($this->pageNumber!=$this->totalPages)
-			 {
-				$s.="&nbsp;&nbsp;|&nbsp;<a href='".URL."ads/listing.php?".$queryString_mod."&pageNo=".$nextRec."' class=bluefont11>Next</a>&nbsp;&nbsp;
-			      <a href='?".$queryString_mod."&pageNo=".$this->totalPages."' class=bluefont11>Last</a>&nbsp;&nbsp;";
-			}
-			
-		    
-			$s.="</div>";
-			
-			if($this->totalPages > 1)
-			 {
-			   print $s;
-			 }
-			
-		  }
+{
+    global $currentTemplate;
+    $d2 = new DB();
+    global $_GET;
+
+    $queryString_pick = $_SERVER['QUERY_STRING'];
+    $key = 'pageNo';
+
+    // Remove `pageNo` from query string
+    $queryString_pick = preg_replace('/(?:&|(\?))' . $key . '=[^&]*(?(1)&|)?/i', "$1", $queryString_pick);
+    $queryString_pick = rtrim($queryString_pick, '?');
+    $queryString_mod = rtrim($queryString_pick, '&');
+
+    // Get total records and pages
+    $resultRes = $d2->get_results($this->pageQuery);
+    $totalRecs = $d2->num_rows($this->pageQuery);
+
+    if ($totalRecs > 0) {
+        $this->totalPages = ceil($totalRecs / $this->maxRecords);
+    }
+
+    $prevRec = $this->pageNumber - 1;
+    $nextRec = $this->pageNumber + 1;
+
+    $s = "<ul class='pagination justify-content-center'>";
+
+    // First and Previous links
+    if ($this->pageNumber > 1) {
+        $s .= "<li class='page-item'><a class='page-link' href='?" . $queryString_mod . "&pageNo=1'>First</a></li>";
+        $s .= "<li class='page-item'><a class='page-link' href='?" . $queryString_mod . "&pageNo=" . $prevRec . "'>Prev</a></li>";
+    }
+
+    // Calculate visible page range
+    $pageMultiple = ceil($this->pageNumber / 9);
+    $totalPages = 10 * $pageMultiple;
+    if ($totalPages > $this->totalPages) $totalPages = $this->totalPages;
+
+    $ctrVal = ($pageMultiple > 1) ? $totalPages - 10 : $totalPages - 9;
+    if ($ctrVal <= 0) $ctrVal = 1;
+
+    // Page links
+    for ($pageCounter = $ctrVal; $pageCounter <= $totalPages; $pageCounter++) {
+        if ($pageCounter == $this->pageNumber) {
+            $s .= "<li class='page-item active'><a class='page-link' href='#'>" . $pageCounter . "</a></li>";
+        } else {
+            $s .= "<li class='page-item'><a class='page-link' href='?" . $queryString_mod . "&pageNo=" . $pageCounter . "'>" . $pageCounter . "</a></li>";
+        }
+    }
+
+    // Next and Last links
+    if ($this->pageNumber < $this->totalPages) {
+        $s .= "<li class='page-item'><a class='page-link' href='?" . $queryString_mod . "&pageNo=" . $nextRec . "'>Next</a></li>";
+        $s .= "<li class='page-item'><a class='page-link' href='?" . $queryString_mod . "&pageNo=" . $this->totalPages . "'>Last</a></li>";
+    }
+
+    $s .= "</ul>";
+
+    // Print only if there are multiple pages
+    if ($this->totalPages > 1) {
+        print $s;
+    }
+}
+
 		  
 		  
 		

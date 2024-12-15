@@ -40,22 +40,22 @@ include_once(PATH."includes/front-common-functions.php");
 //$resultSettingsData = $loadSettingsData[0];
 
 define ("CURRENCY","$");
-define ("TITLE","Demo CMS");
-define("ADMIN_EMAIL1","info@2fabdesigns.net");
-define("ADMIN_EMAIL2","info@2fabdesigns.net");
+define ("TITLE","All Business");
+define("ADMIN_EMAIL","rohitbhatia1@gmail.com");
 
-define("ADMIN_FORM_EMAIL","info@localbuilderfinder.com.au");
 
-define("ADMIN_GENERAL_EMAIL","info@localbuilderfinder.com.au");
+define("ADMIN_FORM_EMAIL","info@hidemos.com");
 
-define("FROM_NAME","Local Builder Finder");
+define("ADMIN_GENERAL_EMAIL","rohitbhatia1@gmail.com");
+
+define("FROM_NAME","All Business");
 
 define ("JOB_ID","LBJ-");
 
 define ("SITE_PHONE","XXX-XXX-XXXX");
 
 
-
+define ("ENCRYPTION_KEY","9q7B3RVQ670ntKlQP5klm");
 
 
 

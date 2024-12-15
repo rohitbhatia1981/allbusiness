@@ -1,92 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>All Businesses</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
-  <body>
-
-  	<nav class="navbar navbar-expand-lg navbar-light bg-light top_navi">
-  <div class="container">
-    <a class="navbar-brand" href="#"><img alt="Logo" width="208px" src="images/logo.png"></a>
-  <div class="sign_in_right">
-    	<a class="sign_in " style="display: none;" href="#">Sign In</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Buy a business</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sell a business</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#">For brokers</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Private sellers</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">News</a></li>
-    </ul>
-
-         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item ms-auto login"><a class="nav-link" href="#">Log in</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Sign up</a></li>
-        <li class="nav-item button"><a class="nav-link" href="#">Sell a Business</a></li>
-      <!--   <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li> -->
-       
-      </ul>
-      
-    </div>
-  </div>
-</nav>
- 
-  
-  <div class="breadcrumb_box">
-  	<div class="container">
-  		<ul class="breadcrumb">
-  			<li><a href="#">Home</a></li>
-  			<li>/</li>
-  			<li>Cars for Sale</li>
-  		</ul>
-  	</div>
-  </div>
-  <div class="about_sections">
-  	<div class="container ">
-  		<div class="row">
-  			<div class="col-sm-5">
-  				<h2>About Us</h2>
-  				<h5>We Value Our Clients <br>
-And Want Them To Have <br>
-A Nice Experience</h5>
-  			</div>
-  			<div class="col-sm-7">
-  				<p>Get your listings in front of thousands of buyers daily. Choose from plans starting at just $89/month and give your business the exposure it deserves. </p>
-  				<p>Get your listings in front of thousands of buyers daily. Choose from plans starting at just $89/month and give your business the exposure it deserves. </p>
-  			</div>
-  		</div>
-  	</div>
-  </div>
- 
-
- 
 <footer class="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2">
-				<a href="#" class="mb-3 d-inline-block"><img src="images/footer-logo.png"></a>
+				<a href="#" class="mb-3 d-inline-block"><img src="<?php echo URL?>images/footer-logo.png"></a>
 				<p>Search businesses for sale in Australia. No. 1 website for Business dales in Australia. </p>
 				<div class="Contact_info">
 				<h5>Contact us</h5>
@@ -166,7 +82,7 @@ A Nice Experience</h5>
 			</div>
 		</div>
 		<div class="copy_right">
-			<p>&copy; 2024 Allbusinesses.com.au.  All rights reserved. </p>
+			<p>&copy; <?php echo date("Y") ?> Allbusinesses.com.au.  All rights reserved. </p>
 			<ul>
 				<li><a href="#">Privacy</a></li>
 				<li><a href="#">Terms of Use</a></li>
@@ -176,10 +92,12 @@ A Nice Experience</h5>
 		</div>
 	</div>
 </footer>
-	<script src="js/jquery.min.js"></script>
-  	<script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/owl.carousel.js"></script>
+	<script src="<?php echo URL?>js/jquery.min.js"></script>
+  	<script src="<?php echo URL?>js/popper.min.js"></script>
+    <script src="<?php echo URL?>js/bootstrap.bundle.min.js"></script>
+    
+    <?php if ($frontPageName=="index.php") { ?>
+    <script src="<?php echo URL?>js/owl.carousel.js"></script>
     <script type="text/javascript">
     	$('.owl-carousel').owlCarousel({
 		    loop:true,
@@ -198,5 +116,6 @@ A Nice Experience</h5>
 		    }
 		})
     </script>
+    <?php } ?>
   </body>
 </html>
