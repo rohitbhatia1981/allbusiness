@@ -28,6 +28,10 @@ RewriteRule  ^buyer-signup cms/signup.php [L,NC,END]
 RewriteRule  ^news cms/news.php [L,NC,END]
 RewriteRule ^detail-(.*)-(.*)$ cms/news-detail?id=$2 [L]
 
+RewriteRule  ^private-seller cms/private-seller-signup.php [L,NC,END]
+
+RewriteRule ^login cms/login?id=$2 [L]
+
 
 <ifModule mod_gzip.c>
   mod_gzip_on Yes

@@ -182,7 +182,8 @@ body{font-family: "Inter", sans-serif;font-size: 16px;}
 
 .input-container {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+
 }
 
 .input-container input {
@@ -196,12 +197,12 @@ body{font-family: "Inter", sans-serif;font-size: 16px;}
 .input-container label {
   position: absolute;
   left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
+  top: 20%;
+  transform: translateY(-20%);
+  font-size: 15px;
   color: #aaa;
   background: white;
-  padding: 0 5px;
+  padding: 0 3px;
   pointer-events: none;
   transition: all 0.1s ease;
   opacity: 0; /* Initially hidden */
@@ -267,6 +268,10 @@ input:focus + label, input:not(:placeholder-shown) + label {
   color: #333;
 }
 
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; /* Optional: Adjust to align properly */
+}
 
 
 /*--------end form placeholder--- */
@@ -703,6 +708,24 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 	border-radius: 25px;
 	margin-top: 30px;
 }
+
+
+.seller_banner{background-color: #fee9e1;padding: 60px 0;}
+.seller_banner h5{font-size: var(--font-size-18);color: #F7591F;font-weight: bold;}
+.seller_banner h2 {
+	font-size: var(--font-size-35);
+	color: #000924;
+	font-weight: bold;
+	margin: 9px 0 26px 0;
+	float: left;
+	width: 100%;
+}
+.seller_banner .btn-danger {
+	border-radius: 25px;
+	margin-top: 30px;
+}
+
+
 .exclusive_offer_box{padding-top: 100px;padding-bottom: 100px;}
 .exclusive_offer_box h3{margin:0px 0 32px 0;font-size: var(--font-size-35);color: #000924;font-weight: bold;}
 .exclusive_offer_box h3 span{color: #F7591F;}

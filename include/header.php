@@ -8,36 +8,37 @@
     </button>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?php echo URL?>buy-business">Buy a business</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?php echo URL?>private-sellers">Sell a business</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo URL?>for-brokers">For brokers</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo URL?>private-sellers">Private sellers</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo URL?>news">News</a></li>
-    </ul>
-
-         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item ms-auto login"><a class="nav-link" href="#">Log in</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo URL?>buyer-signup">Sign up</a></li>
-        <li class="nav-item button"><a class="nav-link" href="#">Sell a Business</a></li>
-      <!--   <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li> -->
-       
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="<?php echo URL?>buy-business">Buy a business</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?php echo URL?>private-sellers">Sell a business</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="forBrokersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        For brokers
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="forBrokersDropdown">
+        <li><a class="dropdown-item" href="<?php echo URL?>for-brokers">Advertise with us</a></li>
+        <li><a class="dropdown-item" href="#">Find a broker</a></li>
       </ul>
-      
-    </div>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="<?php echo URL?>private-sellers">Private sellers</a></li>
+    <li class="nav-item"><a class="nav-link" href="<?php echo URL?>news">News</a></li>
+  </ul>
+
+  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+   <?php if ($_SESSION['sess_member_id']=="") { $sellBusinessLink=URL."private-sellers";?> <li class="nav-item ms-auto login"><a class="nav-link" href="<?php echo URL?>login">Log in</a></li>
+    <li class="nav-item"><a class="nav-link" href="<?php echo URL?>buyer-signup">Sign up</a></li>
+    <?php } else {
+	$sellBusinessLink=URL."cms/member/index.php?c=business&task=add";	
+		 ?>
+    <li class="nav-item"><a class="nav-link" href="<?php echo URL?>cms/member/">My Account</a></li>
+    <?php } ?>
+    <li class="nav-item button"><a class="nav-link" href="<?php echo $sellBusinessLink?>">Sell a Business</a></li>
+  </ul>
+</div>
+
   </div>
 </nav>

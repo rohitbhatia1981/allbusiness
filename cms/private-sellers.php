@@ -11,9 +11,9 @@ include PATH."include/headerhtml.php";
 		<h5>Private Sellers: Create your Free business advert today</h5>
 		<h2>List your business <br>for sale in Australia </h2>
 		<p>The simple and cost-effective way to sell your business</p>
-		<button class="btn btn-danger">Get started now</button>
+		<a href="#plan_box"><button class="btn btn-danger">Get started now</button></a>
 		<div class="w100p float-left pt-4">
-		<a href="#" class="link1 ">Are you a Business Broker</a>
+		<a href="<?php echo URL?>for-brokers" class="link1 ">Are you a Business Broker</a>
 		</div>
 	</div>
 </div>
@@ -77,72 +77,73 @@ include PATH."include/headerhtml.php";
 </div>
  
 
- <div class="plan_box">
+ <div class="plan_box" id="plan_box">
  	<div class="container">
  		<h3 class="title_h3 text-center">Choose a Plan</h3>
  		<div class="row">
- 			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1">
- 					<h2>$29 <small>/ Monthly</small>	</h2>
- 					<h5>Basic Plan</h5>
- 					<p>Quis autem vel eum iure reprehenderit qui in ea bolupatate velit.</p>
+ 			<div class="col-sm-6 col-lg-3" >
+ 				<div class="plan_box_1"  >
+ 					<h2>$70</h2>
+ 					<h5>Basic - Starter Plan</h5>
+ 					<p>List your business for 180 days with basic listing option.</p>
  					<ul class="list_item">
- 						<li> 1 Listing</li>
- 						<li>30 Days Visibility</li>
- 						<li>Highlighted in Search Results</li>
- 						<li>4 Revisions</li>
- 						<li>9 days Delivery Time</li>
- 						<li>Products Support</li> 
- 					</ul>
- 					<button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button>
+					  <li> 1 Listing</li>
+ 						<li>180 Days Visibility</li>
+                        <li>Simple search listing display</li>
+ 						<li>Unlimited Edits to your Ad</li>
+ 						<li>No Comission</li>
+ 						<li>All leads are sent directly to your email</li>
+ 						
+				  </ul>
+ 					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-3">
  				<div class="plan_box_1">
- 					<h2>$49 <small>/ Monthly</small>	</h2>
- 					<h5>Standard Plan</h5>
- 					<p>Quis autem vel eum iure reprehenderit qui in ea bolupatate velit.</p>
+ 					<h2>$130</h2>
+ 					<h5>Advance Plan</h5>
+ 					<p>List your business for 180 days with highlighted option.</p>
  					<ul class="list_item">
  						<li> 1 Listing</li>
- 						<li>30 Days Visibility</li>
+ 						<li>180 Days Visibility</li>
  						<li>Highlighted in Search Results</li>
- 						<li>4 Revisions</li>
- 						<li>9 days Delivery Time</li>
- 						<li>Products Support</li> 
+ 						<li>Unlimited Edits to your Ad</li>
+ 						<li>No Comission</li>
+                        <li>All leads are sent directly to your email</li> 
  					</ul>
- 					<button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button>
+ 					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-3">
  				<div class="plan_box_1">
- 					<h2>$89 <small>/ Monthly</small>	</h2>
- 					<h5>Extended Plan</h5>
- 					<p>Quis autem vel eum iure reprehenderit qui in ea bolupatate velit.</p>
+ 					<h2>$180 	</h2>
+ 					<h5>Premium Plan</h5>
+ 					<p>Featured Listing Ad above the basic ads for 180 days.</p>
  					<ul class="list_item">
  						<li> 1 Listing</li>
- 						<li>30 Days Visibility</li>
- 						<li>Highlighted in Search Results</li>
- 						<li>4 Revisions</li>
- 						<li>9 days Delivery Time</li>
- 						<li>Products Support</li> 
+ 						<li>180 Days Visibility</li>
+ 						<li>Listing page Featured Ad.</li>
+ 						<li>Unlimited Edits to your Ad</li>
+                        <li>No Comission</li>
+                        <li>All leads are sent directly to your email</li> 
  					</ul>
- 					<button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button>
+ 					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-3">
  				<div class="plan_box_1">
- 					<h2>$129 <small>/ Monthly</small>	</h2>
- 					<h5>Enterprise Plan</h5>
- 					<p>Quis autem vel eum iure reprehenderit qui in ea bolupatate velit.</p>
+ 					<h2>$230</h2>
+ 					<h5>Ultimate Plan</h5>
+ 					<p>Home page Featured and Listing Featured Ad</p>
  					<ul class="list_item">
- 						<li> 1 Listing</li>
- 						<li>30 Days Visibility</li>
- 						<li>Highlighted in Search Results</li>
- 						<li>4 Revisions</li>
- 						<li>9 days Delivery Time</li>
- 						<li>Products Support</li> 
+ 						<li>1 Listing</li>
+                        <li>180 Days Visibility</li>
+                        <li>Home page featured ad</li>
+                        <li>Unlimited Edits to your Ad</li>
+                        <li>No Comission</li>
+                        <li>All leads are sent directly to your email</li> 
  					</ul>
- 					<button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button>
+ 					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
 

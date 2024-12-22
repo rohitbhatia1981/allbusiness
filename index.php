@@ -56,10 +56,10 @@ include PATH."include/headerhtml.php";
 	<div class="container">
 		<h3 class="title_h3 text-center">View businesses by city</h3>
 		<div class="city_list_outbox owl-carousel">
-			<div class="city_list_box item">
-				<img alt="Business for sale Melbourne" src="<?php echo URL?>images/city-01.png">
-				<h5>Business for sale <br>Melbourne</h5>
-			</div>
+			<a href="<?php echo URL?>cms/city" style="text-decoration:none"><div class="city_list_box item" >
+				<img  alt="Business for sale Melbourne" src="<?php echo URL?>images/city-01.png">
+				<h5 style="color:#333">Business for sale <br>Melbourne</h5>
+			</div></a>
 			<div class="city_list_box item">
 				<img alt="Business for sale Sydney" src="<?php echo URL?>images/city-02.png">
 				<h5>Business for sale Sydney</h5>
@@ -206,3 +206,4 @@ Find your perfect business for sale today with Magicbricks.</p>
 </section>
 
 <?php include PATH."include/footer.php"; ?>
+

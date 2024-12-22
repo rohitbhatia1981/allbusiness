@@ -34,8 +34,8 @@
 			<div class="col-sm-2">
 				<h5>Browse by Capital Cities </h5>	
 				<ul class="site_map">
-					<li><a href="#">Business for Sale Sydney</a></li>
-					<li><a href="#">Business for Sale Melbourne</a></li>
+					<li><a href="<?php echo URL?>cms/city">Business for Sale Sydney</a></li>
+					<li><a href="<?php echo URL?>cms/city">Business for Sale Melbourne</a></li>
 					<li><a href="#">Business for Sale Brisbane</a></li>
 					<li><a href="#">Business for Sale Adelaide</a></li>
 					<li><a href="#">Business for Sale Perth</a></li>
@@ -116,6 +116,113 @@
 		    }
 		})
     </script>
+    
+
+
+
+
+    
     <?php } ?>
   </body>
 </html>
+<script>
+$(document).ready(function () {
+    // Function to open the inquiry modal
+    function openInquiryModal(listingId, businessTitle) {
+        $('#listingId').val(listingId); // Set the listing ID in the hidden field
+        $('#modalBusinessTitle').text(`${businessTitle}`); // Set the business title in the modal
+        $('#inquiryModal').fadeIn(); // Show the modal with a fade-in effect
+    }
+
+    // Function to close the inquiry modal
+    function closeInquiryModal() {
+        $('#inquiryModal').fadeOut(); // Hide the modal with a fade-out effect
+    }
+
+    // Attach open modal function to the button
+    $('.enquire_btn').on('click', function () {
+        const listingId = $(this).data('listing-id'); // Assume the button has a data attribute for listing ID
+        const businessTitle = $(this).data('business-title'); // Assume the button has a data attribute for business title
+        openInquiryModal(listingId, businessTitle);
+    });
+
+    // Close modal on close button click
+    $('.modal .close').on('click', function () {
+        closeInquiryModal();
+    });
+
+    // Optional: Close modal when clicking outside the modal
+    $(window).on('click', function (event) {
+        if ($(event.target).is('#inquiryModal')) {
+            closeInquiryModal();
+        }
+    });
+});
+</script>
+
+<?php if ($frontPageName=="index.php" || $frontPageName=="buy-business.php" || $frontPageName=="city.php") { ?>
+
+<script src="<?php echo URL?>js/jquery.validate.js"></script>
+
+<script>
+
+
+
+  $(document).ready(function() {
+	
+    $("#frmContact").validate({
+      rules: {
+        txtName: { required: true },        
+        txtEmail: { required: true, email: true },
+        txtPhone: { required: true, digits: true, minlength: 10, maxlength: 15 },
+		txtMessage: { required: true }
+		
+      },
+      messages: {
+        txtFirstName: "Please enter name",
+      
+        txtEmail: "Please enter a valid email address",
+        txtPhone: "Please enter a valid phone number",
+		txtMessage: "Please enter message",
+       
+      },
+	   errorPlacement: function(error, element) {
+      
+      },
+      highlight: function(element) {
+        $(element).addClass("error-input"); // Optional: Add class to input field with error
+      },
+      unhighlight: function(element) {
+        $(element).removeClass("error-input"); // Remove error class on valid input
+      },
+     
+      submitHandler: function(form) {
+        $("#submitBtn").attr('disabled', 'disabled');
+        $("#submitBtn").html("<i class='fa fa-spinner fa-spin'></i>");
+
+        $.ajax({
+          url: '<?php echo URL?>ajax/send-inquiry.php',
+          type: 'POST',
+          data: $(form).serialize(),
+          success: function(response) {
+            if (response == 1) {
+             $("#success-container").show();
+			 $("#frmContainer").hide();
+			 
+            } else  {
+              $("#error-container").html(response);
+              $("#submitBtn").removeAttr('disabled');
+              $("#submitBtn").html('Submit');
+            }
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+        });
+
+        return false; // Prevent default form submission
+      }
+    });
+  });
+</script>
+<?php } ?>
