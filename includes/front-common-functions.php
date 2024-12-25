@@ -990,7 +990,7 @@ function encryptId($id) {
 }
 
 function decryptId($encryptedId) {
-   print $encryption_key = base64_decode(ENCRYPTION_KEY);
+    $encryption_key = base64_decode(ENCRYPTION_KEY);
     list($encrypted_data, $iv) = array_pad(explode('::', base64_decode($encryptedId), 2), 2, null);
     return openssl_decrypt($encrypted_data, 'aes-256-cbc', $encryption_key, 0, $iv);
 }
