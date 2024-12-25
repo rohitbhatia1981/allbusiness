@@ -30,8 +30,8 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 			
 			//$_SESSION['uid']=$lastInsertedId;		
 			
-			//$_SESSION['sess_member_id'] = $lastInsertedId;					
-			//$_SESSION['sess_member_groupid'] = 4;	
+			$_SESSION['sess_member_id'] = $lastInsertedId;					
+			$_SESSION['sess_member_groupid'] = 4;	
 			
 				include PATH."include/email-templates/email-template.php";
 				include_once PATH."mail/sendmail.php";
