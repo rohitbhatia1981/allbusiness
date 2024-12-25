@@ -24,8 +24,8 @@ include_once PATH."mail/sendmail.php";
 
 //--------Settings all values--------
 				
-				$receiverName=$rowMemberid['patient_title']." ".$rowMemberid['patient_first_name']." ".$rowMemberid['patient_middle_name']." ".$rowMemberid['patient_last_name'];
-				$email=$rowMemberid['patient_email'];
+				$receiverName=$rowMemberid['member_first_name']." ".$rowMemberid['member_last_name'];
+				$email=$rowMemberid['member_email'];
 				$forgotPwd='<a href="'.URL.'cms/forgot-password">here</a>';
 				//$contactus='<a href="'.URL.'contact-us">contact us</a>';
 				
