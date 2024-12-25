@@ -55,7 +55,7 @@ define ("JOB_ID","LBJ-");
 define ("SITE_PHONE","XXX-XXX-XXXX");
 
 
-define ("ENCRYPTION_KEY","9q7B3RVQ670ntKlQP5klm");
+define ("ENCRYPTION_KEY","9q7B3RVQ670ntKl");
 
 
 
