@@ -2692,66 +2692,129 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
  		<div class="row">
  			<div class="col-sm-6 col-lg-3" >
  				<div class="plan_box_1"  >
- 					<h2>$70</h2>
- 					<h5>Basic - Starter Plan</h5>
+ 					<h1>$70</h1>
+ 					<h5>Basic Ad</h5>
  					<p>List your business for 180 days with basic listing option.</p>
  					<ul class="list_item">
-					  <li> 1 Listing</li>
- 						<li>180 Days Visibility</li>
-                        <li>Simple search listing display</li>
- 						<li>Unlimited Edits to your Ad</li>
- 						<li>No Comission</li>
- 						<li>All leads are sent directly to your email</li>
- 						
-				  </ul>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Simple search listing display
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-times" style="position: absolute; left: 0; color: red;"></i> No Bumped ups
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
+    </li>
+</ul>
+
  					<a href="?c=business&task=paynow"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1">
- 					<h2>$130</h2>
- 					<h5>Advance Plan</h5>
- 					<p>List your business for 180 days with highlighted option.</p>
+ 				<div class="plan_box_1"  >
+ 					<h1>$130</h1>
+ 					<h5>Plus Ad</h5>
+ 					<p>List your business for 180 days above the basic listing</p>
  					<ul class="list_item">
- 						<li> 1 Listing</li>
- 						<li>180 Days Visibility</li>
- 						<li>Highlighted in Search Results</li>
- 						<li>Unlimited Edits to your Ad</li>
- 						<li>No Comission</li>
-                        <li>All leads are sent directly to your email</li> 
- 					</ul>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
+    </li>
+     <li style="position: relative; padding-left: 20px;font-weight:bold">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads appear above basic  </li>
+    <li style="position: relative; padding-left: 20px;font-weight:bold">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads are bumped to the top of  ads every 30 days
+    </li>
+   
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
+    </li>
+</ul>
+
  					<a href="?c=business&task=paynow"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1">
- 					<h2>$180 	</h2>
- 					<h5>Premium Plan</h5>
- 					<p>Featured Listing Ad above the basic ads for 180 days.</p>
+ 				<div class="plan_box_1"  >
+ 					<h1>$180</h1>
+ 					<h5>Advanced Ad</h5>
+ 					<p>List your business for 180 days above the Plus Ads.</p>
  					<ul class="list_item">
- 						<li> 1 Listing</li>
- 						<li>180 Days Visibility</li>
- 						<li>Listing page Featured Ad.</li>
- 						<li>Unlimited Edits to your Ad</li>
-                        <li>No Comission</li>
-                        <li>All leads are sent directly to your email</li> 
- 					</ul>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
+    </li>
+     <li style="position: relative; padding-left: 20px;font-weight:bold">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads appear above Basic and Plus Ads</li>
+    <li style="position: relative; padding-left: 20px;font-weight:bold">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads are bumped to the top of  ads every 21 days
+    </li>
+   
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
+    </li>
+</ul>
+
  					<a href="?c=business&task=paynow"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1">
- 					<h2>$230</h2>
- 					<h5>Ultimate Plan</h5>
- 					<p>Home page Featured and Listing Featured Ad</p>
+ 				<div class="plan_box_1"  >
+ 					<h1>$230</h1>
+ 					<h5>Ultimate - Top Ad</h5>
+ 					<p>List your business for 180 days with basic listing option.</p>
  					<ul class="list_item">
- 						<li>1 Listing</li>
-                        <li>180 Days Visibility</li>
-                        <li>Home page featured ad</li>
-                        <li>Unlimited Edits to your Ad</li>
-                        <li>No Comission</li>
-                        <li>All leads are sent directly to your email</li> 
- 					</ul>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
+    </li>
+     <li style="position: relative; padding-left: 20px;font-weight:bold">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads appear Top of all Ads (Basic and Plus Ads)</li>
+    <li style="position: relative; padding-left: 20px;font-weight:bold">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads are bumped to the top of all Ads every 14 days
+    </li>
+   
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
+    </li>
+    <li style="position: relative; padding-left: 20px;">
+        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
+    </li>
+</ul>
+
  					<a href="?c=business&task=paynow"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>

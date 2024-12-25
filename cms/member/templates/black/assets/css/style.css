@@ -218,8 +218,6 @@ button#submitBtn:active {
 }
 
 .plan_box_1 .list_item li::before {
-  content: "\f00c"; /* Font Awesome check icon */
-  font-family: "Font Awesome 6 Pro";
   width: 24px;
   height: 24px;
   background-color: #e8f2ff;

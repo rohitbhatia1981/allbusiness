@@ -15,6 +15,7 @@ if ($_POST['txtName']!="" && $_POST['txtEmail']!="" && $_POST['txtPhone']!="")
 			'inquiry_email' => $_POST['txtEmail'],
 			'inquiry_phone' => $_POST['txtPhone'],
 			'inquiry_message' => $_POST['txtMessage'],
+			'inquiry_listing_id' => $_POST['listingId'],			
 			'inquiry_date' => $curDate
 			
 			);			

@@ -9,7 +9,10 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 	if (count($resCheck)==0)
 	{
 				 
-		 $curDate = date('Y-m-d H:i:s');		 
+		 $curDate = date('Y-m-d H:i:s');
+		 
+		 $verificationCode=md5(uniqid());
+		 		 
 		 $values = array(		
 			'member_firstname' => $_POST['txtFirstName'],			
 			'member_lastname' => $_POST['txtLastName'],
@@ -18,6 +21,7 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 			'member_phone' => $_POST['txtPhone'],
 			'member_type' => 2,			
 			'member_regdate' => $curDate,
+			'member_email_verification_code' => $verificationCode,
 			'member_ip' => $_SERVER['REMOTE_ADDR']
 			);			
 
@@ -34,8 +38,8 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 				
 				//--------Settings all values--------
 				
-				$receiverName=$_POST['txtTitle']." ".$_POST['txtFirstName']." ".$_POST['txtMiddleName']." ".$_POST['txtLastName'];
-				$veriLink='<a href="'.URL.'crm/activate?auth='.$verificationCode.'&e='.encryptId($lastInsertedId).'">Verify email address</a>';
+				$receiverName=$_POST['txtFirstName']." ".$_POST['txtLastName'];
+				$veriLink='<a href="'.URL.'cms/activate?auth='.$verificationCode.'&e='.encryptId($lastInsertedId).'">Verify email address</a>';
 				$contactus='<a href="'.URL.'contact-us">contact us</a>';
 				
 				//end Settings all values
@@ -55,7 +59,7 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 					
 					$headingContent=$emailContent;
 
-				$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+				 $mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
 
 
 				$ToEmail=$_POST['txtEmail'];

@@ -160,7 +160,7 @@ $(document).ready(function () {
 });
 </script>
 
-<?php if ($frontPageName=="index.php" || $frontPageName=="buy-business.php" || $frontPageName=="city.php") { ?>
+<?php if ($frontPageName=="index.php" || $frontPageName=="buy-business.php" || $frontPageName=="city.php" || $frontPageName=="bdetail.php") { ?>
 
 <script src="<?php echo URL?>js/jquery.validate.js"></script>
 

@@ -1,6 +1,7 @@
 <?php include "../private/settings.php";
 
-$sqlProp="select * from tbl_business where business_id='".$database->filter($_GET['id'])."' and business_archive=0 and business_active_status='1'";			
+$bid=str_replace(".php","",$_GET['id']);
+$sqlProp="select * from tbl_business where business_id='".$database->filter($bid)."' and business_archive=0 and business_active_status='1'";			
 $getProp=$database->get_results($sqlProp);
 $totalProp=count($getProp);			
 
@@ -47,6 +48,7 @@ $ogImage = $mainImageURL; // URL to an image representing the page
 
 
 include PATH."include/headerhtml.php"; 
+
  ?>
   <body>
 
@@ -147,6 +149,10 @@ include PATH."include/headerhtml.php";
 					</div>
  		</div>
  		<div class="col-sm-4">
+         
+      
+        
+        
  			<div class="datail_sidebar">
  				<img alt="Site Logo" src="images/site_logo.jpg">
  				<h5>Advance Business Brokers</h5>
@@ -155,34 +161,12 @@ include PATH."include/headerhtml.php";
  					<h4>Rick Chang</h4>
  					<h5>0424 415 XXX</h5>
  				</div>
- 				<form class="w100p">
- 					<div class="form-group">
- 						<input type="text" class="form-control" placeholder="Name">
- 					</div>
- 					<div class="form-group">
- 						<input type="Email" class="form-control" placeholder="Email">
- 					</div>
- 					<div class="form-group">
- 						<input type="text" class="form-control" placeholder="Phone">
- 					</div>
- 					<div class="form-group">
- 						<textarea class="form-control" placeholder="I am interested in Profitable Auto Repairs Business for Sale."></textarea>
- 					</div>
- 					<div class="form-group">
- 						<div class="form-check">
-						    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-						    <label class="form-check-label" for="exampleCheck1">I'd like to set up an account for quicker inquiries during my next visit.</label>
-						 </div>
- 					</div>
- 					<div class="form-group">
- 						<input type="submit" class="btn btn-danger w100p mt-2" value="Make an enquiry">
- 					</div>
- 					<div class="Privacy">
- 						By sending this message, you agree to our <br><a href="#">
-Privacy Policy.</a>
- 					</div>
- 				</form>
+                <span id="success-container" style="color:#090;font-size:16px;font-weight:bold;display:none;margin-bottom:100px">Thank you for contacting, your inquiry has been sent to business owner</span>
+                <div id="frmContainer">
+ 				<?php include PATH."include/inquiry-form.php"; ?>
+</div>
  			</div>
+          
  		</div>
  	</div>
  	</div>

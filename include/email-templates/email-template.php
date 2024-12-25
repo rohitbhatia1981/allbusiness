@@ -58,7 +58,7 @@ $fbImage=$siteurl."images/facebook.png";
 
 
 
-$fbURL="https://www.facebook.com/magicbricks.com.au/";
+$fbURL="https://www.facebook.com/allbusiness.com.au/";
 
 
 
@@ -66,7 +66,7 @@ $twitterImage=$siteurl."images/twitter.png";
 
 
 
-$twitterURL="https://twitter.com/Magicbricks2";
+$twitterURL="https://twitter.com/allbusiness2";
 
 
 
@@ -831,7 +831,7 @@ td[class="spechide"]
 
 
 
-                                    <span style='color:#222222;'>Magicbricks</span>
+                                    <span style='color:#222222;'>Allbusiness</span>
 
 
 
@@ -883,7 +883,7 @@ td[class="spechide"]
 
 
 
-      <td style='text-align:left;color:#999;font-size:12px;font-weight:normal;line-height:20px;'><br><br>You are receiving this email because you are registered on Magicbricks.com.au. For any questions or comments please contact us at support@Magicbricks.com.au.<br><br></td>
+      <td style='text-align:left;color:#999;font-size:12px;font-weight:normal;line-height:20px;'><br><br>You are receiving this email because you are registered on Allbusiness.com.au. For any questions or comments please contact us at support@Allbusiness.com.au.<br><br></td>
 
 
 
@@ -935,7 +935,7 @@ td[class="spechide"]
 
 
 
-                                          <span style='font-weight:bold;'>Copyright &copy; 2024 Magicbricks.com.au. All Rights Reserved.</span>
+                                          <span style='font-weight:bold;'>Copyright &copy; 2025 allbusiness.com.au. All Rights Reserved.</span>
 
 
 
@@ -1215,7 +1215,7 @@ return $emailBody;
 
 
 
-$headingContent="You have registered with magicbricks now, you can log into your account and start selling your property";
+$headingContent="You have registered with allbusiness now, you can log into your account and start selling your property";
 
 
 
