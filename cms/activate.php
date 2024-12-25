@@ -1,4 +1,5 @@
 <?php include "../private/settings.php";
+echo $_GET['e'];
 print "XXX".$id=decryptId($_GET['e']);
 exit;
 print $sqlCheck="select * from tbl_members where member_email_verification_code='".$database->filter($_GET['auth'])."' and member_email_verify=0 and member_id='".$database->filter(decryptId($_GET['e']))."'";
