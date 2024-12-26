@@ -43,7 +43,10 @@ if ($_GET['c']!="")
                 <div style="height:20px"></div>
 				<div class="user-info">
                 <?php if ($_SESSION['sess_member_groupid']==4)
-				$uTypeMember="Private Seller"; ?>
+				$uTypeMember="Private Seller";
+				if ($_SESSION['sess_member_groupid']==5)
+				$uTypeMember="Broker";
+				 ?>
 					<h5 class=" mb-2" style="color:#333"><?php echo $uTypeMember; ?> Account</h5>
 					
 				</div>

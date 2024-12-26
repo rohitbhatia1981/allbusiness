@@ -5,7 +5,7 @@ if ($_POST['txtEmail']!="" && $_POST['txtPassword']!="")
 
 //print "select * from tbl_agents where agent_email = '".$database->filter($_POST['txtLoginEmail'])."' and agent_password='".$database->filter(md5($_POST['txtLoginPassword']))."' and agent_status='1'";
 
- $sqlCheck = "select * from tbl_members where member_email = '".$database->filter($_POST['txtEmail'])."' and member_password='".$database->filter(md5($_POST['txtPassword']))."' and member_status='1'";
+  $sqlCheck = "SELECT * FROM tbl_members WHERE member_email='".$database->filter($_POST['txtEmail'])."' and member_password='".$database->filter(md5($_POST['txtPassword']))."' and member_status='1' and member_email_verify=1";
  $result = $database->get_results($sqlCheck);
  $totalMember = count($result);
 

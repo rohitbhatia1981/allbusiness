@@ -139,7 +139,7 @@ $('#txtPassword').on('focus', function() {
           data: $(form).serialize(),
           success: function(response) {
             if (response == 1) {
-              window.location = '<?php echo URL?>cms/member/';
+              window.location = '<?php echo URL?>cms/registration-completed';
             } else  {
               $("#error-container").html(response);
               $("#submitBtn").removeAttr('disabled');

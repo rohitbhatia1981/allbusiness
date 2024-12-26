@@ -4,10 +4,17 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 {
 
 	
-	$sqlCheck="select * from tbl_members where member_email='".$database->filter($_POST['txtEmail'])."'";
+	$sqlCheck="select * from tbl_members where member_email='".$database->filter($_POST['txtEmail'])."' and member_email_verify=1";
 	$resCheck=$database->get_results($sqlCheck);
 	if (count($resCheck)==0)
 	{
+		
+		//--------delete email if unverified in database---
+		
+		$delQuery="delete from tbl_members where member_email='".$database->filter($_POST['txtEmail'])."' and member_email_verify=0";
+		$database->query($delQuery);
+		
+		//---------end deletion---
 				 
 		 $curDate = date('Y-m-d H:i:s');
 		 
@@ -30,8 +37,8 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!="" && $_POST['txtLastName'
 			
 			//$_SESSION['uid']=$lastInsertedId;		
 			
-			$_SESSION['sess_member_id'] = $lastInsertedId;					
-			$_SESSION['sess_member_groupid'] = 4;	
+			//$_SESSION['sess_member_id'] = $lastInsertedId;					
+			//$_SESSION['sess_member_groupid'] = 4;	
 			
 				include PATH."include/email-templates/email-template.php";
 				include_once PATH."mail/sendmail.php";
