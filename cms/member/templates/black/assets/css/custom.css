@@ -1,0 +1,8 @@
+.listing-image {
+  width: 100%; /* Set your desired width */
+  
+  object-fit: cover; /* Ensures images fill the container while cropping excess */
+  border-radius: 8px; /* Optional: for rounded corners */
+  display: block; /* Ensures images behave as block elements */
+  overflow: hidden; /* Ensures cropping happens cleanly */
+}

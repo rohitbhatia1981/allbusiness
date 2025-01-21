@@ -22,15 +22,18 @@
   
   <div class="form-group" >
   	 <div class="input-container" style="margin-bottom:10px">
- 		<textarea class="form-control" rows="2" placeholder="" name="txtMessage">I am interested in Profitable Auto Repairs Business for Sale.</textarea>
+     <?php if ($bid!="") { 
+	 $txtMessage="I am interested in ".getBusinessName($bid);
+	 } ?>
+ 		<textarea class="form-control" rows="2" placeholder="" name="txtMessage" id="txtMessage"><?php echo $txtMessage; ?></textarea>
      </div>
  	</div>
   
  
-  <div class="form-check mt-3">
+ <!-- <div class="form-check mt-3">
     <input type="checkbox" class="form-check-input" id="chkAgreement" name="chkAgreement" >
    		<span style="font-size:13px">I I'd like to setup an account for quicker inquiries during my next visit.</span>
-    </div>
+    </div>-->
   
   <button type="submit" id="submitBtn" class="btn btn-primary w100p mt-3 mb-2">Submit</button>
   

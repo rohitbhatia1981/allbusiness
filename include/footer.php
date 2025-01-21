@@ -50,14 +50,14 @@
 			<div class="col-sm-2">
 				<h5>Businesses for Sale by States</h5>	
 				<ul class="site_map">
-					<li><a href="#">Business for sale in NSW</a></li> 
-					<li><a href="#">Business for sale in VIC</a></li>
-					<li><a href="#">Business for sale in QLD</a></li>
-					<li><a href="#">Business for sale in SA</a></li>
-					<li><a href="#">Business for sale in WA</a></li>
-					<li><a href="#">Business for sale in ACT</a></li>
-					<li><a href="#">Business for sale in NT</a></li>
-					<li><a href="#">Business for sale in TAS</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/nsw">Business for sale in NSW</a></li> 
+					<li><a href="<?php echo URL?>business-for-sale/vic">Business for sale in VIC</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/qld">Business for sale in QLD</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/sa">Business for sale in SA</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/wa">Business for sale in WA</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/act">Business for sale in ACT</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/nt">Business for sale in NT</a></li>
+					<li><a href="<?php echo URL?>business-for-sale/tas">Business for sale in TAS</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-2">
@@ -131,6 +131,7 @@ $(document).ready(function () {
     function openInquiryModal(listingId, businessTitle) {
         $('#listingId').val(listingId); // Set the listing ID in the hidden field
         $('#modalBusinessTitle').text(`${businessTitle}`); // Set the business title in the modal
+		$('#txtMessage').text("I am interested in "+`${businessTitle}`);
         $('#inquiryModal').fadeIn(); // Show the modal with a fade-in effect
     }
 
@@ -163,6 +164,7 @@ $(document).ready(function () {
 <?php if ($frontPageName=="index.php" || $frontPageName=="buy-business.php" || $frontPageName=="city.php" || $frontPageName=="bdetail.php") { ?>
 
 <script src="<?php echo URL?>js/jquery.validate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
 <script>
 
@@ -225,4 +227,113 @@ $(document).ready(function () {
     });
   });
 </script>
+
+<script>
+
+	$("#txtLocation").keyup(function () {
+    const inputVal = $(this).val().trim(); // Get the trimmed input value
+
+    if (inputVal) {
+        // If the input has text, make the AJAX call
+        $.ajax({
+            type: "POST",
+            url: "<?php echo URL?>ajax/load-location.php",
+            data: { keyword: inputVal },
+            beforeSend: function () {
+                // Optional: Add loading indicator styles here
+            },
+            success: function (data) {
+                $("#suggesstion-box").show().html(data); // Show and update the suggestion box
+            },
+        });
+    } else {
+        // If input is empty, hide the suggestion box
+        $("#suggesstion-box").hide();
+    }
+});
+
+
+const dropdown = document.getElementById('dropdown');
+const dropdownOptions = document.getElementById('dropdownOptions');
+const options = document.querySelectorAll('.option');
+const hiddenInput = document.getElementById('selectedCategories'); // Reference to hidden input
+let selectedValues = [];
+
+// Initialize with pre-selected categories
+function initializeSelectedCategories(preSelectedCategories) {
+    if (preSelectedCategories) {
+        selectedValues = preSelectedCategories.split(','); // Split the comma-separated string into an array
+        selectedValues.forEach(value => {
+            const option = [...options].find(opt => opt.getAttribute('data-value') === value);
+            if (option) {
+                option.classList.add('selected'); // Highlight the selected option
+            }
+        });
+        updateDropdownLabel();
+        updateHiddenInput();
+    }
+}
+
+// Toggle dropdown visibility
+dropdown.addEventListener('click', () => {
+    dropdownOptions.style.display = dropdownOptions.style.display === 'none' || !dropdownOptions.style.display ? 'block' : 'none';
+});
+
+// Handle option selection
+options.forEach(option => {
+    option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        if (selectedValues.includes(value)) {
+            selectedValues = selectedValues.filter(val => val !== value);
+            option.classList.remove('selected');
+        } else {
+            selectedValues.push(value);
+            option.classList.add('selected');
+        }
+        updateDropdownLabel();
+        updateHiddenInput(); // Update the hidden input field
+    });
+});
+
+// Hide dropdown on outside click
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.multi-select')) {
+        dropdownOptions.style.display = 'none';
+    }
+});
+
+// Update dropdown label
+function updateDropdownLabel() {
+    const count = selectedValues.length;
+    if (count === 0) {
+        dropdown.textContent = 'Select Categories';
+    } else if (count === 1) {
+        dropdown.textContent = '1 category selected';
+    } else {
+        dropdown.textContent = `${count} categories selected`;
+    }
+}
+
+// Update hidden input field value
+function updateHiddenInput() {
+    hiddenInput.value = selectedValues.join(','); // Join selected values with commas
+}
+
+// Example usage: Replace with actual server-side values
+const preSelectedCategories = hiddenInput.value; // This should be set by the server as a comma-separated string
+initializeSelectedCategories(preSelectedCategories);
+
+
+	
+function selectLocation(val,lid) {
+
+$("#txtLocation").val(val);
+$("#hdLocationId").val(lid);
+$("#suggesstion-box").hide();
+
+}
+
+
+</script>
+
 <?php } ?>

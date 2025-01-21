@@ -23,6 +23,55 @@ h4.title_4 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.tab-btn {
+    padding: 10px 30px;
+    margin: 0 10px;
+    border: none;
+    background-color: #d1ecf9; /* Light Blue for unselected */
+    color: #004aad; /* Dark blue text for unselected */
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px 5px 0 0; /* Rounded top corners */
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: #ff9800; /* Orange for selected */
+    color: white; /* White text for selected */
+    border-radius: 5px 5px 0 0; /* Rounded top corners */
+}
+
+.tab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #ff9800; /* Triangle matches the orange color */
+}
+
+.tab-btn:hover {
+    background-color: #cce7f9; /* Slightly darker blue for hover */
+}
+
+.tab-btn.active:hover {
+    background-color: #e68a00; /* Slightly darker orange for hover */
+}
+
 .card-label {
   margin-bottom: 15px;
 }

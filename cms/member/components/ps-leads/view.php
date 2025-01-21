@@ -217,8 +217,8 @@
                                     
 									<div class="card-body pb-0 pt-3">
 										<div>
-											<label class="form-label mb-0"><?php echo $row['message_subject']; ?></label>
-											<p class="" style="font-weight:<?php echo $readStatus?>">Business id: <a href="?c=<?php echo $_GET['c']?>&txtSearchByTitle=PH-<?php echo $row['message_pres_id']?>" style="color:#09C">AB-<?php echo $row['message_pres_id']; ?></a>, <?php echo getConditionName($row['pres_condition']); ?>, dt: <?php echo displayDateFormat($row['message_date']); ?></p>
+											<label class="form-label mb-0"><?php echo $row['inquiry_message']; ?></label>
+											<p class="" style="font-weight:<?php echo $readStatus?>">Business id: <a href="?c=<?php echo $_GET['c']?>&txtSearchByTitle=PH-<?php echo $row['business_id']?>" style="color:#09C">AB-<?php echo $row['business_id']; ?></a>, dt: <?php echo displayDateFormat($row['inquiry_date']); ?></p>
 										</div>
 									</div>	
 												
@@ -228,15 +228,7 @@
                                     
                                     
                                     <td class="align-middle">
-										
-												<?php 
-												
-												if ($row['message_sender_type']=="Patient") $color="pink";
-												else if ($row['message_sender_type']=="Clinician") $color="green"; 
-												else if ($row['message_sender_type']=="Pharmacy") $color="orange"; 
-												
-												
-												echo getUserNameByType(strtolower($row['message_sender_type']),$row['message_sender_id']); ?> &nbsp;  <span class="tag tag-<?php echo $color; ?>"> Website user</span>
+										 <span class="tag tag-<?php echo $color; ?>"> Website user</span>
 											
 									</td>
                                     
@@ -258,7 +250,7 @@
 										<div class="d-flex">
 											<div class="ml-3 mt-1">
 												
-															<span class="tag tag-pink"><a href="?c=prescriptions&task=detail&id=<?php echo $row['pres_id']?>&message=1" class="tag tag-pink">View Message</a></span>
+															<span class="tag tag-pink"><a href="#" class="tag tag-pink">View Message</a></span>
                                                             
                                                            <!-- <br /><br />
                                                             <a href="#" style="color:#06F">Response Required</a>-->

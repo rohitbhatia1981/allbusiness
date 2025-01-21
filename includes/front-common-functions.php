@@ -83,6 +83,20 @@ function getParentCategory($id)
 	
 	
 }
+function getPlanName($id)
+{
+	global $database;
+	$sqlCategory="select * from tbl_plans_ps where plan_id='".$database->filter($id)."'";
+	$loadCategory=$database->get_results($sqlCategory);
+	$rowCategory=$loadCategory[0];
+	
+	if ($rowCategory['plan_ad_title']!="")
+	return $rowCategory['plan_ad_title'];
+	else
+	return "-";
+	
+	
+}
 
 function getLeadsCount($id)
 {
@@ -962,6 +976,19 @@ function getBusinessAddress($id)
 	$address=str_replace(", AUS","",$address);
 	
 	return $address;
+}
+
+function getBusinessName($id)
+{
+	global $database;
+	
+	 $sqlBusiness="select business_heading from tbl_business where business_id='".$database->filter($id)."'";
+	$resBusiness=$database->get_results($sqlBusiness);
+	$rowBusiness=$resBusiness[0];
+	$businessName=$rowBusiness['business_heading'];
+	
+	
+	return $businessName;
 }
 
 function generateBusinessLink($id)

@@ -7,22 +7,45 @@ Options +FollowSymLinks
 </IfModule>
 
 
-#RewriteCond %{HTTP_HOST} ^pharmacinta.co.uk [NC] 
-#RewriteRule ^(.*)$ https://www.pharmacinta.co.uk/$1 [L,R=301]
+#RewriteCond %{HTTP_HOST} ^allbusiness.com.au [NC] 
+#RewriteRule ^(.*)$ https://www.allbusiness.com.au/$1 [L,R=301]
 
-#RewriteCond %{HTTP_HOST} pharmacinta\.co.uk [NC]
+#RewriteCond %{HTTP_HOST} allbusiness\.com.au [NC]
 #RewriteCond %{SERVER_PORT} 80
-#RewriteRule ^(.*)$ https://www.pharmacinta.co.uk/$1 [R,L]
+#RewriteRule ^(.*)$ https://www.allbusiness.com.au/$1 [R,L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteRule ^business-for-sale/vic$ cms/buy-business.php?state=VIC&landing=state [L]
+
+RewriteRule ^business-for-sale/act$ cms/buy-business.php?state=ACT&landing=state [L]
+RewriteRule ^business-for-sale/nsw$ cms/buy-business.php?state=NSW&landing=state [L]
+RewriteRule ^business-for-sale/nt$ cms/buy-business.php?state=NT&landing=state [L]
+RewriteRule ^business-for-sale/qld$ cms/buy-business.php?state=QLD&landing=state [L]
+RewriteRule ^business-for-sale/sa$ cms/buy-business.php?state=SA&landing=state [L]
+RewriteRule ^business-for-sale/tas$ cms/buy-business.php?state=TAS&landing=state [L]
+RewriteRule ^business-for-sale/vic$ cms/buy-business.php?state=VIC&landing=state [L]
+RewriteRule ^business-for-sale/wa$ cms/buy-business.php?state=WA&landing=state [L]
+
+
+RewriteRule ^business-for-sale/vic/melbourne$ cms/buy-business.php?lid=3000&landing=city [L]
+RewriteRule ^business-for-sale/nsw/sydney$ cms/buy-business.php?lid=2000&landing=city [L]
+RewriteRule ^business-for-sale/qld/brisbane$ cms/buy-business.php?lid=4000&landing=city [L]
+RewriteRule ^business-for-sale/wa/perth$ cms/buy-business.php?lid=6000&landing=city [L]
+RewriteRule ^business-for-sale/sa/adelaide$ cms/buy-business.php?lid=5000&landing=city [L]
+
+RewriteRule ^business-for-sale/tas/hobart$ cms/buy-business.php?lid=7000&landing=city [L]
+RewriteRule ^business-for-sale/act/canberra$ cms/buy-business.php?lid=2600&landing=city [L]
+RewriteRule ^business-for-sale/nt/darwin$ cms/buy-business.php?lid=0800&landing=city [L]
+
 
 #ErrorDocument 404 /pharmahealth/pages/404.php
 
 RewriteRule  ^buy-business cms/buy-business.php [L,NC,END]
 RewriteRule  ^private-sellers cms/private-sellers.php [L,NC,END]
 RewriteRule  ^for-brokers cms/for-brokers.php [L,NC,END]
+
 RewriteRule ^business-(.*)-(.*)$ cms/bdetail?id=$2 [L]
+
+
 
 RewriteRule  ^buyer-signup cms/signup.php [L,NC,END]
 RewriteRule  ^news cms/news.php [L,NC,END]
@@ -32,6 +55,8 @@ RewriteRule  ^private-seller cms/private-seller-signup.php [L,NC,END]
 
 RewriteRule ^login cms/login?id=$2 [L]
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 <ifModule mod_gzip.c>
   mod_gzip_on Yes

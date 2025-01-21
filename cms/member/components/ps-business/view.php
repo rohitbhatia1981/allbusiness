@@ -359,24 +359,30 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 												</div>
 											</div>
 										</div>
+                                        <?php if ($_GET['payment']==1 && $_SESSION['sessListingId']!="") { ?>
+                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<i class="fa fa-check-circle-o mr-2" aria-hidden="true"></i> Thank you for making payment, your Listing ID: AB-<?php echo $_SESSION['sessListingId']; ?> is upgraded and Live.</div>
+                                        <?php 
+											unset($_SESSION['sessListingId']);
+										} ?>
 								<div class="table-responsive table-lg mt-3">
 									<table class="table table-bordered border-top" id="example1" width="100%">
 										<thead>
 											<tr>
-                                            	<th width="10%" class="border-bottom-0 wd-5" style="width:10%">
+                                            	<th width="9%" height="27" class="border-bottom-0 wd-5" style="width:10%">
 												<label class="custom-control custom-checkbox">
 												<input type="checkbox" class="custom-control-input" name="chkControl" value="yes" onClick="checkAll(this.form,this.checked);" />
 														<span class="custom-control-label"></span>
 												</label>
 												</th>
-												<th width="11%" class="border-bottom-0">ID.</th>
+												<th width="15%" class="border-bottom-0">Ad Image & ID.</th>
 												<th width="10%" class="border-bottom-0">Added Date</th>
-                                                <th width="9%" class="border-bottom-0">Business Name</th> 
-                                                <th width="17%" class="border-bottom-0">Seller Name</th>                                                                                           
-                                                <th width="16%" class="border-bottom-0">Category</th>                                                
-                                               
-                                                <th width="15%" class="border-bottom-0">Address</th>
-                                                <th width="12%" class="border-bottom-0 w-20">Status</th>
+                                                <th width="30%" class="border-bottom-0">Business Name</th> 
+                                                                                                                                       
+                                                
+                                                <th width="25%" class="border-bottom-0">Ad Details</th>                                                
+                                              
+                                                <th width="20%" class="border-bottom-0 w-20">Status</th>
                                                
 											</tr>
 										</thead>
@@ -416,14 +422,30 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 									</td>
 									
 									
-                                    <td class="align-middle">
+                                    <td class="align-middle" >
                                     
+      <?php
+		$sqlImages = "select * from tbl_business_images where image_business_id='" . $row['business_id'] . "' limit 0,1"; 
+        $getImages = $database->get_results($sqlImages);
+        $totalImages = count($getImages);
+
+        if ($totalImages > 0) {
+            $rowImages = $getImages[0];
+            $imageurl = "";                
+            if ($rowImages['image_s3'] == "") 
+                $imageurl = URL . "classes/timthumb.php?src=" . URL . "images/business/" . $rowImages['image_local'] . "&w=150&zc=1";
+            else 
+                $imageurl = $rowImages['image_s3'];  
+		}
+				?>
+                                    
+                                    
+                                    <img alt="" src="<?php echo $imageurl; ?>" >
                                     <!--<a href="?c=<?php echo $component?>&task=detail&id=<?php echo $row['patient_id']; ?>"><?php echo $row['patient_id'] ?></a>-->
-                                    <a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" style="color:#06F; text-decoration:underline">AB-<?php echo $row['business_id'] ?></a>
+                                    <br />
+                                    ID: <a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" style="color:#06F; text-decoration:underline">AB-<?php echo $row['business_id'] ?></a>
                                     
-                                    <?php if($row['business_status'] == "current"){ ?>
-                                    <br /><a href="#" style="font-size:13px">Live Preview</a>
-                                    <?php } ?>
+                                   
                                    
 										
 												
@@ -437,34 +459,46 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 											
 									</td>
                                     
-                                    <td><?php echo $row['business_name']; ?></td>
+                                    <td><?php echo $row['business_name']; ?> <br />
                                     
-                                    
-                                    <td>
-                                    
-                                    <?php $memberType=$row['member_type'];
-									if ($memberType==1)
-									$comp="brokers";
-									else
-									$comp="private_sellers";
-									 ?>
-                                    
-									<a href="?c=<?php echo $comp?>&task=detail&id=<?php echo $row['member_id']?>" style="color:#F90"><?php echo $row['member_firstname']." ".$row['member_lastname'] ?></a>
-                                    <br />
-                                    <?php if ($row['member_type']==1) echo "Broker"; else if ($row['member_type']==2) echo "Private Seller";?>
-                                    
-                                    </td>
-                                    <td><?php echo getBusinessCategoryName($row['business_category']); ?>
-                                    <br /><br />
+                                    <?php echo getBusinessCategoryName($row['business_category']); ?>
+                                    >
                                     <font style="color:#999"><?php echo getBusinessCategoryName($row['business_subcat']); ?></font>
                                     </td>
                                     
+                                    
+                                    
+                               
+                                    <td>
+                                      <table width="100%">
+                                      
+                                      <?php $current_date = date('Y-m-d'); ?>
+                                      	
+                                       	<tr><td width="39%"><strong>Plan</strong></td><td width="61%"><?php if ($row['business_plan_id']!=0) echo '<span class="badge badge-info">'.getPlanName($row['business_plan_id']).'</span>'; else echo "-"; ?></td></tr>
+                                        <tr><td><strong>Expiry</strong></td><td>
+										<?php if ($row['business_plan_expiry_date']!="")
+										{
+											 echo '<span style="background:#FEE9ED; padding:5px; font-weight:bold">'.date("d/m/Y",strtotime($row['business_plan_expiry_date'])).'</span>';
+											 if ($row['business_plan_expiry_date'] < $current_date)
+											 echo "<br><font style='color:#F00'>Your Ad is expired.</font>";
+										}
+										else echo "-"; ?></td></tr>
+                                        <tr>
+                                          <td><strong> Preview</strong></td><td>
+                                          <?php if ($row['business_plan_id']!=0 && $row['business_plan_expiry_date'] > $current_date) { 
+										  
+										  ?>
+                                          <a href="#" style="font-size:14px;color:#EE795F;font-weight:bold">Live Preview</a>
+                                          <?php } 
+										  else echo "-";
+										  ?>
+                                          </td></tr>
+                                        
+                                       
+                                        </table> </td>
+                                    
                                    
-                                    <td class="align-middle">
-										
-												<?php echo getBusinessAddress($row['business_id']); ?>
-											
-									</td>
+                                   
                                     
                                     
                                     
@@ -480,11 +514,26 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 										<div class="btn-group align-top">
 										<?php if($row['business_status'] == "current"){ ?>
                                         
-                                        <?php if ($row['business_active_status']==1) { ?>
-
+                                        <?php if ($row['business_active_status']==1 && $row['business_plan_id']!="") {
+											
+											
+											 ?>
+                                             
+                                             
+										
 										<span class="tag tag-green">Live</span>
-                                        <?php } else { ?>
+                                      	
+										
+                                    	
+                                    	
+										
+										
+										
+										<?php } else { ?>
                                         <a href="?c=<?php echo $_GET['c']?>&task=subscribe&id=<?php echo $row['business_id']?>"><button type="button" class="btn btn-pill btn-danger">Complete Payment</button></a>
+                                        
+                                       
+                                        
                                         <?php } ?>
 
 										<?php }else if($row['business_status'] != "current"){ ?>
@@ -2651,6 +2700,9 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
 	
 
 	 ?>
+     
+
+
 	 
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
@@ -2683,143 +2735,72 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
 						$task="save";
 
 				?>
-  
+  <div class="tabs" style="padding-top:50px">
+    <button class="tab-btn active" data-tab="90-days" id="btn90">90 Days</button>
+    <button class="tab-btn" data-tab="180-days" id="btn180">180 Days</button>
+</div>
+
    <div class="card-body pb-2">
 						
 <div class="plan_box" id="plan_box">
  	<div class="container">
  		<h3 class="title_h3 text-center">Choose a Plan</h3>
  		<div class="row">
- 			<div class="col-sm-6 col-lg-3" >
- 				<div class="plan_box_1"  >
- 					<h1>$70</h1>
- 					<h5>Basic Ad</h5>
- 					<p>List your business for 180 days with basic listing option.</p>
- 					<ul class="list_item">
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Simple search listing display
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-times" style="position: absolute; left: 0; color: red;"></i> No Bumped ups
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
-    </li>
-</ul>
-
- 				<a href="payment_redirect.php?p=1"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
- 				</div>	
+        
+        <?php 
+		$sqlPlans="select * from tbl_plans_ps where plan_status=1 limit 0,3";
+		$resPlans=$database->get_results($sqlPlans);
+		
+		for ($p=0;$p<count($resPlans);$p++)
+		{
+			$rowPlans=$resPlans[$p];
+		 ?>
+         
+ 			<div class="col-sm-6 col-lg-4" >
+            <div class="plan_box_1"  >
+ 					<h1>$<?php echo $rowPlans['plan_price']; ?></h1>
+ 					<h5><?php echo $rowPlans['plan_name']; ?></h5>
+ 					<p><?php echo $rowPlans['plan_short_desc']; ?></p>
+ 					<?php echo $rowPlans['plan_description']; ?>
+         <a href="payment_redirect.php?p=<?php echo $rowPlans['plan_id']?>&l=<?php echo encryptId($_GET['id'])?>"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>	
  			</div>
- 			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1"  >
- 					<h1>$130</h1>
- 					<h5>Plus Ad</h5>
- 					<p>List your business for 180 days above the basic listing</p>
- 					<ul class="list_item">
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
-    </li>
-     <li style="position: relative; padding-left: 20px;font-weight:bold">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads appear above basic  </li>
-    <li style="position: relative; padding-left: 20px;font-weight:bold">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads are bumped to the top of  ads every 30 days
-    </li>
-   
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
-    </li>
-</ul>
-
- 					<a href="payment_redirect.php?p=2"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
- 				</div>	
- 			</div>
- 			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1"  >
- 					<h1>$180</h1>
- 					<h5>Advanced Ad</h5>
- 					<p>List your business for 180 days above the Plus Ads.</p>
- 					<ul class="list_item">
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
-    </li>
-     <li style="position: relative; padding-left: 20px;font-weight:bold">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads appear above Basic and Plus Ads</li>
-    <li style="position: relative; padding-left: 20px;font-weight:bold">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads are bumped to the top of  ads every 21 days
-    </li>
-   
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
-    </li>
-</ul>
-
- 					<a href="payment_redirect.php?p=3"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
- 				</div>	
- 			</div>
- 			<div class="col-sm-6 col-lg-3">
- 				<div class="plan_box_1"  >
- 					<h1>$230</h1>
- 					<h5>Ultimate - Top Ad</h5>
- 					<p>List your business for 180 days with basic listing option.</p>
- 					<ul class="list_item">
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 1 Listing
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> 180 Days Visibility
-    </li>
-     <li style="position: relative; padding-left: 20px;font-weight:bold">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads appear Top of all Ads (Basic and Plus Ads)</li>
-    <li style="position: relative; padding-left: 20px;font-weight:bold">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Ads are bumped to the top of all Ads every 14 days
-    </li>
-   
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> Unlimited Edits to your Ad
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> No Commission
-    </li>
-    <li style="position: relative; padding-left: 20px;">
-        <i class="fa fa-check" style="position: absolute; left: 0; color: green;"></i> All leads are sent directly to your email
-    </li>
-</ul>
-
- 					<button id="checkout-button" class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button>
- 				</div>	
- 			</div>
+ 			
 
  		</div>
+        
+        <?php } ?>
+ 	</div>
+ </div>
+ </div>
+ 
+ <div class="plan_box" id="plan_box2" style="display:none">
+ 	<div class="container">
+ 		<h3 class="title_h3 text-center">Choose a Plan</h3>
+ 		<div class="row">
+        
+        <?php 
+		$sqlPlans="select * from tbl_plans_ps where plan_status=1 limit 3,3";
+		$resPlans=$database->get_results($sqlPlans);
+		
+		for ($p=0;$p<count($resPlans);$p++)
+		{
+			$rowPlans=$resPlans[$p];
+		 ?>
+         
+ 			<div class="col-sm-6 col-lg-4" >
+            <div class="plan_box_1"  >
+ 					<h1>$<?php echo $rowPlans['plan_price']; ?></h1>
+ 					<h5><?php echo $rowPlans['plan_name']; ?></h5>
+ 					<p><?php echo $rowPlans['plan_short_desc']; ?></p>
+ 					<?php echo $rowPlans['plan_description']; ?>
+         <a href="payment_redirect.php?p=<?php echo $rowPlans['plan_id']?>&l=<?php echo encryptId($_GET['id'])?>"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>	
+ 			</div>
+ 			
+
+ 		</div>
+        
+        <?php } ?>
+ 	</div>
  	</div>
  </div>
 					
@@ -2827,7 +2808,7 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    const stripe = Stripe('pk_test_51Nn3SfFai0RMyBsIlJqJTFgQc8cBo1Sx62bHrUUIxHof6rfhwYDwm2mrpg8ZBoBFbH9r9gG8HYeZU600Q5SP8HVY00y5p3kVcs'); // Replace with your Stripe Publishable Key
+    const stripe = Stripe('pk_test_51QXdQWK81eXYN2UMYhA5qtW5pGSf4vduSELNk0G9ngEzDl1fqIeZdIVTUl8Zg5gVkFwA0RHSpbCQVgc1fqPaM49k00zsurjwnq'); // Replace with your Stripe Publishable Key
 
     document.getElementById('checkout-button').addEventListener('click', function () {
         fetch('create-checkout-session.php', { // URL to your PHP script
@@ -2848,7 +2829,31 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
     });
 </script>
 
-							
+<script>
+$(document).ready(function () {
+    // On clicking the 90 Days button
+    $("#btn90").on("click", function () {
+        // Highlight the active tab
+        $(".tab-btn").removeClass("active");
+        $(this).addClass("active");
+
+        // Show the 90 Days content and hide the 180 Days content
+        $("#plan_box").show();
+        $("#plan_box2").hide();
+    });
+
+    // On clicking the 180 Days button
+    $("#btn180").on("click", function () {
+        // Highlight the active tab
+        $(".tab-btn").removeClass("active");
+        $(this).addClass("active");
+
+        // Show the 180 Days content and hide the 90 Days content
+        $("#plan_box2").show();
+        $("#plan_box").hide();
+    });
+});
+</script>							
 				
 	</div>
     

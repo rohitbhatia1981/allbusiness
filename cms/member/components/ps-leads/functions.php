@@ -15,14 +15,14 @@
 		//$sql = "SELECT * FROM tbl_pages where 1 order by page_title asc";
 
 
-	 $sql = "SELECT message_id,message_pres_id, message_sender_id, message_sender_type, message_sent_to, message_pres_id, message_subject, message_text, message_date, pres_id,pres_condition FROM tbl_messages,tbl_prescriptions where pres_id=message_pres_id ";
+	  $sql = "SELECT * FROM tbl_inquiry,tbl_business where business_id=inquiry_listing_id and business_owner_id='".$database->filter($_SESSION['sess_member_id'])."' ";
 	 
 	 
 	 if($_GET['txtSearchByTitle'] != "")
 
 		{
 
-			$sql .= " and (message_pres_id like '%".$database->filter(str_replace("PH-","",$_GET['txtSearchByTitle']))."%' || message_subject like '%".$database->filter($_GET['txtSearchByTitle'])."%' || message_text like '%".$database->filter($_GET['txtSearchByTitle'])."%')";
+			//$sql .= " and (message_pres_id like '%".$database->filter(str_replace("PH-","",$_GET['txtSearchByTitle']))."%' || message_subject like '%".$database->filter($_GET['txtSearchByTitle'])."%' || message_text like '%".$database->filter($_GET['txtSearchByTitle'])."%')";
 
 		}
 		
@@ -37,7 +37,7 @@
 			$sql .= " and patient_kyc='".$database->filter($_GET['cmbCategory'])."'";
 
 		}*/
-		$sql .= " order by message_id desc";
+		$sql .= " order by inquiry_id desc";
 		
 		//print_r($sql);
 		

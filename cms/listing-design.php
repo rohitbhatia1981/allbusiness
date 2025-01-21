@@ -52,11 +52,13 @@
 
         <div class="datail_sidebar">
  				
- 				<h5>Advance Business Brokers</h5>
+ 				<h5><?php if ($rowProp['member_type']==2) echo "Private Seller";
+				else if ($rowProp['member_type']==1) echo $rowProp['member_company']." Broker";
+				?></h5>
  				<div class="user_info">
  					<img src="<?php echo URL?>images/mask-group.png">
- 					<h4>Rick Chang</h4>
- 					<h5>0424 415 XXX</h5>
+ 					<h4><?php echo $rowProp['member_firstname']." ".$rowProp['member_lastname']; ?></h4>
+ 					<h5><!--0424 415 XXX--><?php echo $rowProp['member_phone']; ?></h5>
  				</div>
                 
                 

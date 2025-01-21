@@ -18,6 +18,7 @@
 
 		<!-- Style css -->
 		<link href="<?php echo URL?><?php echo FOLDER_MEMBER?>templates/black/assets/css/style.css" rel="stylesheet" />
+        <link href="<?php echo URL?><?php echo FOLDER_MEMBER?>templates/black/assets/css/custom.css" rel="stylesheet" />
 		<link href="<?php echo URL?><?php echo FOLDER_MEMBER?>templates/black/assets/css/dark.css" rel="stylesheet" />
 		<link href="<?php echo URL?><?php echo FOLDER_MEMBER?>templates/black/assets/css/skin-modes.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">

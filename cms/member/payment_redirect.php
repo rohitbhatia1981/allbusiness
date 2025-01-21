@@ -1,16 +1,27 @@
-<?php
+<?php include "../../private/settings.php";
+
+$sqlPlans="select * from tbl_plans_ps where plan_status=1 and plan_id='".$database->filter($_GET['p'])."'";
+$resPlans=$database->get_results($sqlPlans);
+$rowPlans=$resPlans[0];
+
+$plantitle=$rowPlans['plan_ad_title']." for ".$rowPlans['plan_days']." days";
+$planPrice=$rowPlans['plan_price']*100;
+
+$_SESSION['sessPlanId']=$rowPlans['plan_id'];
+$_SESSION['sessListingId']=decryptId($_GET['l']);
+
+
 require_once 'stripe-php/init.php'; // Path to your Stripe SDK
 
 // Set your secret API key
-\Stripe\Stripe::setApiKey('sk_test_51Nn3SfFai0RMyBsIk1fmupsx9p7KtELDIqXTJo6iAvdMDqvPanLjr38EjgZnLOT1q1IWZrZQvot7hmYHaQXofWrr00EhABMcEq'); // Replace with your Stripe Secret Key
+\Stripe\Stripe::setApiKey('sk_test_51QXdQWK81eXYN2UM9otYfvYfINoiNfKce44aum7UPOtz0B8XYAxfyeU0JvyhffbDREZCRwSaqMoP7btDAXB0kfxf00if4b96EY'); // Replace with your Stripe Secret Key
 
 header('Content-Type: application/json');
 
 // Get parameters from the request
-$plan = 'default-plan';
-$amount = 1000; // Default $10 in cents
-$success_url = 'http://localhost/test/stripe/redirection-from-page/success.php';
-$cancel_url = 'http://localhost/test/stripe/redirection-from-page/index.php';
+
+$success_url = URL . 'cms/member/success.php?session_id={CHECKOUT_SESSION_ID}';
+$cancel_url = URL.'cms/member/index.php?c=ps-business';
 
 try {
     // Create a Stripe Checkout session
@@ -18,11 +29,11 @@ try {
         'payment_method_types' => ['card'],
         'line_items' => [[
             'price_data' => [
-                'currency' => 'usd',
+                'currency' => 'aud',
                 'product_data' => [
-                    'name' => ucfirst($plan),
+                    'name' => ucfirst($plantitle),
                 ],
-                'unit_amount' => $amount, // Amount in cents
+                'unit_amount' => $planPrice, // Amount in cents
             ],
             'quantity' => 1,
         ]],

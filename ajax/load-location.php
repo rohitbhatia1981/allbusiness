@@ -3,7 +3,7 @@
 <!--<li onClick="selectCountry('<?php echo $country["country_name"]; ?>');"><?php echo $country["country_name"]; ?></li>-->
 
 <?php
-$loadLocation=$database->get_results("select * from tbl_locations,tbl_states where state_id=location_state_id and (location_locality like '".$database->filter($_POST["keyword"])."%' || location_postcode like '".$database->filter($_POST["keyword"])."%') order by location_locality limit 0,8");
+$loadLocation=$database->get_results("select * from tbl_locations,tbl_states where state_id=location_state_id and (location_locality like '".$database->filter($_POST["keyword"])."%' || location_postcode like '".$database->filter($_POST["keyword"])."%') order by location_locality limit 0,15");
 $totalLocation = count($loadLocation);
 
 $strLocation="";

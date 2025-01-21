@@ -81,9 +81,17 @@ include PATH."include/headerhtml.php";
 <?php include PATH."include/footer.php"; ?>
 
 <script src="<?php echo URL?>js/jquery.validate.js"></script>
+ <script src="<?php echo URL?>js/jquery.inputmask.bundle.js"></script>
 
 <script>
 
+	 var phones = [{ "mask": "#### ### ###"}, { "mask": "(###) ###-##############"}];
+ 	$('#txtPhone').inputmask({ 
+        mask: phones,
+        greedy: false, 
+        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+		
+		
 $('#txtPassword').on('focus', function() {
     $(this).attr('type', 'password');
 });

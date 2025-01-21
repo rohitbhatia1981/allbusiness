@@ -2,92 +2,118 @@
 include PATH."include/headerhtml.php"; 
  ?>
 
+<style>
+#country-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensures the dropdown matches the input width */
+    max-width: 100%; /* Prevent overflow */
+    position: absolute;
+    text-align: left;
+    z-index: 999;
+    border: 1px solid #dfe1e5;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: #fff;
+	max-height: 300px;
+	overflow-y: auto;
+}
 
+#txtLocation {
+    position: relative; /* Helps position the dropdown relative to this input */
+}
+
+#country-list li {
+    padding: 5px 15px;
+    font-size: 15px;
+    color: #202124;
+    border-bottom: 1px solid #e8eaed;
+    cursor: pointer;
+	
+}
+
+#country-list li:last-child {
+    border-bottom: none;
+}
+
+#country-list li:hover {
+    background-color: #f1f3f4;
+}
+
+#country-list li:active {
+    background-color: #e8f0fe;
+}
+
+
+</style>
   <body>
 
 <?php include PATH."include/header.php"; ?>
+
+
   	
 <section class="top_banner">
+
 	<div class="container">
 		<h3 class="title_h3 text-center mb-4">More Businesses, All the Time.</h3>
-		<div class="top_from" style="display: block;">
-			<div class="row">
-				<div class="col-sm-5 mb-2">
-					<div class="search_box">
-					<i class="fa-regular fa-magnifying-glass fa-fw"></i>
-					<input type="text" class="form-control" placeholder="Search by suburb, postcode, region"></div>
-				</div>
-				<div class="col-sm-7">
-					<div class="form_control_box">
-						<select class="form-control form-select">
-							<option>Select categories</option>
-						</select>
-						<select class="form-control form-select">
-							<option>Select States</option>
-						</select>
-						<select class="form-control form-select">
-							<option>Select Region</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-sm-5">
-					<div class="form_control_box">
-						<select class="form-control form-select">
-							<option>Min Price $</option>
-						</select>
-						<select class="form-control form-select">
-							<option>Max Price $</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-sm-7">
-					<div class="search_box search_box_button">
-						<i class="fa-regular fa-magnifying-glass fa-fw"></i>
-					<input type="text" class="form-control" placeholder="Search by suburb, postcode, region">		
-
-						<button><i class="fa-regular fa-magnifying-glass fa-fw"></i> Search</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
+        <?php include PATH."include/search-form.php"; ?>
+        
 	</div>
+    
+    
 </section>
 <section class="city_list">
 	<div class="container">
 		<h3 class="title_h3 text-center">View businesses by city</h3>
 		<div class="city_list_outbox owl-carousel">
-			<a href="<?php echo URL?>cms/city" style="text-decoration:none"><div class="city_list_box item" >
+			<a href="<?php echo URL?>business-for-sale/vic/melbourne" style="text-decoration:none"><div class="city_list_box item" >
 				<img  alt="Business for sale Melbourne" src="<?php echo URL?>images/city-01.png">
 				<h5 style="color:#333">Business for sale <br>Melbourne</h5>
 			</div></a>
+            <a href="<?php echo URL?>business-for-sale/nsw/sydney" style="text-decoration:none">
 			<div class="city_list_box item">
 				<img alt="Business for sale Sydney" src="<?php echo URL?>images/city-02.png">
-				<h5>Business for sale Sydney</h5>
+				<h5 style="color:#333">Business for sale Sydney</h5>
 			</div>
+            </a>
+            <a href="<?php echo URL?>business-for-sale/qld/brisbane" style="text-decoration:none">
 			<div class="city_list_box item">
 				<img alt="Business for sale Brisbane" src="<?php echo URL?>images/city-03.png">
-				<h5>Business for sale Brisbane</h5>
+				<h5 style="color:#333">Business for sale Brisbane</h5>
 			</div>
+            </a>
+            <a href="<?php echo URL?>business-for-sale/wa/perth" style="text-decoration:none">
 			<div class="city_list_box item">
 				<img alt="Business for sale Perth" src="<?php echo URL?>images/city-04.png">
-				<h5>Business for sale Perth</h5>
+				<h5 style="color:#333">Business for sale Perth</h5>
 			</div>
+            </a>
+            <a href="<?php echo URL?>business-for-sale/sa/adelaide" style="text-decoration:none">
 			<div class="city_list_box item">
 				<img alt="Business for sale Adelaide" src="<?php echo URL?>images/city-05.png">
-				<h5>Business for sale Adelaide</h5>
+				<h5 style="color:#333">Business for sale Adelaide</h5>
 			</div>
+            </a>
+             <a href="<?php echo URL?>business-for-sale/tas/hobart" style="text-decoration:none">
 			<div class="city_list_box item">
 				<img alt="Business for sale Hobart" src="<?php echo URL?>images/city-06.png">
-				<h5>Business for sale Hobart</h5>
+				<h5 style="color:#333">Business for sale Hobart</h5>
 			</div>
+            </a>
+            <a href="<?php echo URL?>business-for-sale/act/canberra" style="text-decoration:none">
 			<div class="city_list_box item">
 				<img alt="Business for sale Canberra" src="<?php echo URL?>images/city-07.png">
-				<h5>Business for sale Canberra</h5>
+				<h5 style="color:#333">Business for sale Canberra</h5>
 			</div>
+            </a>
+            <a href="<?php echo URL?>business-for-sale/nt/darwin" style="text-decoration:none">
 			<div class="city_list_box item">
-				<img alt="Business for sale Melbourne" src="<?php echo URL?>images/city-08.png">
-				<h5>Business for sale <br>Melbourne</h5>
+				<img alt="Business for sale Darwin" src="<?php echo URL?>images/city-08.png">
+				<h5 style="color:#333">Business for sale <br>Darwin</h5>
 			</div>
+            </a>
 		</div>
 	</div>
 </section>
@@ -100,7 +126,7 @@ include PATH."include/headerhtml.php";
         
         
         <?php
-		$sqlProp="select * from tbl_business where business_active_status='1' and business_archive=0 ";
+		$sqlProp="select * from tbl_business,tbl_members where business_owner_id=member_id and business_active_status='1' and business_archive=0 ";
 		
 		if ($_GET['s']=='sold')
 		$sqlProp.="and business_status='sold'";
@@ -206,4 +232,5 @@ Find your perfect business for sale today with Magicbricks.</p>
 </section>
 
 <?php include PATH."include/footer.php"; ?>
+
 

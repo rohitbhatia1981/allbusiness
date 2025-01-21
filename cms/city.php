@@ -1,34 +1,28 @@
 <?php include "../private/settings.php";
 include PATH . "include/headerhtml.php"; 
+echo $_GET['id'];
+echo "<br><br>";
+echo $_GET['type'];
 ?>
 <body>
     <?php include PATH . "include/header.php"; ?>
 
-    <!-- Hero Section -->
-    <div class="city_banner text-center" style="padding:20px; background-color: #f7f7f7;">
-        <div class="container">
-            <h1>Businesses for Sale in Melbourne</h1>
-            
-        </div>
-    </div>
+<div class="listing_screen">
+	<div class="busiess_tag"><div class="container">Business for Sale</div></div>
+<section class="top_banner">
 
-    <!-- City Information Section -->
-    <div class="city_info_section py-4">
-        <div class="container">
-        <p style="text-align:left">Explore a wide range of businesses available for sale in Melbourne. Whether you're looking for a café, retail store, or professional service, Melbourne has opportunities for everyone.</p>
-            <p>Melbourne is a bustling hub for entrepreneurs and businesses, offering a diverse range of opportunities in various sectors. From the heart of the city to the vibrant suburbs, there's no shortage of profitable ventures waiting for the right owner. Take a look at our listings below and find the perfect business to kickstart your entrepreneurial journey in Melbourne.</p>
-        </div>
-    </div>
-
-    <!-- Business Listings Section -->
-    <section class="new_listings">
 	<div class="container">
-		<h3 class="title_h3 text-left">Listings in Melbourne</h3>
-		<div class="new_listings_row">
+		<h3 class="title_h3 text-left mb-4">Businesses for sale in Australia</h3>
+		
+        <?php include PATH."include/search-form.php"; ?>
         
-        
-        <?php
-		$sqlProp="select * from tbl_business where business_active_status='1' and business_archive=0 ";
+	</div>
+   
+   
+</section> 
+
+<?php
+		$sqlProp="select * from tbl_business,tbl_members where business_owner_id=member_id and business_active_status='1' and business_archive=0 ";
 		
 		if ($_GET['s']=='sold')
 		$sqlProp.="and business_status='sold'";
@@ -61,10 +55,31 @@ include PATH . "include/headerhtml.php";
 		$sqlProp .= "AND business_state='".$database->filter($_GET['state'])."' ";
 		}
 		
-		$sqlProp.=" order by business_added_date desc limit 0,5";
+		$sqlProp.=" order by business_added_date desc";
+		$getProp=$database->get_results($sqlProp);
+		$totalPropMax=count($getProp);
+		$pagingObject->setMaxRecords(12);
+		$sqlProp = $pagingObject->setQuery($sqlProp);
 		$getProp=$database->get_results($sqlProp);
 		$totalProp=count($getProp);
 ?>
+
+
+<section class="new_listings">
+	<div class="container">
+		<div class="filter_box">
+			<span><?php echo $totalPropMax?> Businesses for Sale</span>
+
+			<div class="right">
+				Sort by: <select class="form-select"><option>Featured</option></select>
+			</div>
+			<button style="display: none;" class="filter_button">Filters <i class="fa-light fa-sliders-simple"></i></button>
+		</div>
+		<div class="filter_box only_for_mobile" style="display: none;">
+			<?php echo $totalPropMax?> Businesses for Sale
+		</div>
+		<div class="new_listings_row">
+        
         
         <?php
 if ($totalProp > 0) {
@@ -105,13 +120,58 @@ if ($totalProp > 0) {
 			
    <?php
 	}
-}?>	
+}?>
+            
 			
 			
 			
 		</div>
 	</div>
+
+	<nav aria-label="Page navigation example">
+  <!--<ul class="pagination justify-content-center">
+  
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+
+    </li>
+  </ul>-->
+  
+  		 <?php
+
+				print "<div style='text-align:center'>";
+
+				$pagingObject->displayLinks_adlisting(); 
+
+				print "</div>";
+
+			?>
+  
+</nav>
+</section>
+ 
+
+<section class="about_section">
+	<div class="container">
+		<!-- <h6>About Allbusinesses.com.au</h6> -->
+		<h3 class="title_h3">Buy a Business</h3>
+		<p>Starting a business from scratch is tough. Buying an established business for sale in Australia can be the answer. By buying an existing business, you can skip the startup hassle and start making profits right away. Magicbricks helps you find the right business for sale in Melbourne and across Victoria, with plans to expand into other states soon. Our platform simplifies the search process, allowing you to find businesses by industry, location, and price range.</p>
+		<p>With Magicbricks, investing in an Australian business for sale means investing in certainty and a proven formula. Whether you're interested in small businesses or franchises, we can help you find the right opportunity. Buying a business gives you access to systems, clients, inventory, and leases. It's a smart move for any entrepreneur.</p>
+		<p>Melbourne, as Victoria's capital, is a hub for businesses of all sizes. With its pro-business government and favourable taxation, it's a hub for small and start-up companies. Whether you're looking for large corporations or smaller retail operations, Melbourne has options for you.
+Find your perfect business for sale today with Magicbricks.</p>
+	</div>
 </section>
 
-    <?php include PATH . "include/footer.php"; ?>
-</body>
+</div>
+
+<?php include PATH."include/footer.php"; ?>
+    
+<script type="text/javascript">
+    	$(".filter_button").click(function(){
+  $(".top_from").toggleClass("main");
+   $("body").scrollTop(0);
+});  
+    </script>
