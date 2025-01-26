@@ -34,17 +34,28 @@
 			<div class="col-sm-2">
 				<h5>Browse by Capital Cities </h5>	
 				<ul class="site_map">
-					<li><a href="<?php echo URL?>cms/city">Business for Sale Sydney</a></li>
-					<li><a href="<?php echo URL?>cms/city">Business for Sale Melbourne</a></li>
-					<li><a href="#">Business for Sale Brisbane</a></li>
-					<li><a href="#">Business for Sale Adelaide</a></li>
-					<li><a href="#">Business for Sale Perth</a></li>
-					<li><a href="#">Business for Sale Darwin</a></li>
-					<li><a href="#">Business for Sale Hobart</a></li>
-					<li><a href="#">Business for Sale Canberra</a></li>
-					<li><a href="#">Business for Sale Geelong</a></li>
-					<li><a href="#">Business for Sale Newcastle</a></li>
-					<li><a href="#">Business for Sale Gold Coast</a></li>
+                
+                 <?php 
+			$sqlCities="select * from tbl_cities where city_status=1";
+			$resCities=$database->get_results($sqlCities);
+			
+			if (count($resCities)>0)
+			{
+			for ($j=0;$j<count($resCities);$j++)
+			{
+				$rowCities=$resCities[$j];
+				
+				$cityNameLink=htCategoryName($rowCities['city_name']);
+				$cityPostcode=$rowCities['city_postcode'];
+				$cityState=strtolower($rowCities['city_state']);
+				
+		
+		 ?>
+					<li><a href="<?php echo URL?>business-for-sale/<?php echo $cityState; ?>/<?php echo $cityNameLink; ?>">Business for Sale <?php echo $rowCities['city_name']; ?></a></li>
+					
+			<?php }
+			}
+		?>		
 				</ul>
 			</div>
 			<div class="col-sm-2">
@@ -63,21 +74,28 @@
 			<div class="col-sm-2">
 				<h5>Browse by Businesses by category</h5>	
 				<ul class="site_map">
-					<li><a href="#">Accommodation Tourism </a></li>
-					<li><a href="#">Automotive Businesses for sale</a></li>
-					<li><a href="#">Beauty/Health</a></li>
-					<li><a href="#">Education/Training</a></li>
-					<li><a href="#">Food/Hospitality </a></li>
-					<li><a href="#">Franchise</a></li>
-					<li><a href="#">Home/Garden </a></li>
-					<li><a href="#">Import/Export/Wholesale</a></li>
-					<li><a href="#">Industrial/Manufacturing</a></li>
-					<li><a href="#">Leisure/Entertainment</a></li>
-					<li><a href="#">Professional</a></li>
-					<li><a href="#">Retail</a></li>
-					<li><a href="#">Rural</a></li>
-					<li><a href="#">Services</a></li>
-					<li><a href="#">Transport/Distribution</a></li>
+                
+                      <?php 
+			$sqlCategory="select * from tbl_business_category where bc_parent_id=0 and bc_status=1";
+			$resCategory=$database->get_results($sqlCategory);
+			
+			if (count($resCategory)>0)
+			{
+			for ($j=0;$j<count($resCategory);$j++)
+			{
+				$rowCategory=$resCategory[$j];				
+				$categoryNameLink=htCategoryName($rowCategory['bc_name']);
+				
+				
+		
+		 ?>
+                
+					<li><a href="<?php echo URL?><?php echo $categoryNameLink; ?>"><?php echo $rowCategory['bc_name']; ?></a></li>
+                    
+           <?php }
+			}
+		?>
+					
 				</ul>
 			</div>
 		</div>

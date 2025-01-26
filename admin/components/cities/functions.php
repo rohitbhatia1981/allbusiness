@@ -49,27 +49,22 @@
 
 	global $database, $component;
 
-		
-
-		
-
-		
-
 		$names = array(
 
-			'city_name' => $pagetitleEntered, 
-			'city_state' => $pagedescEntered, 
+			'city_name' => $_POST['txtName'], 
+			'city_state' => $_POST['cmbState'], 
+			'city_postcode' => $_POST['txtPostcode'], 
 			'city_status' => 1,
-			'city_page_desc' => $pagemetadescription, 
-			'city_seo_title' => $pagePublishedEntered, //Random thing to insert
-			'city_seo_keywords' => $pagePublishedEntered, //Random thing to insert
-			'city_seo_description' => $category_name,
-			'city_popular' => $blog_add_date
+			'city_page_desc' => $_POST['txtDescription'], 
+			'city_seo_title' => $_POST['txtSEOTitle'], //Random thing to insert
+			'city_seo_keywords' => $_POST['txtSEOKeywords'], //Random thing to insert
+			'city_seo_description' => $_POST['txtSEODesc'],
+			'city_popular' => $_POST['rdoPopular']
 
 		);
 
 		
-		$add_query = $database->insert( 'tbl_blogs', $names );
+		$add_query = $database->insert( 'tbl_cities', $names );
 	
 		$lastInsertedId=$database->lastid();
 
@@ -78,43 +73,29 @@
 		$imageName = $_POST['images4ex'][0];
 
 		$updateimage = array(
-				'blog_image' => $imageName 
+				'city_image' => $imageName 
 				
 			);
 
 		$where_clause = array(
-			'id' => $lastInsertedId
+			'city_id' => $lastInsertedId
 		);
 	
-		$database->update( 'tbl_blogs', $updateimage, $where_clause, 1 );
+		$database->update( 'tbl_cities', $updateimage, $where_clause, 1 );
 	
 		}
 
-		
+		include PATH."update_htacess.php";
 
 		if( $add_query )
 
 		{
 
-			print "<script>window.location='index.php?c=".$component."&Cid=10'</script>";
+			print "<script>window.location='index.php?c=".$component."'</script>";
 
 		}
 
-		
-
-
-
-		
-
-		
-
-		//$resultInsertGroup = $db->query($sqlInsertGroup);
-
-		
-
-		
-
-		
+	
 
 	}
 
@@ -125,7 +106,6 @@
 			{
 
 				global $database;
-
 				
 
 				$sql = "SELECT * FROM tbl_cities where city_id='".$database->filter($id)."'";
@@ -141,97 +121,58 @@
 	
 
 	function saveModificationsOperation()
-
 	{
 
+		global $database,$component;	
+	
+			
+		$update = array(
+
+			'city_name' => $_POST['txtName'], 
+			'city_state' => $_POST['cmbState'], 
+			'city_postcode' => $_POST['txtPostcode'], 
+			'city_status' => 1,
+			'city_page_desc' => $_POST['txtDescription'], 
+			'city_seo_title' => $_POST['txtSEOTitle'], //Random thing to insert
+			'city_seo_keywords' => $_POST['txtSEOKeywords'], //Random thing to insert
+			'city_seo_description' => $_POST['txtSEODesc'],
+			'city_popular' => $_POST['rdoPopular']
+
+		);
+
+		$lastInsertedId=$_POST['id'];
 		
+			$where_clause = array(
+				'city_id' => $lastInsertedId
+			);
 
-			global $database,$component;	
+			$updated = $database->update( 'tbl_cities', $update, $where_clause, 1 );
 
-			
+		if($_POST['images4ex'][0] != "")
+		{			
+		$imageName = $_POST['images4ex'][0];
 
-				$pagetitleEntered = $_POST['blog_title'];
-
-				$pagedescEntered = $_POST['blog_description'];
-
-				$pagemetatitle = $_POST['blog_meta_title'];
-
-				$pagemetakeywords = $_POST['blog_meta_keywords'];
-
-				$pagemetadescription= $_POST['blog_meta_description'];
-
-				$pagePublishedEntered = $_POST['rdoPublished'];	
-
-				$id=$_POST['blogId'];
-
-				$short_description = $_POST['short_description'];
-
-				$category_name = $_POST['txtCategories'];
-
-				$blog_add_date = date('Y-m-d H:i:s');
-			
-
-			$update = array(
-
-				'blog_title' => $pagetitleEntered, 
-
-				'blog_description' => $pagedescEntered,
-
-				'blog_seo_title' => $pagemetatitle, 
-
-				'blog_seo_keywords' => $pagemetakeywords, 
-
-				'blog_seo_description' => $pagemetadescription, 		
-
-				'blog_status' => $pagePublishedEntered,
-
-				'short_description' => $short_description,
-
-				'blog_categories' => $category_name, 
-
-				'blog_add_date' => $blog_add_date
-
+		$updateimage = array(
+				'city_image' => $imageName 
 				
 			);
 
-//Add the WHERE clauses
-
 		$where_clause = array(
-
-			'id' => $id
-
+			'city_id' => $lastInsertedId
 		);
-		
-
-		 $updated = $database->update( 'tbl_blogs', $update, $where_clause, 1 ); 
-		 $lastInsertedId=$database->lastid();
-
-		 if($_POST['images4ex'][0] != "")
-		 {			
-		 $imageName = $_POST['images4ex'][0];
-		 
-		 
-		 
-		 $updateimage = array(
-				 'blog_image' => $imageName 
-				 
-			 );
-		 
- 
-		 $where_clause = array(
-			 'id' => $id
-		 );
-			$database->update( 'tbl_blogs', $updateimage, $where_clause, 1 );
-		 }
- 
-
+	
+		$database->update( 'tbl_cities', $updateimage, $where_clause, 1 );
+	
+		}	
+			
+		include PATH."update_htacess.php";
 		
 
 		if( $updated )
 
 		{
 
-			print "<script>window.location='index.php?c=".$component."&Cid=10'</script>";
+			print "<script>window.location='index.php?c=".$component."'</script>";
 
 		}
 
@@ -261,7 +202,7 @@
 
 			$update = array(
 
-				'blog_status' => 1
+				'city_status' => 1
 
 			);
 
@@ -271,15 +212,15 @@
 
 			$where_clause = array(
 
-				'id' => $provinceIdToPublish
+				'city_id' => $provinceIdToPublish
 
 			);
 
-			$updated = $database->update( 'tbl_blogs', $update, $where_clause, 1 );
+			$updated = $database->update( 'tbl_cities', $update, $where_clause, 1 );
 
 		}
 
-		
+		include PATH."update_htacess.php";
 
 		if( $updated )
 
@@ -313,7 +254,7 @@
 
 			$update = array(
 
-				'blog_status' => 0
+				'city_status' => 0
 
 			);
 
@@ -323,21 +264,21 @@
 
 			$where_clause = array(
 
-				'id' => $provinceIdToPublish
+				'city_id' => $provinceIdToPublish
 
 			);
 
-			$updated = $database->update( 'tbl_blogs', $update, $where_clause, 1 );
+			$updated = $database->update( 'tbl_cities', $update, $where_clause, 1 );
 
 		}
 
-		
+		include PATH."update_htacess.php";
 
 		if( $updated )
 
 		{
 
-			print "<script>window.location='index.php?c=".$component."&Cid=10'</script>";
+			print "<script>window.location='index.php?c=".$component."'</script>";
 
 		}
 
@@ -369,21 +310,21 @@
 
 			$where_clause = array(
 
-				'id' => $provinceIdToPublish
+				'city_id' => $provinceIdToPublish
 
 			);
 
-			$delete = $database->delete( 'tbl_blogs', $where_clause, 1 );
+			$delete = $database->delete( 'tbl_cities', $where_clause, 1 );
 
 		}
 
-		
+		include PATH."update_htacess.php";
 
 		if( $delete )
 
 		{
 
-			print "<script>window.location='index.php?c=".$component."&Cid=10'</script>";
+			print "<script>window.location='index.php?c=".$component."'</script>";
 
 		}
 

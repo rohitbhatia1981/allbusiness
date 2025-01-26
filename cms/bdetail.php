@@ -56,14 +56,22 @@ include PATH."include/headerhtml.php";
     
     
 <div class="listing_screen">
-	<div class="busiess_tag"><div class="container">Business for Sale - Mornington Businesses for Sale - WILSONS WINE CELLAR</div></div>
+	<div class="busiess_tag"><div class="container">Business for Sale - <?php echo $address; ?></div></div>
  
  <div class="list_detail">
  	<div class="container">
  	<div class="row">
  		<div class="col-sm-8 pe-2 pe-lg-4">
+          <?php if ($rowProp['business_plan_id']==3) { ?>
+            <div class="top_bar" style="background-color: #000">
+				<img class="site_log" src="<?php echo URL?>images/site_logo.jpg">
+				<span><?php echo $rowProp['member_tradingname']; ?></span>
+			</div>	
+            <?php 
+			$styleBorderRadius='style="border-radius:0px !important"';
+			} ?>
  			<div class="product_img">
- 				<img class="detail-image" src="<?php echo $mainImageURL; ?>">
+ 				<img class="detail-image" <?php echo $styleBorderRadius; ?>  src="<?php echo $mainImageURL; ?>">
  				<ul class="share_icon">
  					<li><a href="#"><i class="fa-light fa-bookmark"></i> Save</a></li>
  					<li><a href="#"><i class="fa-solid fa-share-nodes"></i> Share</a></li>
@@ -139,11 +147,14 @@ include PATH."include/headerhtml.php";
                 <?php } ?>
 				
 			</div>
-			<div class="box2">
+			<div class="BusinessSummary">
 				<h4>Description</h4>
+             
 				<?php $propertyDesc=str_replace("\n","<br>",$propertyDesc);	
 					  echo $propertyDesc=str_replace("<br><br><br>","<br>",$propertyDesc);
 				?> 
+            
+               
 			</div>
 					
 					</div>

@@ -24,7 +24,7 @@
 
 		
 
-		$sqlmenuid = "select * from tbl_components where component_option='".$database->filter($_GET['c'])."'";
+		$sqlmenuid = "select * from tbl_components where component_option='".$_GET['c']."'";
 
 			$getmenuid = $database->get_results( $sqlmenuid );
 
@@ -107,25 +107,21 @@
 						<div class="card-body">
 							<div class="e-table">
 
-							<div class="col col-auto mb-4">
-												<div class="form-group w-200">
+							<div class="form-group w-200">
 									
 
-													<div class="ml-auto">
-											<div class="input-group">
-												<input type="text" class="form-control" name="txtSearchByTitle" placeholder="Search by keyword" value="<?php echo $_GET['txtSearchByTitle'];?>">
-												<span class="input-group-btn">
-													<button class="btn btn-light br-tl-0 br-bl-0" >
-														<i class="fa fa-search"></i>
-													</button>
-												</span>
-											</div>
-										</div>			
-												</div>
-											</div>
-
+									<div class="ml-auto">
+							<div class="input-group">
+								<input type="text" class="form-control" name="txtSearchByTitle" placeholder="Search by keyword" value="<?php echo $_GET['txtSearchByTitle'];?>">
+								<span class="input-group-btn">
+									<button class="btn btn-light br-tl-0 br-bl-0" >
+										<i class="fa fa-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>			
+								</div>
 								<div class="table-responsive table-lg mt-3">
-									
 									<table class="table table-bordered border-top text-nowrap" id="example1">
 										<thead>
 											<tr>
@@ -135,9 +131,9 @@
 														<span class="custom-control-label"></span>
 												</label>
 												</th>
-												<th class="border-bottom-0 w-60">Title</th>
+												<th class="border-bottom-0 w-70">Title</th>
+												<th class="border-bottom-0 w-70">Parent</th>
 												<th class="border-bottom-0 w-20">Actions</th>
-												<th class="border-bottom-0 w-20">Popular</th>
 												<th class="border-bottom-0 w-20">Status</th>
 											</tr>
 										</thead>
@@ -163,23 +159,25 @@
 									<td class="align-middle">
 										<label class="custom-control custom-checkbox">
 				
-				<input name="deletes[]" id="chkDelete" onClick="isChecked(this.checked);" class="custom-control-input" value="<?php echo $row['city_id']; ?>" type="checkbox" />			
+				<input name="deletes[]" id="chkDelete" onClick="isChecked(this.checked);" class="custom-control-input" value="<?php echo $row['bc_id']; ?>" type="checkbox"  />			
 											<span class="custom-control-label"></span>
 										</label>
 									</td>
 									<td class="align-middle">
 										<div class="d-flex">
 											<div class="ml-3 mt-1">
-												<!--<h6 class="mb-0 font-weight-semibold"><a href="?c=<?php echo $component?>&task=edit&Cid=<?php echo $menuid['component_headingid']; ?>&id=<?php echo $row['city_id']; ?>"><?php echo $row['blog_title']; ?></a></h6>-->
-												<a href="?c=<?php echo $component?>&task=edit&Cid=<?php echo $menuid['component_headingid']; ?>&id=<?php echo $row['city_id']; ?>"><?php echo $row['city_name']; ?></a>
+												<a href="?c=<?php echo $component?>&task=edit&Cid=<?php echo $menuid['component_headingid']; ?>&id=<?php echo $row['bc_id']; ?>"><?php echo $row['bc_name']; ?></a>
 											</div>
 										</div>
 									</td>
+                                    <td><?php if ($row['bc_parent_id']==0) echo "-"; 
+									else
+									echo getBusinessCategoryName($row['bc_parent_id']);
+									?></td>
 									<td class="align-middle">
 										<div class="btn-group align-top">
-											<button class="btn btn-sm btn-white"  ><a href="?c=<?php echo $component?>&task=edit&Cid=<?php echo $menuid['component_headingid']; ?>&id=<?php echo $row['city_id']; ?>">Edit</a></button>
+											<button class="btn btn-sm btn-white"  ><a href="?c=<?php echo $component?>&task=edit&Cid=<?php echo $menuid['component_headingid']; ?>&id=<?php echo $row['bc_id']; ?>">Edit</a></button>
 											
-
 
 
 											
@@ -187,15 +185,14 @@
 											
 										</div>
 									</td>
-					<td><?php if ($row['city_popular']==1) echo "Yes"; ?></td>
 
 									<td class="align-middle">
 										<div class="btn-group align-top">
-										<?php if($row['city_status'] == 1){ ?>
+										<?php if($row['bc_status'] == 1){ ?>
 
 										<span class="tag tag-green">Enabled</span>
 
-										<?php }else if($row['city_status'] == 0){ ?>
+										<?php }else if($row['bc_status'] == 0){ ?>
 
 										<span class="tag tag-red">Disabled</span>
 
@@ -219,9 +216,9 @@ else
 
 	?>
 
-	<tr >
+	<tr>
 
-		<th class="border-bottom w-10" style="text-align:center;"> - No Record found - </th>
+		<th class="border-bottom-0 w-10" style="text-align:center;"> - No Record found - </th>
 	</tr>
 
 	<?php
@@ -234,7 +231,8 @@ else
 							
 							</tbody>
 											</table>
-<?php
+
+											<?php
 
 $pagingObject->displayLinks_Front(); 
 
@@ -280,7 +278,7 @@ $pagingObject->displayLinks_Front();
 
 	
 
-	$sqlmenuid = "select * from tbl_components where component_option='".$database->filter($_GET['c'])."'";
+	$sqlmenuid = "select * from tbl_components where component_option='".$_GET['c']."'";
 
 			$getmenuid = $database->get_results( $sqlmenuid );
 
@@ -293,7 +291,7 @@ $pagingObject->displayLinks_Front();
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
 	<div class="page-leftheader">
-	<h4 class="page-title">City : <?php if (@count($row)>0) echo 'Edit'; else echo 'Add'; ?></h4>
+	<h4 class="page-title">Category : <?php if (@count($row)>0) echo 'Edit'; else echo 'Add'; ?></h4>
 	</div>
 	<div class="page-rightheader ml-md-auto">
 		<div class=" btn-list">
@@ -325,25 +323,25 @@ $pagingObject->displayLinks_Front();
    <div class="card-body pb-2">
 						
 
-						  <div class="form-group">
-								<label class="form-label">Name</label>
-								<input class="form-control mb-4" type="text" id="txtName" name="txtName" value="<?php echo $row['city_name']?>" required>
+							<div class="form-group">
+								<label class="form-label">Categories Title</label>
+								<input class="form-control mb-4" type="text" name="txtTitle" id="txtTitle" value="<?php echo $row['bc_name']?>" required>
 							</div>
                             
                             <div class="form-group">
-								<label class="form-label">State</label>
+								<label class="form-label">Parent Category</label>
 								
-									<select class="form-control" name="cmbState" id="cmbState" >
-										<option label="Select State"></option>
+									<select class="form-control" name="cmbParent" id="cmbParent" >
+										<option label="Select Parent"></option>
 										<?php
-				$query = "SELECT * FROM tbl_states where state_status=1 order by state_name";
+				$query = "SELECT * FROM tbl_business_category where bc_status=1 and bc_parent_id=0 and bc_id<>'".$row['bc_id']."' order by bc_name";
 				$results = $database->get_results( $query );
 							
 						foreach ($results as $value) {
 
 									?>
 
-								<option value="<?php echo $value['state_name']; ?>"  <?php if($row['city_state'] == $value['state_name']) {	echo 'selected="selected"';}?>  ><?php echo $value['state_name']; ?></option>
+								<option value="<?php echo $value['bc_name']; ?>"  <?php if($row['bc_parent_id'] == $value['bc_id']) {	echo 'selected="selected"';}?>  ><?php echo $value['bc_name']; ?></option>
 
 							<?php	
 
@@ -357,16 +355,13 @@ $pagingObject->displayLinks_Front();
 							
 							</div>
 					
-							<div class="form-group">
-								<label class="form-label">Postcode</label>
-								<input class="form-control mb-4" type="text" id="txtPostcode" name="txtPostcode" value="<?php echo $row['city_postcode']?>" required>
-							</div>
+							
 							
 
 
 							<div class="form-group">
 								<label class="form-label">Description</label>
-								<textarea class="summernote" name="txtDescription" required><?php echo $row['city_page_desc']?></textarea>
+								<textarea class="summernote" name="txtDescription" required><?php echo $row['bc_page_description']?></textarea>
 							</div>
 
 
@@ -375,55 +370,30 @@ $pagingObject->displayLinks_Front();
 			
 							<div class="form-group">
 								<label class="form-label">SEO Meta Title</label>
-								<textarea class="form-control mb-4" name="txtSEOTitle" id="txtSEOTitle" rows="3" ><?php echo $row['city_seo_title']?></textarea> 
+								<textarea class="form-control mb-4" name="txtSEOTitle" id="txtSEOTitle" rows="3" ><?php echo $row['bc_seo_title']?></textarea> 
 							</div>
 							
 							
 							<div class="form-group">
 								<label class="form-label">SEO Meta Keywords</label>
-								<textarea class="form-control mb-4" name="txtSEOKeywords" id="txtSEOKeywords" rows="3" ><?php echo $row['city_seo_keywords']?></textarea> 
+								<textarea class="form-control mb-4" name="txtSEOKeywords" id="txtSEOKeywords" rows="3" ><?php echo $row['bc_seo_keywords']?></textarea> 
 							</div>
 
 							<div class="form-group">
 								<label class="form-label">SEO Meta Description</label>
-								<textarea class="form-control mb-4" name="txtSEODesc" id="txtSEODesc" rows="3" ><?php echo $row['city_seo_description']?></textarea> 
+								<textarea class="form-control mb-4" name="txtSEODesc" id="txtSEODesc" rows="3" ><?php echo $row['bc_seo_description']?></textarea> 
 							</div>
-
-
-						<!-- Image Upload -->
-
-							<div class="form-group">
-								<label class="form-label">Upload Image</label>
-								<div id="images4ex" orakuploader="on"></div>
-							</div>
-
-
-					   <!-- Image Upload -->
-
-			<div class="form-group ">
-						<div class="form-label">Popular</div>
-						<div class="custom-controls-stacked">
-							<label class="custom-control custom-radio">
-								<input type="radio" class="custom-control-input" name="rdoPopular" id="rdoPopular" value="1" <?php if($row['city_popular']=="1" || $row['city_popular']=='') echo 'checked="checked"'; ?>>
-								<span class="custom-control-label">Yes</span>
-							</label>
-							<label class="custom-control custom-radio">
-								<input type="radio" class="custom-control-input" name="rdoPopular" id="rdoPopular" value="0" <?php if($row['city_popular']==0 && $row['city_popular']!='') echo 'checked="checked"'; ?>>
-								<span class="custom-control-label">No</span>
-							</label>
-					
-						</div>
-					</div>
+				
 
 							<div class="form-group ">
 						<div class="form-label">Enabled</div>
 						<div class="custom-controls-stacked">
 							<label class="custom-control custom-radio">
-								<input type="radio" class="custom-control-input" name="rdoPublished" id="rdoPublished" value="1" <?php if($row['city_status']=="1" || $row['city_status']=='') echo 'checked="checked"'; ?>>
+								<input type="radio" class="custom-control-input" name="rdoPublished" id="rdoPublished" value="1" <?php if($row['bc_status']=="1" || $row['bc_status']=='') echo 'checked="checked"'; ?>>
 								<span class="custom-control-label">Yes</span>
 							</label>
 							<label class="custom-control custom-radio">
-								<input type="radio" class="custom-control-input" name="rdoPublished" id="rdoPublished" value="0" <?php if($row['city_status']==0 && $row['city_status']!='') echo 'checked="checked"'; ?>>
+								<input type="radio" class="custom-control-input" name="rdoPublished" id="rdoPublished" value="0" <?php if($row['bc_status']==0 && $row['bc_status']!='') echo 'checked="checked"'; ?>>
 								<span class="custom-control-label">No</span>
 							</label>
 					
@@ -437,46 +407,65 @@ $pagingObject->displayLinks_Front();
 					</div>
 					</div>	
 
-<input type="hidden" name="id" value="<?php echo $row['city_id']?>" />	
+<input type="hidden" name="bc_id" value="<?php echo $row['bc_id']?>" />	
+
+
 
 	</form>					
 								</div>
 
-			<?php if ($row['city_image']!="")
-			 $pImageStr="'".$row['city_image']."'";		 
-			  ?>
-
- <script language="javascript">
-$(document).ready(function(){
-	$('#images4ex').orakuploader({
-		orakuploader : true,
-		orakuploader_path : 'orakuploader/',
-
-		orakuploader_main_path : '../images/cities',
-		orakuploader_thumbnail_path : '../images/cities',
-		
-		orakuploader_use_main : true,
-		orakuploader_use_sortable : true,
-		orakuploader_use_dragndrop : true,
-		
-		orakuploader_add_image : 'orakuploader/images/add.png',
-		orakuploader_add_label : 'Browser for images',
-		
-		orakuploader_resize_to	     : 800,
-		orakuploader_thumbnail_size  : 400,
-		orakuploader_maximum_uploads : 1,
-		orakuploader_attach_images: [<?php echo $pImageStr?>],
-		
-		orakuploader_main_changed    : function (filename) {
-			$("#mainlabel-images").remove();
-			$("div").find("[filename='" + filename + "']").append("<div id='mainlabel-images' class='maintext'>Main Image</div>");
-		}
-
-	});
-});
-</script>	 											
-
 
              <?php } ?>
 
-    
+      <script>
+
+
+	$(document).ready(function(){
+
+	
+
+		
+
+		// City form validation
+
+	
+
+		$("#pages").validate({
+
+			// Rules for form validation
+
+			rules: {
+
+				page_title: {
+
+						required: true
+
+				}				
+
+			},
+
+			// Messages for form validation
+
+			messages: {
+
+				page_title: {
+
+						required: 'Please enter page title'
+
+						
+
+					}				
+
+			}
+
+		});
+
+	
+
+	
+
+	});
+
+	
+
+	</script>  

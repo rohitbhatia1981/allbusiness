@@ -613,9 +613,17 @@ input:focus + label, input:not(:placeholder-shown) + label {
   overflow: hidden; /* Ensures cropping happens cleanly */
 }
 
+.BusinessSummary {
+  padding-top: 20px;
+}
+.BusinessSummary br {
+    display: block;
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
 .detail-image {
   width: 100%; /* Set your desired width */
-  height: 600px; /* Set your desired height */
+  height: 450px; /* Set your desired height */
   object-fit: cover; /* Ensures images fill the container while cropping excess */
   border-radius: 8px; /* Optional: for rounded corners */
   display: block; /* Ensures images behave as block elements */
@@ -700,10 +708,15 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 .copy_right ul li{float: left;}
 .copy_right ul li a{font-size: var(--font-size-14);color:#A3B1CC;text-decoration: none;padding:0 15px;}
 
-
+.listing_screen {
+	margin-left:10%;
+	margin-right:10%;
+}
 .listing_screen .top_banner {
 	background-color: transparent;
 	padding-bottom: 25px;
+	
+	
 } 
 .listing_screen .top_banner .top_from {
 	background-color: transparent;
@@ -935,11 +948,19 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 .about_sections h5{font-size: var(--font-size-27);color: #202124;font-weight: 600;margin-top: 35px;}
 .about_sections p{margin-bottom: 25px;}
 
+
+
+
 @media ( max-width: 1466px ) {
 	.top_navi .navbar-nav li a{
 		padding-left: 15px !important;
   padding-right: 15px !important;
 	}
+	
+	.listing_screen {
+	margin-left:0%;
+	margin-right:0%;
+}
 }
 
 @media ( max-width: 1199px ) {
@@ -958,9 +979,20 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
   display: block; /* Ensures images behave as block elements */
   overflow: hidden; /* Ensures cropping happens cleanly */
 }
+.listing_screen {
+	margin-left:0%;
+	margin-right:0%;
+}
 }
 
 @media ( max-width: 991px ) {
+	
+	
+	.listing_screen {
+	margin-left:0%;
+	margin-right:0%;
+}
+	
 	.top_navi #navbarSupportedContent {
 	background-color: rgba(0,0,0,0.9);
 	position: absolute;
@@ -1121,6 +1153,12 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 .sign_in_right .navbar-toggler .navbar-toggler-icon {
 	transform: scale(0.9);
 } 
+
+.listing_screen {
+	margin-left:0%;
+	margin-right:0%;
+}
+
 .listing_screen .top_banner{padding-top: 22px;padding-bottom: 14px;}
 .listing_screen .top_banner .title_h3 {
 	font-size: 16px;
@@ -1161,4 +1199,133 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 	max-width: 161px;
 } 
 .navbar-light .navbar-brand{padding-top: 0px;}
+}
+
+
+/*UPDATE*/
+
+.buy_business {
+	width: 100%;
+	display: flex;
+}
+.buy_business .left {
+	flex: 0 0 calc(100% - 200px);
+}
+.buy_business .right {
+	width: 200px;
+	flex: 0 0 200px;
+}
+.buy_business .left .buy_business_item {
+	display: inline-block;
+	width:100%;
+}
+.buy_business .left .buy_business_item .top_bar {
+	background-color: #000;
+	margin: -15px -15px 15px -15px;
+	border-radius: 15px 15px 0px 0px;
+	padding: 0 20px;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+}
+.buy_business .left .buy_business_item .top_bar span {
+	font-size: 14px;
+	color: #FFF;
+	font-weight: 500;
+	margin-left: auto;
+} 
+.buy_business .new_listings_bx .item_box {
+	position: relative;
+	padding: 10px 10px 10px 330px;
+	/*min-height: 400px;*/
+}
+.buy_business .new_listings_bx .item_box > img {
+	position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 300px;
+  border-radius: 5px;
+  max-width: 100%;
+}
+.buy_business .new_listings_bx .item_box h3 {
+	font-size: 18px;
+	color: #016BFF;
+	font-weight: bold;
+}
+.buy_business .new_listings_bx .item_box .price_tag {
+	margin-top: 20px;
+	margin-bottom: 18px;
+}
+.buy_business .new_listings_bx .item_box .bottom_bar {
+	/*margin-top: 30px;*/
+}
+.buy_business .new_listings_bx .item_box .bottom_bar .heart_btn {
+	background-color: transparent;
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+	color: #000924;
+	min-height: 35px;
+	display: inline-flex;
+	align-items: center;
+}
+.buy_business .new_listings_bx .item_box .bottom_bar .heart_btn i {
+	margin-right: 6px;
+	font-size: 16px;
+}
+.buy_business .item_box .bottom_bar span {
+	float: right;
+	font-size: 14px;
+	color: #000924;
+	font-weight: 500;
+	padding-top: 8px;
+}
+.buy_business .right .adds_ {
+	float: right;
+} 
+
+
+@media ( max-width: 991px ) {
+	.buy_business .new_listings_bx .item_box{padding: 10px 10px 10px 160px;}
+	.buy_business .new_listings_bx .item_box > img{width: 130px;}
+}
+
+@media ( max-width: 767px ) {
+	.buy_business .right, .buy_business .left {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.buy_business .new_listings_bx .item_box {
+	padding: 0;
+}
+.buy_business .new_listings_bx .item_box > img {
+	width: 100%;
+	position: static;
+	margin-bottom: 20px;
+} 
+.buy_business .left .buy_business_item .top_bar{padding: 0 12px;}
+.buy_business .left .buy_business_item .top_bar span {
+  font-size: 12px;}
+
+  .buy_business .item_box .bottom_bar span{font-size: 11px;}
+  .buy_business .new_listings_bx .item_box .bottom_bar {
+	margin-top: 30px;
+	display: flex;
+	align-items: center;
+}
+.buy_business .new_listings_bx .item_box .bottom_bar .enquire_btn.mb-3 {
+	margin: 0 4px 0 0 !important;
+}
+.buy_business .item_box .bottom_bar span {
+	float: right;
+	font-size: 11px;
+	color: #000924;
+	font-weight: 500;
+	padding-top: 0;
+	margin-left: auto;
+	padding-left: 10px;
+	line-height: normal;
+	float: right;
+	text-align: right;
+}
 }

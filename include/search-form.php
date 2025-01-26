@@ -42,7 +42,7 @@
 				?>
                 
                 
-                    	<div class="option-primary"  data-value="<?php //echo $rowCategories['bc_id'] ?>"><strong><?php echo $rowCategories['bc_name'] ?></strong></div>
+                    	<div class="option"  data-value="<?php echo $rowCategories['bc_id'] ?>" style="background:#e6eaf2"><strong><?php echo $rowCategories['bc_name'] ?></strong></div>
                         
                         <?php
 							$sqlSubcat = "SELECT * FROM tbl_business_category WHERE bc_status = 1 and bc_parent_id='".$rowCategories['bc_id']."' ORDER BY bc_name";

@@ -68,52 +68,31 @@ include PATH."include/headerhtml.php";
 	<div class="container">
 		<h3 class="title_h3 text-center">View businesses by city</h3>
 		<div class="city_list_outbox owl-carousel">
-			<a href="<?php echo URL?>business-for-sale/vic/melbourne" style="text-decoration:none"><div class="city_list_box item" >
-				<img  alt="Business for sale Melbourne" src="<?php echo URL?>images/city-01.png">
-				<h5 style="color:#333">Business for sale <br>Melbourne</h5>
+        
+        <?php 
+			$sqlCities="select * from tbl_cities where city_status=1 and city_popular=1";
+			$resCities=$database->get_results($sqlCities);
+			
+			if (count($resCities)>0)
+			{
+			for ($j=0;$j<count($resCities);$j++)
+			{
+				$rowCities=$resCities[$j];
+				$cityName=htCategoryName($rowCities['city_name']);
+				$cityPostcode=$rowCities['city_postcode'];
+				$cityState=strtolower($rowCities['city_state']);
+				$cityImage=$rowCities['city_image'];
+		
+		 ?>
+        
+			<a href="<?php echo URL?>business-for-sale/<?php echo $cityState; ?>/<?php echo $cityName; ?>" style="text-decoration:none"><div class="city_list_box item" >
+				<img  alt="Business for sale <?php echo $cityName; ?>" src="<?php echo URL?>images/cities/<?php echo $cityImage; ?>">
+				<h5 style="color:#333">Business for sale <br><?php echo $rowCities['city_name'] ?></h5>
 			</div></a>
-            <a href="<?php echo URL?>business-for-sale/nsw/sydney" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Sydney" src="<?php echo URL?>images/city-02.png">
-				<h5 style="color:#333">Business for sale Sydney</h5>
-			</div>
-            </a>
-            <a href="<?php echo URL?>business-for-sale/qld/brisbane" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Brisbane" src="<?php echo URL?>images/city-03.png">
-				<h5 style="color:#333">Business for sale Brisbane</h5>
-			</div>
-            </a>
-            <a href="<?php echo URL?>business-for-sale/wa/perth" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Perth" src="<?php echo URL?>images/city-04.png">
-				<h5 style="color:#333">Business for sale Perth</h5>
-			</div>
-            </a>
-            <a href="<?php echo URL?>business-for-sale/sa/adelaide" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Adelaide" src="<?php echo URL?>images/city-05.png">
-				<h5 style="color:#333">Business for sale Adelaide</h5>
-			</div>
-            </a>
-             <a href="<?php echo URL?>business-for-sale/tas/hobart" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Hobart" src="<?php echo URL?>images/city-06.png">
-				<h5 style="color:#333">Business for sale Hobart</h5>
-			</div>
-            </a>
-            <a href="<?php echo URL?>business-for-sale/act/canberra" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Canberra" src="<?php echo URL?>images/city-07.png">
-				<h5 style="color:#333">Business for sale Canberra</h5>
-			</div>
-            </a>
-            <a href="<?php echo URL?>business-for-sale/nt/darwin" style="text-decoration:none">
-			<div class="city_list_box item">
-				<img alt="Business for sale Darwin" src="<?php echo URL?>images/city-08.png">
-				<h5 style="color:#333">Business for sale <br>Darwin</h5>
-			</div>
-            </a>
+          
+          <?php } 
+			}?>
+           
 		</div>
 	</div>
 </section>
@@ -123,6 +102,9 @@ include PATH."include/headerhtml.php";
 	<div class="container">
 		<h3 class="title_h3 text-center">New listings</h3>
 		<div class="new_listings_row">
+        
+        
+        
         
         
         <?php
@@ -198,7 +180,7 @@ if ($totalProp > 0) {
 		
 ?>  
         
-			<?php include PATH."cms/listing-design.php"; ?>
+			<?php include PATH."cms/listing-design-home-page.php"; ?>
 			
 			
    <?php

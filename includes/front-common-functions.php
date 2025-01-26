@@ -1088,7 +1088,30 @@ function displayDateFormat($mysqlDateTime)
 }
 
 
+function htCategoryName($catName)
+	{
 
+			$categoryName=str_replace(" ","-",$catName);
+			$categoryName=str_replace("/","-",$categoryName);
+			$categoryName=str_replace(",","",$categoryName);
+			$categoryName=str_replace("ä","a",$categoryName);
+			$categoryName=str_replace(".com","",$categoryName);
+			$categoryName=str_replace("|","",$categoryName);
+			$categoryName=str_replace("&amp;","",$categoryName);
+			$categoryName=str_replace("&","",$categoryName);
+			$categoryName=str_replace("---","-",$categoryName);
+			$categoryName=str_replace("--","-",$categoryName);
+			$categoryName=str_replace("'","",$categoryName);
+			$categoryName=str_replace('"',"",$categoryName);
+			$categoryName=str_replace("?","",$categoryName);
+			$categoryName=str_replace("#","",$categoryName);
+			$categoryName=str_replace("!","",$categoryName);
+			$categoryName=str_replace(":","",$categoryName);
+			$categoryName=str_replace("(","-",$categoryName);
+			$categoryName=str_replace(")","-",$categoryName);
+			return urlencode(strtolower($categoryName));
+
+	}
 
 
 ?>
