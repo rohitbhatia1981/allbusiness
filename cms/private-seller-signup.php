@@ -103,7 +103,7 @@ $('#txtPassword').on('focus', function() {
         txtFirstName: { required: true },
         txtLastName: { required: true },
         txtEmail: { required: true, email: true },
-        txtPhone: { required: true, digits: true, minlength: 10, maxlength: 15 },
+       /* txtPhone: { required: true, digits: true, minlength: 10, maxlength: 15 },*/
 		txtPassword: { required: true, minlength: 6, maxlength: 15 },
         txtCompanyName: { required: true },
         txtBusinessTradingName: { required: true },
@@ -115,7 +115,7 @@ $('#txtPassword').on('focus', function() {
         txtFirstName: "Please enter your first name",
         txtLastName: "Please enter your last name",
         txtEmail: "Please enter a valid email address",
-        txtPhone: "Please enter a valid phone number",
+      <!--  txtPhone: "Please enter a valid phone number",-->
         txtCompanyName: "Please enter your company name",
         txtBusinessTradingName: "Please enter your business trading name",
         txtWebsite: "Please enter a valid website URL",

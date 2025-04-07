@@ -84,7 +84,7 @@
 							
 				?>
             
-            	<select class="form-control form-select" name="state">
+            	<select class="form-control form-select" name="state" id="state_cont" onchange="fnGetRegion()">
                    <option value="">Select States</option>
                    <?php if (count($resStates)>0)
 					{
@@ -101,9 +101,21 @@
             
             <div class="col-3">
             
-            	 <select class="form-control form-select" name="region">
-                     <option value="">Select Region</option>
+            <?php /*$sqlRegion="select * from tbl_regions where region_status=1";
+			$resRegion=$database->get_results($sqlRegion);
+			$regionCount=count($resRegion);*/
+			 ?>
+            
+            	 <select class="form-control form-select" name="region" id="region_cont">
+                 
+                     <option value="">All Regions</option>
+                    
+					 
+					 
+                     
                   </select>
+                  
+                 
             
             </div>
             
@@ -160,3 +172,4 @@
              <input type="hidden" name="selectedCategories" id="selectedCategories" value="<?php echo $preSelectedCategories; ?>">
              </form>
 		</div>
+        

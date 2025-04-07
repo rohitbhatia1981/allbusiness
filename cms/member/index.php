@@ -38,9 +38,9 @@
 
 				//print_r($user);
 				
-				unset ($_SESSION['sess_prescriber_id']);
-				unset ($_SESSION['sess_patient_id']);
-				unset ($_SESSION['sess_pharmacy_id']);
+				//unset ($_SESSION['sess_prescriber_id']);
+				//unset ($_SESSION['sess_patient_id']);
+				//unset ($_SESSION['sess_pharmacy_id']);
 
 		            $_SESSION['sess_member_id'] = $user['user_id'];
 

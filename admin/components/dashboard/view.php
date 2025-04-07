@@ -161,10 +161,54 @@ global $database;
 						<!--Row-->
 						<div class="row">
                         
-                        <div class="col-xl-6 col-md-12 col-lg-12">
+                        <div class="col-xl-4 col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-header border-0">
-										<h4 class="card-title">Recent Activity</h4>
+										<h4 class="card-title">New Agency Request</h4>
+										<div class="card-options mr-3">
+											<div> <a href="?c=agency-requests&ty=1" class="btn ripple btn-outline-light dropdown-toggle"> See All  </a>
+												
+											</div>
+										</div>
+									</div>
+									<div class="card-body pt-2">
+										<ul class="timeline ">
+                                        
+                                        
+                                        <?php 
+											$sqlReq="select * from tbl_broker_request order by br_id desc limit 0,6";
+											$resReq=$database->get_results($sqlReq);
+											
+											
+											if (count($resReq)>0)
+											{
+										
+										
+											for ($j=0;$j<count($resReq);$j++)
+											{
+												$rowReq=$resReq[$j];
+										
+										 ?>
+										
+											<li class="primary mt-6">
+												<a  href="?c=agency-requests&ty=1" class="font-weight-semibold fs-14 ml-3">Request for <?php echo "<font style='color:#00F'>".$rowReq['br_trading_name']."</font>"." (".$rowReq['br_first_name']." ".$rowReq['br_last_name']; ?>)</a>
+												<a href="#" class="text-muted float-right fs-13"><?php echo fn_formatDateTime($rowReq['br_date']) ?></a>
+												<!--<p class="mb-0 pb-0 text-muted fs-14 ml-3 mt-1">Mr. Liam Botham has registered as new Patient</p>-->
+											</li>
+                                          
+                                          <?php }
+											}?>
+											
+                                           
+										</ul>
+									</div>
+								</div>
+							</div>
+                            
+                            <div class="col-xl-4 col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header border-0">
+										<h4 class="card-title">Recent Leads</h4>
 										<div class="card-options mr-3">
 											<div> <a href="#" class="btn ripple btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> See All  </a>
 												
@@ -176,7 +220,7 @@ global $database;
                                         
                                         
                                         <?php 
-											$sqlLogs="select * from tbl_logs order by log_id desc limit 0,6";
+											$sqlLogs="select * from tbl_inquiry order by inquiry_id desc limit 0,6";
 											$resLogs=$database->get_results($sqlLogs);
 											
 											if (count($resLogs)>0)
@@ -190,8 +234,8 @@ global $database;
 										 ?>
 										
 											<li class="primary mt-6">
-												<a target="_blank" href="#" class="font-weight-semibold fs-14 ml-3"><?php echo $rowLogs['log_activity']; ?></a>
-												<a href="#" class="text-muted float-right fs-13"><?php echo fn_formatDateTime($rowLogs['log_date_time']) ?></a>
+												<a target="_blank" href="#" class="font-weight-semibold fs-14 ml-3"><?php echo $rowLogs['inquiry_message']; ?></a>
+												<a href="#" class="text-muted float-right fs-13"><?php echo fn_formatDateTime($rowLogs['inquiry_date']) ?></a>
 												<!--<p class="mb-0 pb-0 text-muted fs-14 ml-3 mt-1">Mr. Liam Botham has registered as new Patient</p>-->
 											</li>
                                           
@@ -204,7 +248,7 @@ global $database;
 								</div>
 							</div>
 							
-							<div class="col-xl-6 col-md-12 col-lg-12">
+							<div class="col-xl-4 col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-header border-bottom-0">
 										<h4 class="card-title">Recent Business Added </h4>
@@ -233,7 +277,7 @@ global $database;
 														<tbody>
                                                         
                                                         <?php
-															$sqlBizDash = "select * from tbl_business,tbl_members where business_owner_id=member_id order by business_id desc limit 0,3";
+															$sqlBizDash = "select * from tbl_business where 1 order by business_id desc limit 0,3";
 															$resBizDash=$database->get_results($sqlBizDash);
 															
 															for ($j=0;$j<count($resBizDash);$j++)
@@ -248,13 +292,13 @@ global $database;
 																			&nbsp;
 																		</div>
 																		<div class="mr-3 mt-0 mt-sm-2 d-block">
-																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="?c=business&task=edit&id=<?php echo $rowBiz['business_id']; ?>" style="color:#06F; text-decoration:underline">AB-<?php echo $rowBiz['business_id']; ?></a></h6>
+																			<h6 class="mb-0 fs-13 font-weight-semibold"><a href="?c=business&task=edit&id=<?php echo $rowBiz['business_id']; ?>" style="color:#06F; text-decoration:underline"><?php echo $rowBiz['business_heading']; ?></a></h6>
 																			<div class="clearfix"></div>
-																			<small class="text-muted"><?php echo $rowBiz['business_name']; ?>  <br /> Category: <?php echo getBusinessCategoryName($rowBiz['business_category']); ?></small>
+																			<small class="text-muted">Category: <?php echo getBusinessCategoryName($rowBiz['business_category']); ?></small>
 																		</div>
 																	</div>
 																</td>
-																<td class="text-left fs-13 text-muted"><i class="feather feather-calendar  mr-2"></i><?php echo  date("d/m/Y",strtotime($rowBiz['business_added_date'])); ?></td>
+																
 																
 																<td class="text-left d-flex mt-1">
 																	<a href="?c=business&task=edit&id=<?php echo $rowBiz['business_id']; ?>" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye primary text-primary"></i></a>

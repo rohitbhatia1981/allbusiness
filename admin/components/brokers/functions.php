@@ -1,13 +1,43 @@
 <?php
 function showList() {
     global $database, $page, $pagingObject;
-    $sql = "SELECT * FROM tbl_members WHERE member_type=1";
+   
+$sql = "SELECT * FROM tbl_members WHERE member_type = 1";
 
-    if ($_GET['txtSearchByTitle'] != "") {
-        $sql .= " AND (member_firstname LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_lastname LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_email LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_phone LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%')";
+if (!empty($_GET['txtSearchByTitle'])) {
+    $searchKeyword = $_GET['txtSearchByTitle'];
+    $searchKeywords = explode(' ', trim($searchKeyword)); // Split by space
+
+    if (!empty($searchKeywords)) {
+        $sql .= " AND (";
+
+        $conditions = array();
+        foreach ($searchKeywords as $word) {
+            $word = $database->filter($word); // Sanitize each word
+            $conditions[] = "(member_firstname LIKE '%$word%' 
+                             OR member_lastname LIKE '%$word%' 
+                             OR member_email LIKE '%$word%' 
+                             OR member_phone LIKE '%$word%'						 
+                             OR member_company LIKE '%$word%'
+                             OR member_tradingname LIKE '%$word%')";
+        }
+
+        // Combine all conditions with OR and append to SQL
+        $sql .= implode(' OR ', $conditions);
+        $sql .= ")";
     }
+}
 
-    $sql .= " ORDER BY member_id DESC";
+
+
+   /* if ($_GET['txtSearchByTitle'] != "") {
+        $sql .= " AND (member_firstname LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_lastname LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_email LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_phone LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%' OR member_company LIKE '%" . $database->filter($_GET['txtSearchByTitle']) . "%')";
+    }*/
+
+	if ($_GET['ty']=="")
+    $sql .= " and member_imported=0 ORDER BY member_id DESC";
+	else 
+	$sql .= " and member_imported=1 ORDER BY member_firstname asc";
 
     $pagingObject->setMaxRecords(PAGELIMIT);
     $sql = $pagingObject->setQuery($sql);
@@ -30,6 +60,7 @@ function saveFormValues() {
         'member_phone' => $_POST['txtPhone'],
         'member_company' => $_POST['txtCompany'],
         'member_tradingname' => $_POST['txtTradingName'],
+		'member_crm' => $_POST['cmbCRM'],
         'member_website' => $_POST['txtWebsite'],
         'member_address' => $_POST['txtAddress'],
         'member_ip' => $_SERVER['REMOTE_ADDR'],
@@ -41,8 +72,66 @@ function saveFormValues() {
     );
 
     $add_query = $database->insert('tbl_members', $names);
+	
+	//---------send  email------
+		
+		
+		if ($_POST['ckEmail']==1)
+		{
+		
+					include PATH."include/email-templates/email-template.php";
+					include PATH."mail/sendmail.php";
+		
+				
+					$emailContent="Dear ".$_POST['txtTradingName'].", <br><br>
+					Congratulations! Your agency account on AllBusiness has been approved. You can now log in and start managing your business listings seamlessly.
+					<br><br>
+					Here are your login details:
+					<br><br>
+					Portal URL: <a href='".URL."login'>Click here</a> <br>
+					Username: ".$_POST['txtEmail']." <br>
+					Password: ".$password." <br>
+					<br><br>
+					For security reasons, we recommend changing your password after logging in.
+					<br><br>
+					If you have any questions or need assistance, feel free to reach out to our support team at support@allbusiness.com.au.
+					<br><br>
+					Welcome aboard, and we look forward to working with you!
+					";
+					$headingContent=$emailContent;
+					 $mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+				
+
+				$ToEmail=$_POST['txtEmail'];
+				$FromEmail=ADMIN_FORM_EMAIL;
+				$FromName=FROM_NAME;
+				
+				$SubjectSend="Welcome to AllBusiness – Your Agency Account is Approved!";
+				$BodySend=$mailBody;
+				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+		
+		}
+		
+		
+		$update = array(
+        'br_status' => 2
+   		 );
+
+		$where_clause = array(
+			'br_id' => base64_decode($_POST['rid'])
+		);
+		
+		$updated = $database->update('tbl_broker_request', $update, $where_clause, 1);
+
+
+		
+		
+		//---------end sending verification code in email---
 
     if ($add_query) {
+		if ($_POST['rid']!="")
+		print "<script>window.location='index.php?c=agency-requests&ty=1'</script>";
+		else
         print "<script>window.location='index.php?c=" . $component . "'</script>";
     }
 }

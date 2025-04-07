@@ -26,6 +26,10 @@ if ($_POST['txtEmail']!="" && $_POST['txtPassword']!="")
 					$_SESSION['sess_member_id'] = $rowMemberid['member_id'];					
 					$_SESSION['sess_member_groupid'] = $groupId;
 					
+					if ($groupId==5)
+					$_SESSION['sess_member_tradingname'] = $rowMemberid['member_tradingname'];
+					
+					
 					
 					
 					//

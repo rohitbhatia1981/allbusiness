@@ -37,7 +37,7 @@ if ($_GET['c']!="")
 		<div class="app-sidebar__user">
 			<div class="dropdown user-pro-body text-center">
 				<div class="user-pic">
-					<img src="<?php echo URL?>images/logo.png" alt="" >
+					<img src="<?php echo URL?>images/allbusiness_Logo.svg"  alt="" >
                     
 				</div>
                 <div style="height:20px"></div>

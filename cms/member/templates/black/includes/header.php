@@ -3,10 +3,10 @@
 							<div class="container-fluid">
 								<div class="d-flex">
 									<a class="header-brand" href="#">
-										<img src="<?php echo URL?>images/logo.png" class="header-brand-img desktop-lgo" alt="">
-										<img src="<?php echo URL?>images/logo.png" class="header-brand-img dark-logo" alt="">
-										<img src="<?php echo URL?>images/logo.png" class="header-brand-img mobile-logo" alt="">
-										<img src="<?php echo URL?>images/logo.png" class="header-brand-img darkmobile-logo" alt="">
+										<img src="<?php echo URL?>images/allbusiness_Logo.svg" class="header-brand-img desktop-lgo" alt="">
+										<img src="<?php echo URL?>images/allbusiness_Logo.svg" class="header-brand-img dark-logo" alt="">
+										<img src="<?php echo URL?>images/allbusiness_Logo.svg" class="header-brand-img mobile-logo" alt="">
+										<img src="<?php echo URL?>images/allbusiness_Logo.svg" class="header-brand-img darkmobile-logo" alt="">
 									</a>
 									<div class="app-sidebar__toggle" data-toggle="sidebar">
 										<a class="open-toggle" href="#">
@@ -35,7 +35,7 @@
 										<div class="dropdown profile-dropdown">
 											<a href="#" class="nav-link pr-1 pl-0 leading-none" data-toggle="dropdown">
 												<span>
-													<img src="../admin/templates/black/assets/images/users/16.jpg" alt="img" class="avatar avatar-md bradius">
+													<img src="<?php echo URL?>images/no-image.png" alt="" class="avatar avatar-md bradius">
 												</span>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated">

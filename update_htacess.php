@@ -75,7 +75,7 @@
 
 						if ($bizCatname!="") 					
 
-						$htaccess_str.="RewriteRule  ^".$bizCatname."$ cms/buy-business.php?category=".$bizcatId."&landing=category [L] \n";
+						$htaccess_str.="RewriteRule  ^".$bizCatname."-for-sale$ cms/buy-business.php?category=".$bizcatId."&landing=category [L] \n";
 
 						}
 
@@ -125,7 +125,7 @@ RewriteRule ^business-for-sale/wa$ cms/buy-business.php?state=WA&landing=state [
 
 $htaccess_str
 
-
+RewriteRule ^([^/]+)/vic/melbourne/([0-9]+)/([0-9]+)$ cms/buy-business.php?type=$1&lid=$2&category=$3&landing=city [L,QSA]
 
 #ErrorDocument 404 /pharmahealth/pages/404.php
 
@@ -144,6 +144,7 @@ RewriteRule ^detail-(.*)-(.*)$ cms/news-detail?id=$2 [L]
 RewriteRule  ^private-seller cms/private-seller-signup.php [L,NC,END]
 
 RewriteRule ^login cms/login?id=$2 [L]
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]

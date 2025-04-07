@@ -37,7 +37,7 @@ if ($_GET['c']!="")
 		<div class="app-sidebar__user">
 			<div class="dropdown user-pro-body text-center">
 				<div class="user-pic">
-					<img src="<?php echo URL?>images/logo.png" alt="" >
+					<img src="<?php echo URL?>images/allbusiness_Logo.svg" alt="" >
                     
 				</div>
                 <div style="height:20px"></div>
@@ -45,9 +45,9 @@ if ($_GET['c']!="")
                 <?php if ($_SESSION['sess_member_groupid']==4)
 				$uTypeMember="Private Seller";
 				if ($_SESSION['sess_member_groupid']==5)
-				$uTypeMember="Broker";
+				$uTypeMember=$_SESSION['sess_member_tradingname']."";
 				 ?>
-					<h5 class=" mb-2" style="color:#333"><?php echo $uTypeMember; ?> Account</h5>
+					<h5 class=" mb-2" style="color:#333;padding-top:20px; "><?php echo $uTypeMember; ?> Account</h5>
 					
 				</div>
 			</div>

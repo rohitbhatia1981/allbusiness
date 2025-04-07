@@ -85,7 +85,7 @@
                            
                            					<div class="col-md-12 col-lg-12 col-xl-3">
 														<div class="form-group">
-															<label class="form-label">Search by Invoice Id or Order Id.:</label>
+															<label class="form-label">Search by Invoice Id</label>
 															<div class="input-group">
 																<div class="input-group-prepend">
 																	
@@ -96,7 +96,7 @@
                                                  
                                                  <div class="col-md-12 col-lg-12 col-xl-3">
 														<div class="form-group">
-															<label class="form-label">Search by Patient Name:</label>
+															<label class="form-label">Search by Agency Name:</label>
 															<div class="input-group">
 																<div class="input-group-prepend">
 																	
@@ -159,7 +159,7 @@
                                                 <th width="19%" class="border-bottom-0">Amount Paid</th> 
                                                 <th width="19%" class="border-bottom-0">Paid by</th>                                                
                                                 <th width="18%" class="border-bottom-0">Payment Date</th>
-                                                <th width="17%" class="border-bottom-0">Order Id</th>
+                                                <th width="17%" class="border-bottom-0">Ad Id</th>
                                                 <th width="14%" class="border-bottom-0 w-20">Status</th>
                                                 
                                               
@@ -207,7 +207,7 @@
                                     
                                      <td class="align-middle">
 										
-										<a href="?c=prescriptions&task=detail&id=<?php echo $rowPres['payment_pres_id']?>" style="color:#06F; text-decoration:underline">PH-<?php echo $rowPres['payment_pres_id']?></a>		
+										<!--<a href="?c=prescriptions&task=detail&id=<?php echo $rowPres['payment_pres_id']?>" style="color:#06F; text-decoration:underline"></a>		-->
 											
 									</td>
                                     

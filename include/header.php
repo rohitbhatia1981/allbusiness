@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light top_navi">
   <div class="container">
-    <a class="navbar-brand" href="<?php echo URL?>"><img alt="All Business" width="208px" src="<?php echo URL?>images/allbusiness_Logo.svg"></a>
+    <a class="navbar-brand" href="<?php echo URL?>"><img alt="All Business" width="200px" src="<?php echo URL?>images/allbusiness_Logo.svg"></a>
     <div class="sign_in_right">
     	<a class="sign_in " style="display: none;" href="#">Sign In</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

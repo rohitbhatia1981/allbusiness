@@ -186,11 +186,11 @@
 											<div class="row" style="padding-top:15px">
 												<div class="col-7">
 													<div class="mt-0 text-left">
-														<span class="fs-15 font-weight-semibold">Live</span>
+														<span class="fs-15 font-weight-semibold">Registered</span>
 														<h3 class="mb-0 mt-1 text-success fs-25">
                                                         
                                                          <?php
-													$statsSql = "SELECT * FROM tbl_business where business_status='current'";
+													$statsSql = "SELECT business_id FROM tbl_business where business_status='current' and business_imported=0";
 													$stats = $database->get_results( $statsSql );
 													echo $statsCount = count($stats);
 									
@@ -215,13 +215,16 @@
 											<div class="row" style="padding-top:15px">
 												<div class="col-7">
 													<div class="mt-0 text-left">
-														<span class="fs-15 font-weight-semibold">Sold</span>
-														<h3 class="mb-0 mt-1 text-warning  fs-25">
+														<span class="fs-15 font-weight-semibold">Unregistered</span>
+														<h3 class="mb-0 mt-1 text-success  fs-25">
                                                         
                                                         <?php
-													$statsSql = "SELECT * FROM tbl_business where business_status='sold'";
+													
+													$statsSql = "SELECT business_id FROM tbl_business where business_status='current' and business_imported=1";
 													$stats = $database->get_results( $statsSql );
 													echo $statsCount = count($stats);
+									
+													
 									
 													?>
                                                         

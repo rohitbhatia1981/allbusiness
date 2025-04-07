@@ -37,37 +37,9 @@
             <div id="inquiryModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
             
             
-    <div class="modal-content" style="position: relative; margin: 2% auto; width: 80%; max-width: 500px; background: #fff; padding: 20px; border-radius: 8px;">
-       <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
-
-	
-        <h3>Contact Business Owner</h3>
-        <span id="success-container" style="color:#090;font-size:16px;font-weight:bold;display:none;margin-bottom:100px">Thank you for contacting, your inquiry has been sent to business owner</span>
-      
-        
-        <div id="frmContainer">
-        <p id="modalBusinessTitle" style="font-weight: bold;color:#213960"></p>
-        
-        
-
-        <div class="datail_sidebar">
- 				
- 				<h5><?php if ($rowProp['member_type']==2) echo "Private Seller";
-				else if ($rowProp['member_type']==1) echo $rowProp['member_company']." Broker";
-				?></h5>
- 				<div class="user_info">
- 					<img src="<?php echo URL?>images/mask-group.png">
- 					<h4><?php echo $rowProp['member_firstname']." ".$rowProp['member_lastname']; ?></h4>
- 					<h5><!--0424 415 XXX--><?php echo $rowProp['member_phone']; ?></h5>
- 				</div>
-                
-                
- 				                
-                <?php include PATH."include/inquiry-form.php"; ?>
- 			</div>
-            
-       </div>     
-            
+    <div class="modal-content"  style="position: relative; margin: 2% auto; width: 80%; max-width: 500px; background: #fff; padding: 20px; border-radius: 8px;">
+     <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
+      <div id="modalContent"></div>
     </div>
 </div>
 

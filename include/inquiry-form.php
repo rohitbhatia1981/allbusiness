@@ -1,3 +1,16 @@
+
+<div class="datail_sidebar">
+<h5><?php if ($rowProp['member_type']==2) echo "Private Seller";
+				else if ($rowProp['member_type']==1) echo $rowProp['member_company']." Broker";
+?></h5>
+ 				<div class="user_info">
+ 					<img src="<?php echo URL?>images/mask-group.png">
+ 					<h4><?php echo $rowProp['member_firstname']." ".$rowProp['member_lastname']; ?></h4>
+ 					<?php if ($rowProp['business_imported']==0) { ?>
+                    <h5><!--0424 415 XXX--><?php echo $rowProp['member_phone']; ?></h5>
+                    <?php } ?>
+ 				</div>
+
 <form  id="frmContact" method="POST">
   <div class="form-group">
     <div class="input-container" style="margin-bottom:10px">
@@ -43,3 +56,5 @@
    
    <input type="hidden" id="listingId" name="listingId" value="<?php echo $bid; ?>">
 </form>
+</div>
+

@@ -15,19 +15,51 @@ if ($_GET['landing']!="")
 		
 	} else if ($_GET['landing']=="city")
 	{
-		 $sqlData="select city_name,city_page_desc from tbl_cities where city_postcode='".$database->filter($_GET['lid'])."'";
+		 $sqlData="select city_name,city_page_desc,city_state from tbl_cities where city_postcode='".$database->filter($_GET['lid'])."'";
 		$resData=$database->get_results($sqlData);
 		$rowData=$resData[0];
 		$cityName=$rowData['city_name'];
 		$pageDesc=$rowData['city_page_desc'];
+		$stateName=$rowData['city_state'];
+		
+		
+		
+		
+		
+		if ($_GET['category']!="")
+		{
+		$_GET['selectedCategories']=$_GET['category'];
+		
+		
+		$sqlData="select * from tbl_business_category where bc_id='".$database->filter($_GET['category'])."'";
+		$resData=$database->get_results($sqlData);
+		$rowData=$resData[0];
+		$catName=$rowData['bc_name'];
+		
+		$headingTop=$catName." Businesses for sale in ".$cityName;
+		$headingBottom="Buy a ".$catName." Business  in ".$cityName;
+		
+		$SEO_TITLE="Buy a ".$catName." Businesses for sale in ".$cityName;	
+		
+		
+		}
+		else
+		{
 		$headingTop="Businesses for sale in ".$cityName;
 		$headingBottom="Buy a Business in ".$cityName;
+		
+		$SEO_TITLE="Buy a Business in ".$cityName;	
+		
+		}
+		
+		
+		
 		
 	}
 	
 	else if ($_GET['landing']=="category")
 	{
-		 $sqlData="select * from tbl_business_category where bc_id='".$database->filter($_GET['category'])."'";
+		$sqlData="select * from tbl_business_category where bc_id='".$database->filter($_GET['category'])."'";
 		$resData=$database->get_results($sqlData);
 		$rowData=$resData[0];
 		$catName=$rowData['bc_name'];
@@ -61,6 +93,45 @@ include PATH."include/headerhtml.php";
 
 
  ?>
+ <style>
+ /* Base style for the anchor tag buttons */
+/* Base style for the anchor tag buttons */
+a.btn-custom {
+    display: block; /* Make the button full width */
+    padding: 10px 10px; /* Padding for better spacing */
+    margin-bottom: 10px; /* Margin between buttons */
+    font-size: 13px; /* Font size */
+    font-weight: 500; /* Medium font weight */
+    color: #333 !important; /* Dark text color */
+   
+    border: 1px solid #ccc; /* Slightly darker border */
+    border-radius: 8px; /* Slightly rounded corners */
+    text-align: left; /* Left-aligned text */
+    text-decoration: none; /* Remove underline */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+a.btn-custom:hover {
+    background-color: #e0e0e0; /* Slightly darker background on hover */
+    border-color: #ccc; /* Darker border on hover */
+}
+
+
+/* Hover effect */
+a.btn-custom:hover {
+    background-color: #ADB6DF; /* Light gray background on hover */
+    color: #000; /* Darker text color on hover */
+    border-color: #ccc; /* Slightly darker border on hover */
+}
+
+/* Active/focus effect */
+a.btn-custom:active,
+a.btn-custom:focus {
+    background-color: #e0e0e0; /* Slightly darker background on click/focus */
+    border-color: #bbb; /* Darker border on click/focus */
+}
+</style>
   <body>
 
   	<?php include PATH."include/header.php"; ?>
@@ -118,6 +189,11 @@ include PATH."include/headerhtml.php";
 		if ($_GET['state']!="")
 		{
 		$sqlProp .= "AND business_state='".$database->filter($_GET['state'])."' ";
+		}
+		
+		if ($_GET['region']!="")
+		{
+		$sqlProp .= "AND business_region='".$database->filter($_GET['region'])."' ";
 		}
 		
 		if (!empty($_GET['selectedCategories']) && $_GET['landing']!="category") {
@@ -182,7 +258,14 @@ if ($totalProp > 0) {
             $rowImages = $getImages[0];
             $imageurl = "";                
             if ($rowImages['image_s3'] == "") 
-                $imageurl = URL . "classes/timthumb.php?src=" . URL . "images/business/" . $rowImages['image_local'] . "&w=500&h=300&zc=1";
+			{
+				if ($rowProp['business_imported']==1)
+				$iURL="images/business/i/";
+				else
+				$iURL="images/business/";
+			
+           		 $imageurl = URL . "classes/timthumb.php?src=" . URL . $iURL . $rowImages['image_local'] . "&w=500&h=300&zc=1";
+			}
             else 
                 $imageurl = $rowImages['image_s3'];                
 
@@ -252,6 +335,47 @@ if ($totalProp > 0) {
 </nav>
 </section>
  
+ <?php if ($_GET['landing']=="city") { ?>
+ 	<div class="container">
+    <div class="row" id="business-list">
+        <?php
+        $cityNameLink = htCategoryName($cityName);
+        $stateNameLink = htCategoryName($stateName);
+
+        $sqlbCat = "SELECT * FROM tbl_business_category WHERE bc_status = 1 ORDER BY bc_name";
+        $resbCat = $database->get_results($sqlbCat);
+        $totalItems = count($resbCat);
+        $itemsPerRow = 3;
+        $itemsPerLoad = 15; // 5 rows at a time (5 x 3 = 15 items)
+
+        echo '<div class="row business-rows">'; // Start first visible row
+        for ($k = 0; $k < $totalItems; $k++) {
+            if ($k % $itemsPerRow == 0 && $k != 0) {
+                echo '</div><div class="row business-rows '; 
+                echo ($k < $itemsPerLoad) ? '' : 'd-none'; // Hide rows beyond first 15 items
+                echo '">';
+            }
+
+            $rowbCat = $resbCat[$k];
+            $cName = htCategoryName($rowbCat['bc_name']);
+
+            echo '<div class="col-md-4">';
+            echo '<a class="btn-custom d-block" href="' . URL . $cName . '/' . $stateNameLink . '/' . $cityNameLink . '/' . $postcode . '/' . $rowbCat['bc_id'] . '">' . $rowbCat['bc_name'] . ' business for sale in ' . $cityName . '</a>';
+            echo '</div>';
+        }
+        echo '</div>'; // Close last row
+        ?>
+    </div>
+
+    <?php if ($totalItems > $itemsPerLoad) : ?>
+        <div class="text-center mt-3">
+            <button class="btn btn-primary" id="loadMore">Read More</button>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php } ?>
+
 
 <section class="about_section">
 	<div class="container">
@@ -261,7 +385,10 @@ if ($totalProp > 0) {
 	</div>
 </section>
 
+
+
 </div>
+
 
 
 <?php include PATH."include/footer.php"; ?>
@@ -272,3 +399,20 @@ if ($totalProp > 0) {
    $("body").scrollTop(0);
 });  
     </script>
+    
+   <script>
+$(document).ready(function () {
+    $("#loadMore").on("click", function () {
+        let hiddenRows = $(".business-rows.d-none").slice(0, 5); // Show 5 rows (15 items) at a time
+
+        hiddenRows.removeClass("d-none");
+
+        // If no more hidden rows, remove the button
+        if ($(".business-rows.d-none").length === 0) {
+            $("#loadMore").remove();
+        }
+    });
+});
+
+
+</script>

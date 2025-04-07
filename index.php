@@ -158,7 +158,15 @@ if ($totalProp > 0) {
             $rowImages = $getImages[0];
             $imageurl = "";                
             if ($rowImages['image_s3'] == "") 
-                $imageurl = URL . "classes/timthumb.php?src=" . URL . "images/business/" . $rowImages['image_local'] . "&w=500&h=300&zc=1";
+			{
+				if ($rowProp['business_imported']==1)
+				$iURL="images/business/i/";
+				else
+				$iURL="images/business/";
+			
+           		 $imageurl = URL . "classes/timthumb.php?src=" . URL . $iURL . $rowImages['image_local'] . "&w=500&h=300&zc=1";
+			}
+               
             else 
                 $imageurl = $rowImages['image_s3'];                
 

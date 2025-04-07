@@ -15,15 +15,17 @@
 		//$sql = "SELECT * FROM tbl_pages where 1 order by page_title asc";
 
 
-		$sql = "SELECT payment_id, payment_date, payment_amount,payment_pres_id,payment_status,patient_first_name,patient_middle_name,patient_last_name from tbl_payments, tbl_prescriptions,tbl_patients where pres_id=payment_pres_id and pres_patient_id=patient_id";
+		$sql = "SELECT * from tbl_payments where 1";
 
 		if($_GET['txtSearchByTitle'] != "")
 
 		{
 
-			$sql .= " and (payment_pres_id like '%".$database->filter(str_replace("PH-","",$_GET['txtSearchByTitle']))."%' || payment_pres_id like '%".$database->filter($_GET['txtSearchByTitle'])."%')";
+			$sql .= " and payment_id='".$database->filter($_GET['txtSearchByTitle'])."'";
 
 		}
+		
+		/*
 		
 		if($_GET['txtPatient'] != "")
 
@@ -31,7 +33,7 @@
 
 			$sql .= " and (patient_first_name like '%".$database->filter($_GET['txtPatient'])."%' || patient_middle_name like '%".$database->filter($_GET['txtPatient'])."%' || patient_last_name like '%".$database->filter($_GET['txtPatient'])."%')";
 
-		}
+		}*/
 		
 		if($_GET['txtSDate'] != "")
 

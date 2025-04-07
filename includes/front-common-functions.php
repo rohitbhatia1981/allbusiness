@@ -991,6 +991,17 @@ function getBusinessName($id)
 	return $businessName;
 }
 
+function getAgencyName($id)
+{
+	global $database;
+	
+	$sql="select member_tradingname from tbl_members where member_id='".$database->filter($id)."'";
+	$res=$database->get_results($sql);
+	$row=$res[0];
+	$agencyName=$row['member_tradingname'];
+	return $agencyName;
+}
+
 function generateBusinessLink($id)
 {
 	global $database;
@@ -1112,6 +1123,35 @@ function htCategoryName($catName)
 			return urlencode(strtolower($categoryName));
 
 	}
+
+function formatDescriptionSmart($text, $wordsPerBlock = 50) {
+    // If the text contains \n, assume manual formatting and just replace with <br><br>
+    if (strpos($text, "\n") !== false) {
+        $text = str_replace("\n", "<br><br>", $text);
+        return preg_replace('/(<br>\s*){3,}/', '<br><br>', $text);
+    }
+
+    // Split into sentences
+    $sentences = preg_split('/(?<=[.?!])\s+/', $text, -1, PREG_SPLIT_NO_EMPTY);
+    $formatted = '';
+    $wordCount = 0;
+
+    foreach ($sentences as $sentence) {
+        $formatted .= $sentence . ' ';
+        $wordCount += str_word_count($sentence);
+
+        if ($wordCount >= $wordsPerBlock) {
+            $formatted = rtrim($formatted) . '<br><br>';
+            $wordCount = 0;
+        }
+    }
+
+    // Clean up any extra spacing or extra breaks
+    $formatted = preg_replace('/(<br>\s*){3,}/', '<br><br>', $formatted);
+
+    return trim($formatted);
+}
+
 
 
 ?>

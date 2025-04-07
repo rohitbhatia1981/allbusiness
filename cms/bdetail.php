@@ -1,7 +1,7 @@
 <?php include "../private/settings.php";
 
 $bid=str_replace(".php","",$_GET['id']);
-$sqlProp="select * from tbl_business where business_id='".$database->filter($bid)."' and business_archive=0 and business_active_status='1'";			
+$sqlProp="select * from tbl_business,tbl_members where business_owner_id=member_id and business_id='".$database->filter($bid)."' and business_archive=0 and business_active_status='1'";			
 $getProp=$database->get_results($sqlProp);
 $totalProp=count($getProp);			
 
@@ -34,8 +34,18 @@ $propertyDesc = str_replace("?", "-", $rowProp['business_description']);
 $propertyDesc = str_replace("&amp;", "&", $rowProp['business_description']);
 
 if ($getImages[0]['image_s3'] == "") {
-    $imageurl = URL . "classes/timthumb.php?src=" . URL . "images/business/" . $getImages[0]['image_local'] . "&w=500&h=300&zc=1";
-    $mainImageURL = URL . "images/business/" . $getImages[0]['image_local'];
+	
+	if ($rowImages['image_s3'] == "") 
+			{
+				if ($rowProp['business_imported']==1)
+				$iURL="images/business/i/";
+				else
+				$iURL="images/business/";
+			
+           		 $imageurl = URL . "classes/timthumb.php?src=" . URL . $iURL . $rowImages['image_local'] . "&w=500&h=300&zc=1";
+			}
+	
+    $mainImageURL = URL . $iURL . $getImages[0]['image_local'];
 } else {
     $imageurl = $getImages[0]['image_s3'];
     $mainImageURL = $getImages[0]['image_s3'];
@@ -54,9 +64,9 @@ include PATH."include/headerhtml.php";
 
   	<?php include PATH."include/header.php"; ?>
     
-    
+    <div class="busiess_tag"><div class="container">Business for Sale - <?php echo $address; ?></div></div>
 <div class="listing_screen">
-	<div class="busiess_tag"><div class="container">Business for Sale - <?php echo $address; ?></div></div>
+	
  
  <div class="list_detail">
  	<div class="container">
@@ -150,8 +160,10 @@ include PATH."include/headerhtml.php";
 			<div class="BusinessSummary">
 				<h4>Description</h4>
              
-				<?php $propertyDesc=str_replace("\n","<br>",$propertyDesc);	
-					  echo $propertyDesc=str_replace("<br><br><br>","<br>",$propertyDesc);
+				<?php //$propertyDesc=str_replace("\n","<br>",$propertyDesc);	
+					  //echo $propertyDesc=str_replace("<br><br><br>","<br>",$propertyDesc);
+					  
+					 echo formatDescriptionSmart($propertyDesc);
 				?> 
             
                
@@ -164,19 +176,12 @@ include PATH."include/headerhtml.php";
       
         
         
- 			<div class="datail_sidebar">
- 				<img alt="Site Logo" src="images/site_logo.jpg">
- 				<h5>Advance Business Brokers</h5>
- 				<div class="user_info">
- 					<img src="images/mask-group.png">
- 					<h4>Rick Chang</h4>
- 					<h5>0424 415 XXX</h5>
- 				</div>
-                <span id="success-container" style="color:#090;font-size:16px;font-weight:bold;display:none;margin-bottom:100px">Thank you for contacting, your inquiry has been sent to business owner</span>
-                <div id="frmContainer">
- 				<?php include PATH."include/inquiry-form.php"; ?>
-</div>
- 			</div>
+ 			
+                
+                
+ 				                
+                <?php include PATH."include/inquiry-form.php"; ?>
+ 			
           
  		</div>
  	</div>
@@ -246,3 +251,68 @@ Find your perfect business for sale today with Magicbricks.</p>
 </div>
 
 <?php include PATH."include/footer.php"; ?>
+
+<script src="<?php echo URL?>js/jquery.validate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+<script>
+
+
+
+  $(document).ready(function() {
+	
+    $("#frmContact").validate({
+      rules: {
+        txtName: { required: true },        
+        txtEmail: { required: true, email: true },
+        txtPhone: { required: true, digits: true, minlength: 10, maxlength: 15 },
+		txtMessage: { required: true }
+		
+      },
+      messages: {
+        txtFirstName: "Please enter name",
+      
+        txtEmail: "Please enter a valid email address",
+        txtPhone: "Please enter a valid phone number",
+		txtMessage: "Please enter message",
+       
+      },
+	   errorPlacement: function(error, element) {
+      
+      },
+      highlight: function(element) {
+        $(element).addClass("error-input"); // Optional: Add class to input field with error
+      },
+      unhighlight: function(element) {
+        $(element).removeClass("error-input"); // Remove error class on valid input
+      },
+     
+      submitHandler: function(form) {
+        $("#submitBtn").attr('disabled', 'disabled');
+        $("#submitBtn").html("<i class='fa fa-spinner fa-spin'></i>");
+
+        $.ajax({
+          url: '<?php echo URL?>ajax/send-inquiry.php',
+          type: 'POST',
+          data: $(form).serialize(),
+          success: function(response) {
+            if (response == 1) {
+             $("#success-container").show();
+			 $("#frmContainer").hide();
+			 
+            } else  {
+              $("#error-container").html(response);
+              $("#submitBtn").removeAttr('disabled');
+              $("#submitBtn").html('Submit');
+            }
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+        });
+
+        return false; // Prevent default form submission
+      }
+    });
+  });
+</script>

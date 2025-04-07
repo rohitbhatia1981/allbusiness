@@ -1,4 +1,4 @@
-body{font-family: "Inter", sans-serif;font-size: 16px;}
+body{font-family: 'hvdtrial_brandon_textregular';font-size: 16px;}
 
 :root {
     --font-size-10: 0.625em;  /* 10px / 16 = 0.625em */
@@ -24,9 +24,11 @@ body{font-family: "Inter", sans-serif;font-size: 16px;}
     --font-size-30: 1.875em;  /* 30px / 16 = 1.875em */
     --font-size-35: 2em;  /* 30px / 16 = 1.875em */
 } 
-
+p {
+	font-size:18px;
+	}
 .top_navi .navbar-nav li a {
-	font-size: var(--font-size-18);
+	font-size: var(--font-size-19);
 	font-weight: 500;
 	color: #000924 !important;
 	font-family: 'hvdtrial_brandon_textmedium';
@@ -60,6 +62,9 @@ body{font-family: "Inter", sans-serif;font-size: 16px;}
 .top_navi {
 	min-height: 115px;
 	background-color: #FFF !important;
+}
+.navbar-collapse {
+	padding-top:13px !important
 }
 
 .top_banner{background-color: #F3F3F3;padding-top: 44px;padding-bottom: 69px;}
@@ -150,7 +155,6 @@ body{font-family: "Inter", sans-serif;font-size: 16px;}
         }
 		 .option-primary {
             padding: 8px 12px;
-          
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -709,8 +713,8 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 .copy_right ul li a{font-size: var(--font-size-14);color:#A3B1CC;text-decoration: none;padding:0 15px;}
 
 .listing_screen {
-	margin-left:10%;
-	margin-right:10%;
+	margin-left:15%;
+	margin-right:15%;
 }
 .listing_screen .top_banner {
 	background-color: transparent;
@@ -825,7 +829,8 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 .brokers_banner{background-color: #C9E8F6;padding: 60px 0;}
 .brokers_banner h5{font-size: var(--font-size-18);color: #F7591F;font-weight: bold;}
 .brokers_banner h2 {
-	font-size: var(--font-size-35);
+	font-size: 42px;
+	letter-spacing:0.7px;
 	color: #000924;
 	font-weight: bold;
 	margin: 9px 0 26px 0;
@@ -854,17 +859,44 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 }
 
 
-.exclusive_offer_box{padding-top: 100px;padding-bottom: 100px;}
-.exclusive_offer_box h3{margin:0px 0 32px 0;font-size: var(--font-size-35);color: #000924;font-weight: bold;}
-.exclusive_offer_box h3 span{color: #F7591F;}
-
+.exclusive_offer_box{padding-top: 100px;padding-bottom: 100px; width:80%; margin:auto;}
+.exclusive_offer_box img {
+	margin-left:30px;
+	}
+.exclusive_offer_box .btn-danger{ border-radius:25px;}	
+.exclusive_offer_box h3{margin:0px 0 32px 0;font-size:35px;color: #000924;font-weight: 800; letter-spacing:0.7px}
+.exclusive_offer_box h3 span, .exclusive_offer_box h5 span{color: #F7591F;}
+.exclusive_offer_box h5 { font-weight:800;}
 .link1{font-size: var(--font-size-16);color: #FB5315;font-weight: 600;}
 .exclusive_offer_box .link1{margin-top: 20px;display: inline-block;}
 
-.transparent_pricing{background-color: #F3F3F3;padding-top: 60px;padding-bottom: 60px;}
-.transparent_pricing h3{font-size: var(--font-size-35);color: #000924;font-weight: bold;margin-bottom: 18px;}
+.transparent_pricing{background-color: #213960;padding-top: 70px;padding-bottom: 70px; color:#fff;}
+.transparent_pricing h3{font-size:40px;color: #fff;font-weight: bold;margin-bottom: 15px; letter-spacing:0.7px}
 .transparent_pricing .btn{border-radius: 25px;margin-top: 35px;}
 
+.text-area {
+	padding:70px 0px;
+	}
+.text-area-box {
+	width:80%;
+	margin:auto;
+	}	
+.text-area-box p {
+	padding:15px 0px;
+	}	
+	
+.text-area-box ul li {
+	text-decoration:none;
+	list-style:none;
+	font-size:18px;
+	padding-bottom:18px;
+	}
+	.text-area-box ul li br {
+		padding-bottom:15px;
+		}
+.clear {
+	clear:both;
+	}
 .lets_get{padding-top: 30px;background-color: #fafafa;padding-bottom: 50px;}
 .lets_get .title_h3{margin-bottom: 32px;}
 
@@ -902,8 +934,10 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
   border-radius: 15px;
   background-color: #FFF;
   box-shadow: 0 0 2px rgba(0,0,0,0.1);}
+
   .plan_box_1 h2{font-size: var(--font-size-35);font-weight: bold;color: #000;}
    .plan_box_1 h2 small{font-size: 13px;font-weight: normal;}
+   .plan_box_1 h5 { font-weight:800;}
 .plan_box_1 p{font-size: var(--font-size-14)}
 .plan_box_1 .list_item{margin: 0px;padding: 0px;list-style: none;font-size: var(--font-size-15);color: #050b20;}
 .plan_box_1 .list_item li {
@@ -1041,6 +1075,14 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 	max-width: 100%;
 	margin-bottom: 8px;
 }
+.exclusive_offer_box{padding-top: 70px;padding-bottom: 70px; width:95%; margin:auto;}
+.exclusive_offer_box img {
+	margin-left:0px;
+	}
+.text-area-box {
+	width:95%;
+	margin:auto;
+	}	
 .top_banner .top_from .form-control{font-size: var(--font-size-14);}
 
 .search_box_button .form-control {

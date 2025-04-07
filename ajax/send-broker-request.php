@@ -11,11 +11,13 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!=""  && $_POST['txtPhone']!
 
 			'br_first_name' => $_POST['txtFirstName'], 
 			'br_last_name' => $_POST['txtLastName'],
-			'br_email' => md5($_POST['txtEmail']), 
+			'br_email' => $_POST['txtEmail'], 
 			'br_phone' => $_POST['txtPhone'],	
-			'br_company' => $_POST['txtCompanyName'],	
+			'br_company' => $_POST['txtCompanyName'],
+			'br_director_name' => $_POST['txtDirector'],	
 			'br_website' => $_POST['txtWebsite'],	
-			'br_trading_name' => $_POST['txtBusinessTradingName'],		
+			'br_trading_name' => $_POST['txtBusinessTradingName'],
+			'br_crm' => $_POST['cmbCRM'],		
 			'br_address' => $_POST['txtAddress'],							
 			'br_date' => $curDate
 			

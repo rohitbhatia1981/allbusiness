@@ -29,12 +29,14 @@ global $database;
 						<!--End Page header-->
 
 						<!-- Row -->
+                         <h5>Ads Performance</h5>
 						<div class="row">
 							<div class="col-xl-3 col-lg-6 col-md-12">
 								<div class="card">
-									<a href="index.php?c=business">
+									<a href="index.php?c=b-business">
 										<div class="card-body">
 											<div class="row">
+                                           
 												<div class="col-7">
 													<div class="mt-0 text-left" >
                                                     
@@ -55,7 +57,7 @@ global $database;
 													</div>
 												</div>
 												<div class="col-5">
-													<div class="icon1 bg-danger my-auto  float-right"> <i class="feather feather-users"></i> </div>
+													<div class="icon1 bg-danger my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
 												</div>
 											</div>
 										</div>
@@ -84,7 +86,7 @@ global $database;
 													</div>
 												</div>
 												<div class="col-5">
-													<div class="icon1 bg-primary my-auto  float-right"> <i class="feather feather-box"></i> </div>
+													<div class="icon1 bg-primary my-auto  float-right"> <i class="feather feather-eye"></i> </div>
 												</div>
 											</div>
 										</div>
@@ -114,7 +116,7 @@ global $database;
 													</div>
 												</div>
 												<div class="col-5">
-													<div class="icon1 bg-secondary my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
+													<div class="icon1 bg-secondary my-auto  float-right"> <i class="feather feather-target"></i> </div>
 												</div>
 											</div>
 										</div>
@@ -146,7 +148,7 @@ global $database;
 													</div>
 												</div>
 												<div class="col-5">
-													<div class="icon1 bg-success my-auto  float-right"> <i class="feather feather-file-text"></i> </div>
+													<div class="icon1 bg-success my-auto  float-right"> <i class="feather feather-inbox"></i> </div>
 												</div>
 											</div>
 										</div>
@@ -154,9 +156,128 @@ global $database;
 								</a>
 							</div>
 						</div>
-						<!-- End Row -->
-
+                        
+                        <?php 		
 						
+						if ($_SESSION['sess_member_groupid']==5) { ?>
+						<!-- End Row -->
+                         <h5>Premium and Advanced Ads Credits &nbsp;&nbsp;<a href="?c=b-business&task=upgrade&id=<?php echo $row['business_id']; ?>" class="btn btn-indigo btn-sm mb-1">Buy Ad Credits</a></h5>
+                        <div class="row">
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<div class="mt-0 text-left" >
+                                                    
+                                                    <?php
+													
+													$DaysPremium90=0;
+													$DaysPremium180=0;
+													$DaysAdvanced90=0;
+													$DaysAdvanced180=0;
+													
+													$statsSql = "SELECT * FROM tbl_agency_ads_inventory where inventory_agency_id='".$database->filter($_SESSION['sess_member_id'])."'";
+													$resAdsStats = $database->get_results( $statsSql );
+													//$statsCount = count($stats);
+													if (count($resAdsStats)>0)
+													{
+														$rowAdsStats=$resAdsStats[0];
+														$DaysPremium90=$rowAdsStats['inventory_premium_90'];
+														$DaysPremium180=$rowAdsStats['inventory_premium_180'];
+														$DaysAdvanced90=$rowAdsStats['inventory_advanced_90'];
+														$DaysAdvanced180=$rowAdsStats['inventory_advanced_180'];
+														
+													}
+														?>
+														
+														<span class="fs-16 font-weight-semibold">Premium Ads (90 Days)</span>
+														  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
+														echo $DaysPremium90;
+													
+									
+													?></h3>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<div class="mt-0 text-left" >
+                                                    
+                                                  
+                                                    
+													<span class="fs-16 font-weight-semibold">Premium Ads (180 Days)</span>
+													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
+													echo $DaysPremium180;
+									
+													?></h3>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<div class="mt-0 text-left" >
+                                                    
+                                                    
+                                                    
+													<span class="fs-16 font-weight-semibold">Advanced Ads (90 Days)</span>
+													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
+													echo $DaysAdvanced90;
+									
+													?></h3>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									
+								</div>
+							</div>
+							<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<div class="mt-0 text-left" >
+                                                    
+                                                    
+                                                    
+													<span class="fs-16 font-weight-semibold">Advanced Ads (180 Days)</span>
+													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
+													echo $DaysAdvanced180;
+									
+													?></h3>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+
+						<?php } ?>
 
 						<!--Row-->
 						<div class="row">
@@ -176,8 +297,8 @@ global $database;
                                         
                                         
                                         <?php 
-											$sqlLogs="select * from tbl_logs order by log_id desc limit 0,6";
-											$resLogs=$database->get_results($sqlLogs);
+											$sqlLogs="select * from tbl_inquiry,tbl_business where business_id=`inquiry_listing_id` and business_owner_id='".$database->filter($_SESSION['sess_member_id'])."'  order by inquiry_id desc limit 0,6";  //
+											$resLogs=$database->get_results($sqlLogs); 
 											
 											if (count($resLogs)>0)
 											{
@@ -190,13 +311,18 @@ global $database;
 										 ?>
 										
 											<li class="primary mt-6">
-												<a target="_blank" href="#" class="font-weight-semibold fs-14 ml-3"><?php echo $rowLogs['log_activity']; ?></a>
-												<a href="#" class="text-muted float-right fs-13"><?php echo fn_formatDateTime($rowLogs['log_date_time']) ?></a>
-												<!--<p class="mb-0 pb-0 text-muted fs-14 ml-3 mt-1">Mr. Liam Botham has registered as new Patient</p>-->
+												<span class="font-weight-semibold fs-14 ml-3"><?php echo $rowLogs['inquiry_message']; ?></span>
+												<span class="float-right fs-13"><?php echo fn_formatDateTime($rowLogs['inquiry_date']) ?></span>
+												<p class="mb-0 pb-0 fs-14 ml-3 mt-1">
+    <i class="feather feather-user"></i> <?php echo ucfirst($rowLogs['inquiry_name']); ?> &nbsp;|&nbsp;
+    <i class="feather feather-phone"></i> <?php echo $rowLogs['inquiry_phone']; ?> &nbsp;|&nbsp; 
+    <i class="feather feather-mail"></i> <?php echo $rowLogs['inquiry_email']; ?>
+</p>
+
 											</li>
                                           
                                           <?php }
-											}?>
+											} else echo "No leads received";?>
 											
                                            
 										</ul>

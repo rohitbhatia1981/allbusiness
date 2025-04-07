@@ -98,28 +98,189 @@
 			</div>
 		</div>
 		<!--End Page header-->
+        
+       <div class="row flex-lg-nowrap">
+		<div class="col-12">
+        <div class="row">
+			<div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+                                   
+                                    
+										<div class="card-body">
+											<div class="row">
+												<div class="col-7" style="cursor:pointer" onclick="window.location='?c=brokers'">
+													<div class="mt-0 text-left">
+														<span class="fs-13 font-weight-semibold">Registered</span>
+														<h3 class="mb-0 mt-1 text-success  fs-25">
+                                                        
+                                                        <?php
+													$statsSql = "SELECT * FROM tbl_members where member_imported=0 and member_type=1 ";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
+									
+													?>
+                                                        
+                                                        
+                                                        </h3>
+													</div>
+												</div>
+												<div class="col-5">
+													<div class="icon1 bg-danger-transparent my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
+												</div>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+                            
+                            <div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+                                   
+                                    
+										<div class="card-body">
+											<div class="row">
+												<div class="col-7" style="cursor:pointer" onclick="window.location='?c=brokers&ty=unreg'">
+													<div class="mt-0 text-left">
+														<span class="fs-13 font-weight-semibold">Un-registered</span>
+														<h3 class="mb-0 mt-1 text-orange  fs-25">
+                                                       
+                                                       <?php
+													$statsSql = "SELECT * FROM tbl_members where member_imported=1 and member_type=1 ";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
+									
+													?>
+                                                        
+                                                        
+                                                        </h3>
+													</div>
+												</div>
+												<div class="col-5">
+													<div class="icon1 bg-danger-transparent my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
+												</div>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+                            
+                            <div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+                                   
+                                    
+										<div class="card-body">
+											<div class="row">
+												<div class="col-7" style="cursor:pointer" onclick="window.location='?c=brokers&ty=unreg'">
+													<div class="mt-0 text-left">
+														<span class="fs-13 font-weight-semibold">Active</span>
+														<h3 class="mb-0 mt-1 text-success  fs-25">
+                                                       
+                                                        <?php
+													$statsSql = "SELECT * FROM tbl_members where member_status=1 and member_type=1";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
+									
+													?>
+                                                        
+                                                        
+                                                        </h3>
+													</div>
+												</div>
+												<div class="col-5">
+													<div class="icon1 bg-danger-transparent my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
+												</div>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+                            
+                            <div class="col-xl-3 col-lg-6 col-md-12">
+								<div class="card">
+									
+                                   
+                                    
+										<div class="card-body">
+											<div class="row">
+												<div class="col-7" style="cursor:pointer" onclick="window.location='?c=brokers&ty=unreg'">
+													<div class="mt-0 text-left">
+														<span class="fs-13 font-weight-semibold">Disabled</span>
+														<h3 class="mb-0 mt-1 text-danger  fs-25">
+                                                        <?php
+													$statsSql = "SELECT * FROM tbl_members where member_status=0 and member_type=1";
+													$stats = $database->get_results( $statsSql );
+													echo $statsCount = count($stats);
+									
+													?>
+                                                        
+                                                        
+                                                        </h3>
+													</div>
+												</div>
+												<div class="col-5">
+													<div class="icon1 bg-danger-transparent my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
+												</div>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+                            
+                            
+                         </div>
+                       </div>
+                    </div>
 
 			<!-- Row -->
 	<div class="row flex-lg-nowrap">
 		<div class="col-12">
+        <div class="tab-menu-heading hremp-tabs p-0 ">
+
+        <div class="tabs-menu1">
+
+										<!-- Tabs -->
+
+										<ul class="nav panel-tabs panel-tabs_a">
+
+                                        <li><a href="?c=<?php echo $_GET['c']?>"  <?php if ($_GET['ty']=="") { ?> class="active" <?php } ?> >Registered Brokers</a></li>
+
+										<li ><a href="?c=<?php echo $_GET['c']?>&ty=unreg" <?php if ($_GET['ty']=="unreg") { ?> class="active" <?php } ?>>Un-registered Brokers</a></li>
+                                        
+                                       
+
+											
+
+											
+
+											
+
+										</ul>
+
+									</div>
+
+             </div>
 			<div class="row flex-lg-nowrap">
 				<div class="col-12 mb-3">
 					<div class="e-panel card">
 						<div class="card-body">
 							<div class="e-table">
-							<div class="row">
-                           
-											
-											<div class="col-md-12 col-lg-12 col-xl-3">
+                            	
+                                <div class="row">
+											<div class="col-md-3 col-lg-3 col-xl-3">
 												<div class="form-group">
 													<label class="form-label">Search by Keyword:</label>
 													<input type="text" class="form-control" name="txtSearchByTitle" placeholder="Search by keyword" value="<?php echo $_GET['txtSearchByTitle'];?>">
+                                                    
+                                                    <input type="hidden" class="form-control" name="ty"  value="<?php echo $_GET['ty'];?>">
                                                    
                                                   
 												</div>
 											</div>
 											
-											<div class="col-md-12 col-lg-12 col-xl-1">
+											<div class="col-md-2 col-lg-2 col-xl-2">
 												<div class="form-group mt-5">
 													<button type="submit" class="btn btn-primary btn-block">Search</button>
                                                     
@@ -131,9 +292,10 @@
                                                    <?php } ?>
 												</div>
 											</div>
+                                      </div>
 										</div>
 								<div class="table-responsive table-lg mt-3">
-									<table class="table table-bordered border-top text-nowrap" id="example1">
+									<table class="table table-bordered border-top" id="example1">
 										<thead>
 											<tr>
 												<th width="10%" class="border-bottom-0 wd-5" style="width:10%">
@@ -148,8 +310,8 @@
                                                 <th width="19%" class="border-bottom-0">Company</th>                                                
                                               <th width="13%" class="border-bottom-0">Email</th>                                                
                                               <th width="13%" class="border-bottom-0">Phone</th>
-                                                <th width="13%" class="border-bottom-0">Mobile </th>
-                                                <th width="13%" class="border-bottom-0">Email </th>
+                                              <!--  <th width="13%" class="border-bottom-0">Mobile </th>
+                                                <th width="13%" class="border-bottom-0">Email </th>-->
                                                 <th width="13%" class="border-bottom-0">Registered Date</th>                                               
 											  
 												<th width="9%" class="border-bottom-0 w-20">Status</th>
@@ -204,7 +366,7 @@
 											
 									</td>
                                     
-                                    <td class="align-middle">
+                                    <!--<td class="align-middle">
 										
 												<div class="ml-3 mt-1">
 															<?php if ($row['member_phone_verify']==0) { ?>
@@ -228,7 +390,7 @@
                                                             
 											</div>
 											
-									</td>
+									</td>-->
                                     <td><?php echo displayDateTimeFormat($row['member_regdate']); ?></td>
                                     
                                     
@@ -358,7 +520,7 @@ else
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
 	<div class="page-leftheader">
-	<h4 class="page-title">Broker : <?php if ($_GET['task']=="edit") echo 'Edit'; else if ($_GET['task']=="add") echo 'Add'; else if ($_GET['task']=="detail") echo 'Detail'; ?></h4>
+	<h4 class="page-title">Agency : <?php if ($_GET['task']=="edit") echo 'Edit'; else if ($_GET['task']=="add") echo 'Add'; else if ($_GET['task']=="detail") echo 'Detail'; ?></h4>
 	</div>
 	<div class="page-rightheader ml-md-auto">
 		<div class=" btn-list">
@@ -378,12 +540,40 @@ else
 				<?php
 
 						if ($_GET['task']=="edit")
-
+						{
 						$task="saveedit";
-
+						$firstName=$row['member_firstname'];
+						$lastName=$row['member_lastname'];
+						$email=$row['member_email'];
+						$phone=$row['member_phone'];
+						$company=$row['member_company'];
+						$website=$row['member_website'];
+						$crm=$row['member_crm'];
+						$address=$row['member_address'];
+						$director=$row['member_director'];
+						$tradingName=$row['member_tradingname'];
+						
+						}
 						else
-
+						{
 						$task="save";
+						
+						$sqlReq="select * from tbl_broker_request where br_id='".$database->filter(base64_decode($_GET['request']))."'";
+						$resReq=$database->get_results($sqlReq);
+						$rowReq=$resReq[0];
+						$firstName=$rowReq['br_first_name'];
+						$lastName=$rowReq['br_last_name'];
+						$email=$rowReq['br_email'];
+						$phone=$rowReq['br_phone'];
+						$company=$rowReq['br_company'];
+						$website=$rowReq['br_website'];
+						$crm=$rowReq['br_crm'];
+						$address=$rowReq['br_address'];
+						$director=$rowReq['br_director_name'];
+						$tradingName=$rowReq['br_trading_name'];
+						
+						
+						}
 
 				?>
    <form name="adminForm" id="adminForm" action="?c=<?php echo $component?>&task=<?php echo $task;?>" method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -399,52 +589,90 @@ else
 										<div class="row row-sm">
 											<div class="col-lg-4">
                                             	<label class="form-label">First Name *</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_firstname']?>" name="txtFirstName" required>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $firstName ?>" name="txtFirstName" required>
 											</div>	
                                             
                                             <div class="col-lg-4">
                                             	<label class="form-label">Last Name *</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_lastname']?>" name="txtLastName" required="required">
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $lastName?>" name="txtLastName" required="required">
 											</div>										
 										</div>
                                         
                                         <div class="row row-sm">
                                         	<div class="col-lg-4">
                                             	<label class="form-label">Email Address *</label>
-												<input class="form-control mb-4" placeholder="" type="email" value="<?php echo $row['member_email']?>" name="txtEmail" required="required">
+												<input class="form-control mb-4" placeholder="" type="email" value="<?php echo $email?>" name="txtEmail" required="required">
 											</div>
 											<div class="col-lg-4">
                                             	<label class="form-label">Phone *</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_phone']?>" name="txtPhone" required="required">
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $phone ?>" name="txtPhone" required="required">
 											</div>											
 										</div>
                                         
                                         <div class="row row-sm">
 											<div class="col-lg-4">
-                                            	<label class="form-label">Company</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_company']?>" name="txtCompany" required>
+                                            	<label class="form-label">Company *</label>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $company?>" name="txtCompany" required>
 											</div>	
                                             
                                             <div class="col-lg-4">
-                                            	<label class="form-label">Business Trading Name</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_tradingname']?>" name="txtTradingName">
-											</div>										
-										</div>
-                                        
-                                        <div class="row row-sm">
-											<div class="col-lg-8">
-                                            	<label class="form-label">Address</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_address']?>" name="txtAddress" >
+                                            	<label class="form-label">Website</label>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $website?>" name="txtWebsite" >
 											</div>	
                                             
                                             										
 										</div>
                                         
+                                        
+                                        
                                         <div class="row row-sm">
-											<div class="col-lg-8">
-                                            	<label class="form-label">Broker's Website</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_website']?>" name="txtWebsite" >
+											<div class="col-lg-4">
+                                            	<label class="form-label">Address</label>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $address?>" name="txtAddress" >
 											</div>	
+                                            
+                                            <div class="col-lg-4">
+                                            	<label class="form-label">CRM</label>
+												 <?php
+		$sqlCRM="select * from tbl_crm where crm_status=1";
+		$resCRM=$database->get_results($sqlCRM);
+			
+			
+	?>
+    
+    
+      <select class="form-control form-select" name="cmbCRM" id="cmbCRM" required>
+      <option value="">Select CRM *</option>
+         <?php if (count($resCRM)>0)
+			{
+				for ($j=0;$j<count($resCRM);$j++)
+				{
+					$rowCRM=$resCRM[$j];
+					 ?>
+                <option value="<?php echo $rowCRM['crm_name']; ?>" <?php if ($crm==$rowCRM['crm_name']) echo "selected"; ?>><?php echo $rowCRM['crm_name']; ?></option>
+                <?php } 
+			}
+		?>
+            
+            
+      </select>
+											</div>
+                                            
+                                            										
+										</div>
+                                        
+                                        <div class="row row-sm">
+                                        
+                                        	<div class="col-lg-4">
+                                            	<label class="form-label">Director Name *</label>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $director?>"  name="txtDirector" required >
+											</div>
+                                            
+                                            <div class="col-lg-4">
+                                            	<label class="form-label">Business Trading Name *</label>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $tradingName?>" name="txtTradingName" required>
+											</div>
+											
                                             
                                             										
 										</div>
@@ -515,7 +743,9 @@ else
 					</div>
 					</div>	
 
-<input type="hidden" name="pid" value="<?php echo $row['member_id']?>" />	
+<input type="hidden" name="pid" value="<?php echo $row['member_id']?>" />
+
+<input type="hidden" name="rid" value="<?php echo $_GET['request']?>" />	
 
 	</form>			            
                             	
