@@ -278,19 +278,40 @@ global $database;
                                             
 												<tr class="border-bottom fs-15">
 													<td class="text-center d-flex"><span class="bg-info brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Premium 180 Days</span></td>
-													<td class="font-weight-semibold">8</td>
+													<td class="font-weight-semibold"><?php
+			 $statsSql = "SELECT * FROM tbl_ad_usage 
+             WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."'
+			 and usage_description='Premium 180 Days'";
+			 
+          	$stats = $database->get_results($statsSql);
+			echo $postCount = count($stats);
+?></td>
 													<td class="text-center text-muted"><?php echo $DaysPremium180?></td>
 													
 												</tr>
 												<tr class="border-bottom fs-15">
 													<td class="text-center d-flex"><span class="bg-orange brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Advanced 90 Days</span></td>
-													<td class="font-weight-semibold">4.5</td>
+													<td class="font-weight-semibold"><?php
+			 $statsSql = "SELECT * FROM tbl_ad_usage 
+             WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."'
+			 and usage_description='Advanced 90 Days'";
+			 
+          	$stats = $database->get_results($statsSql);
+			echo $postCount = count($stats);
+?></td>
 													<td class="text-center text-muted"><?php echo $DaysAdvanced90; ?></td>
 													
 												</tr>
 												<tr class="border-bottom fs-15">
 													<td class="text-center d-flex"><span class="bg-orange brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Advanced 180 Days</span></td>
-													<td class="font-weight-semibold">4.5</td>
+													<td class="font-weight-semibold"><?php
+			 $statsSql = "SELECT * FROM tbl_ad_usage 
+             WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."'
+			 and usage_description='Advanced 180 Days'";
+			 
+          	$stats = $database->get_results($statsSql);
+			echo $postCount = count($stats);
+?></td>
 													<td class="text-center text-muted"><?php echo $DaysAdvanced180; ?></td>
 													
 												</tr>
