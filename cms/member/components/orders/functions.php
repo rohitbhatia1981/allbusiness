@@ -74,46 +74,6 @@
 
 		$curDate=date("Y-m-d");
 
-		$names = array(
-
-			'patient_title' => $_POST['txtTitle'], 
-			'patient_first_name' => $_POST['txtFirstName'],
-			'patient_middle_name' => $_POST['txtMiddleName'], 
-			'patient_last_name' => $_POST['txtLastName'],
-			'patient_email' => $_POST['txtEmail'],
-			'patient_password' => $_POST['txtPassword'],
-			'patient_phone' => $_POST['txtPhone'],
-			'patient_gender' => $_POST['cmbGender'],
-			'patient_dob' => $_POST[''],
-			'patient_city' => $_POST['txtCity'],
-			'patient_address1' => $_POST['txtAddress1'],
-			'patient_address2' => $_POST['txtAddress2'],
-			'patient_pharmacy' => $_POST[''],
-			'patient_marketing_emails' => $_POST[''],
-			'patient_registered_date' => $curDate,
-			'patient_ip' => $_SERVER['REMOTE_ADDR'],
-			'patient_kyc' => $_POST['rdoKYC'],
-			'patient_status' => $_POST['rdoPublished']
-
-
-		);
-
-		$add_query = $database->insert( 'tbl_pages', $names );
-
-		
-
-		if( $add_query )
-
-		{
-
-			print "<script>window.location='index.php?c=".$component."&Cid=6'</script>";
-
-		}
-
-		
-
-
-
 		
 
 		

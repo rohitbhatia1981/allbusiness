@@ -140,14 +140,16 @@
 			
 
 
-			<?php
-				$user_sql = "SELECT * FROM tbl_users where user_id=".$_SESSION['user_id'];
-				$user = $database->get_results( $user_sql );
+			<?php 
+				//$user_sql = "SELECT * FROM tbl_users where user_id=".$_SESSION['user_id'];
+				//$user = $database->get_results( $user_sql );
+				
+				
 			?>
 
 
 
-<script>
+<!--<script>
 	$("document").ready(function(){
 		<?php if($_GET['c'] != "managepassword" && $user[0]['updatedpassword'] == 0) { ?>
 			$("#password_alert").show();
@@ -278,4 +280,4 @@
 			window.location=href;
 		});
 	});
-</script>
+</script>-->

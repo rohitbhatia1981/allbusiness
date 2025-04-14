@@ -243,6 +243,7 @@ $number_of_premium_ad_180_total_amount = 0;
 $number_of_advance_ad_90_total_amount = 0;
 $number_of_advance_ad_180_total_amount = 0;
 
+
 // Loop through selected checkboxes
 if (!empty($_POST['selected'])) {
     foreach ($_POST['selected'] as $selected) {
@@ -274,6 +275,7 @@ if (!empty($_POST['selected'])) {
     }
 }
 
+
 // Output or use your totals here
 
 
@@ -288,6 +290,8 @@ echo "Advance 180 Days: {$number_of_advance_ad_180_days} ads, Total \${$number_o
 
 $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_amount+$number_of_advance_ad_90_total_amount+$number_of_advance_ad_180_total_amount;
 
+
+
 		//-----Create Order-------
 		
 		$curDateTime = date("Y-m-d H:i:s"); 
@@ -298,14 +302,17 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 			'ad_premium_90_qty' => $number_of_premium_ad_90_days,			
 			'ad_premium_180_amount' => $number_of_premium_ad_180_total_amount,			
 			'ad_premium_180_qty' => $number_of_premium_ad_180_days,			
-			'ad_advance_90_amount' => $number_of_advance_ad_180_total_amount,
-			'ad_advance_90_qty' => $number_of_advance_ad_180_days,			
+			'ad_advance_90_amount' => $number_of_advance_ad_90_total_amount,
+			'ad_advance_90_qty' => $number_of_advance_ad_90_days,			
 			'ad_advance_180_amount' => $number_of_advance_ad_180_total_amount,
 			'ad_advance_180_qty' => $number_of_advance_ad_180_days,
 			'ad_total_amount' => $sumTotal,
 			'ad_order_date' => $curDateTime
 
 		);	
+		
+	
+		
 
 		$add_query = $database->insert( 'tbl_ads_order', $names );		
 		$lastInsertedId=$database->lastid();

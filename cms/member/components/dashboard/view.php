@@ -27,151 +27,194 @@ global $database;
 							</div>
 						</div>
 						<!--End Page header-->
-
-						<!-- Row -->
-                         <h5>Ads Performance</h5>
-						<div class="row">
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									<a href="index.php?c=b-business">
-										<div class="card-body">
-											<div class="row">
-                                           
-												<div class="col-7">
-													<div class="mt-0 text-left" >
-                                                    
-                                                    <?php
-													//$statsSql = "SELECT * FROM tbl_patients where 1";
-													//$stats = $database->get_results( $statsSql );
-													//$statsCount = count($stats);
-									
-													?>
-                                                    
-														<span class="fs-16 font-weight-semibold">Total Business</span>
-													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
-													$statsSql = "SELECT * FROM tbl_business where business_owner_id='".$database->filter($_SESSION['sess_member_id'])."'";
-													$stats = $database->get_results( $statsSql );
-													echo $statsCount = count($stats);
-									
-													?></h3>
-													</div>
-												</div>
-												<div class="col-5">
-													<div class="icon1 bg-danger my-auto  float-right"> <i class="feather feather-briefcase"></i> </div>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									<a href="index.php?c=brokers">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-7">
-													<div class="mt-0 text-left">
-														<span class="fs-16 font-weight-semibold">Total Views</span>
-														<h3 class="mb-0 mt-1 text-primary  fs-25">
-                                                        
-                                                        <?php
-													/*$statsSql = "SELECT * FROM tbl_members where member_type=1";
-													$stats = $database->get_results( $statsSql );
-													echo $statsCount = count($stats);*/
-													
-									
-													?>0
-                                                        
-                                                        </h3>
-													</div>
-												</div>
-												<div class="col-5">
-													<div class="icon1 bg-primary my-auto  float-right"> <i class="feather feather-eye"></i> </div>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									<a href="index.php?c=private-sellers">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-7">
-													<div class="mt-0 text-left">
-														<span class="fs-16 font-weight-semibold">Total Clicks</span>
-														<h3 class="mb-0 mt-1 text-secondary fs-25">
-                                                        
-                                                         <?php
-													/*$statsSql = "SELECT * FROM tbl_members where member_type=2";
-													$stats = $database->get_results( $statsSql );
-													echo $statsCount = count($stats);*/
-													
-									
-													?>0
-                                                        
-                                                        
-                                                        </h3>
-													</div>
-												</div>
-												<div class="col-5">
-													<div class="icon1 bg-secondary my-auto  float-right"> <i class="feather feather-target"></i> </div>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<a href="index.php?c=messages">
-									<div class="card">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-7">
-													<div class="mt-0 text-left">
-														<span class="fs-16 font-weight-semibold">Leads</span>
-														<h3 class="mb-0 mt-1 text-success fs-25">
-                                                        
-                                                        
-                                                        <?php
-													//$statsSql = "SELECT * FROM tbl_prescriptions where pres_stage>0";
-													//$stats = $database->get_results( $statsSql );
-													//echo $statsCount = count($stats);
-													
-													echo "0";
-									
-													?>
-                                                        
-                                                        
-                                                        </h3>
-													</div>
-												</div>
-												<div class="col-5">
-													<div class="icon1 bg-success my-auto  float-right"> <i class="feather feather-inbox"></i> </div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
                         
-                        <?php 		
-						
-						if ($_SESSION['sess_member_groupid']==5) { ?>
-						<!-- End Row -->
-                         <h5>Premium and Advanced Ads Credits &nbsp;&nbsp;<a href="?c=b-business&task=upgrade&id=<?php echo $row['business_id']; ?>" class="btn btn-indigo btn-sm mb-1">Buy Ad Credits</a></h5>
                         <div class="row">
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<div class="mt-0 text-left" >
-                                                    
-                                                    <?php
+    <div class="col-md-12">
+        <div class="card" style="border: 2px solid #4a90e2; border-radius: 10px;">
+            <div class="card-header border-bottom-0" style="background: linear-gradient(135deg, #4a90e2 0%, #8e54e9 100%);">
+                <h4 class="card-title mb-0" style="color: white; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Ads Overview</h4>
+            </div>
+            <div class="card-body" style="background-color: #f8f9fa;">
+                <div class="panel panel-primary">
+                    <div class="tab-menu-heading p-0" style="background: linear-gradient(to right, #ff9966, #ff5e62);">
+                        <div class="tabs-menu1">
+                            <!-- Tabs -->
+                            <ul class="nav panel-tabs">
+                                <li class=""><a href="#tabApril" class="active" data-toggle="tab" style="color: white; font-weight: bold; ">April</a></li>
+                                <li class=""><a href="#tabPrevious" data-toggle="tab" style="color: white; font-weight: bold;">Previous Month</a></li>
+                                <li><a href="#tabOverall" data-toggle="tab" style="color: white; font-weight: bold;">Overall</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body tabs-menu-body" style="background-color: white; border-radius: 0 0 8px 8px;">
+                        <div class="tab-content">
+
+                            <!-- April Tab -->
+                            <div class="tab-pane active" id="tabApril">
+                                <div class="row mb-0 pb-0">
+                                    <?php
+                                    $statsSql = "SELECT * FROM tbl_business 
+                                        WHERE business_owner_id = '".$database->filter($_SESSION['sess_member_id'])."' 
+                                        AND MONTH(business_added_date) = MONTH(CURDATE()) 
+                                        AND YEAR(business_added_date) = YEAR(CURDATE())";
+                                    $stats = $database->get_results($statsSql);
+                                    $postCount = count($stats);
+                                    ?>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #4a90e2; color: white; box-shadow: 0 4px 8px rgba(74,144,226,0.3);"><?php echo $postCount; ?></span>
+                                        <h5 class="mb-0 mt-3" style="color: #4a90e2;">Posted in <?php echo date("F") ?></h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #2ecc71; color: white; box-shadow: 0 4px 8px rgba(46,204,113,0.3);">
+                                            <?php
+                                            $statsSql = "SELECT * FROM tbl_ad_usage 
+                                                WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."' 
+                                                AND MONTH(usage_date) = MONTH(CURDATE()) 
+                                                AND YEAR(usage_date) = YEAR(CURDATE())";
+                                            $stats = $database->get_results($statsSql);
+                                            echo $postCount = count($stats);
+                                            ?>
+                                        </span>
+                                        <h5 class="mb-0 mt-3" style="color: #2ecc71;">Upgraded Ads</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #e67e22; color: white; box-shadow: 0 4px 8px rgba(230,126,34,0.3);">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #e67e22;">Ad Views</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #f39c12; color: white; box-shadow: 0 4px 8px rgba(243,156,18,0.3);">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #f39c12;">Search Views</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #d35400; color: white; box-shadow: 0 4px 8px rgba(211,84,0,0.3);">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #d35400;">Contact View</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #e74c3c; color: white; box-shadow: 0 4px 8px rgba(231,76,60,0.3);">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #e74c3c;">Leads Received</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Previous Month Tab -->
+                            <div class="tab-pane" id="tabPrevious">
+                                <div class="row mb-0 pb-0">
+                                    <?php
+                                    $statsSql = "SELECT * FROM tbl_business 
+                                        WHERE business_owner_id = '".$database->filter($_SESSION['sess_member_id'])."' 
+                                        AND MONTH(business_added_date) = MONTH(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) 
+                                        AND YEAR(business_added_date) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 MONTH))";
+                                    $stats = $database->get_results($statsSql);
+                                    $postCount = count($stats);
+                                    ?>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #4a90e2; color: white;"><?php echo $postCount; ?></span>
+                                        <h5 class="mb-0 mt-3" style="color: #4a90e2;">Posted in <?php echo date("F", strtotime("first day of last month")); ?></h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #2ecc71; color: white;">
+                                            <?php
+                                            $statsSql = "SELECT * FROM tbl_ad_usage 
+                                                WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."' 
+                                                AND MONTH(usage_date) = MONTH(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) 
+                                                AND YEAR(usage_date) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 MONTH))";
+                                            $stats = $database->get_results($statsSql);
+                                            echo $postCount = count($stats);
+                                            ?>
+                                        </span>
+                                        <h5 class="mb-0 mt-3" style="color: #2ecc71;">Upgraded Ads</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #e67e22; color: white;">15</span>
+                                        <h5 class="mb-0 mt-3" style="color: #e67e22;">Ad Views</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #f39c12; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #f39c12;">Search Views</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #d35400; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #d35400;">Contact View</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #e74c3c; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #e74c3c;">Leads Received</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Overall Tab -->
+                            <div class="tab-pane" id="tabOverall">
+                                <div class="row mb-0 pb-0">
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #4a90e2; color: white;">
+                                            <?php
+                                            $statsSql = "SELECT * FROM tbl_business 
+                                                WHERE business_owner_id = '".$database->filter($_SESSION['sess_member_id'])."'";
+                                            $stats = $database->get_results($statsSql);
+                                            echo $postCount = count($stats);
+                                            ?>
+                                        </span>
+                                        <h5 class="mb-0 mt-3" style="color: #4a90e2;">Total Ads Posted</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #2ecc71; color: white;">
+                                            <?php
+                                            $statsSql = "SELECT * FROM tbl_ad_usage 
+                                                WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."'";
+                                            $stats = $database->get_results($statsSql);
+                                            echo $postCount = count($stats);
+                                            ?>
+                                        </span>
+                                        <h5 class="mb-0 mt-3" style="color: #2ecc71;">Upgraded Ads</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #e67e22; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #e67e22;">Ad Views</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #f39c12; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #f39c12;">Search Views</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #d35400; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #d35400;">Contact View</h5>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-lg-2 text-center py-5">
+                                        <span class="avatar avatar-md bradius fs-20" style="background-color: #e74c3c; color: white;">0</span>
+                                        <h5 class="mb-0 mt-3" style="color: #e74c3c;">Leads Received</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                        
+                        <div class="container mt-4">
+                        
+                        			<?php
 													
 													$DaysPremium90=0;
 													$DaysPremium180=0;
@@ -191,98 +234,79 @@ global $database;
 														
 													}
 														?>
-														
-														<span class="fs-16 font-weight-semibold">Premium Ads (90 Days)</span>
-														  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
-														echo $DaysPremium90;
-													
-									
-													?></h3>
-													</div>
-												</div>
-												
-											</div>
-										</div>
-									
-								</div>
-							</div>
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<div class="mt-0 text-left" >
-                                                    
-                                                  
-                                                    
-													<span class="fs-16 font-weight-semibold">Premium Ads (180 Days)</span>
-													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
-													echo $DaysPremium180;
-									
-													?></h3>
-													</div>
-												</div>
-												
-											</div>
-										</div>
-									
-								</div>
-							</div>
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<div class="mt-0 text-left" >
-                                                    
-                                                    
-                                                    
-													<span class="fs-16 font-weight-semibold">Advanced Ads (90 Days)</span>
-													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
-													echo $DaysAdvanced90;
-									
-													?></h3>
-													</div>
-												</div>
-												
-											</div>
-										</div>
-									
-								</div>
-							</div>
-							<div class="col-xl-3 col-lg-6 col-md-12">
-								<div class="card">
-									
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<div class="mt-0 text-left" >
-                                                    
-                                                    
-                                                    
-													<span class="fs-16 font-weight-semibold">Advanced Ads (180 Days)</span>
-													  <h3 class="mb-0 mt-1 text-danger  fs-25"><?php
-													echo $DaysAdvanced180;
-									
-													?></h3>
-													</div>
-												</div>
-												
-											</div>
-										</div>
-									
-								</div>
-							</div>
-						</div>
-
-						<?php } ?>
-
-						<!--Row-->
-						<div class="row">
                         
-                        <div class="col-xl-12 col-md-12 col-lg-12">
+                        
+
+  <!-- Account Header -->
+ <div class="row">
+  <!-- Ads Card -->
+  <div class="col-xl-5 col-lg-12 col-md-12">
+								<div class="card">
+									<div class="card-header border-0">
+										<h4 class="card-title">Ad Balance</h4>
+										<div class="card-options mr-3">
+											<a href="?c=b-business&task=upgrade&id=<?php echo $row['business_id']; ?>" class="btn btn-indigo btn-sm mb-1">Buy Ad Credits</a>
+										</div>
+									</div>
+									<div class="table-responsive leave_table fs-13 mt-5">
+										<table class="table mb-0 text-nowrap">
+											<thead class="border-top">
+												<tr>
+													<th class="text-left">Ad Type</th>
+													<th class="text-left">Used</th>
+													<th class="text-center">Available</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+                                            
+                                            	<tr class="border-bottom fs-15">
+													<td class="text-center d-flex"><span class="bg-info brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Premium 90 Days</span></td>
+													<td class="font-weight-semibold">
+                                                    <?php
+			 $statsSql = "SELECT * FROM tbl_ad_usage 
+             WHERE usage_agency_id = '".$database->filter($_SESSION['sess_member_id'])."'
+			 and usage_description='Premium 90 Days'";
+			 
+          	$stats = $database->get_results($statsSql);
+			echo $postCount = count($stats);
+?>
+                                                    </td>
+													<td class="text-center text-muted"><?php echo $DaysPremium90?></td>
+													
+												</tr>
+                                            
+												<tr class="border-bottom fs-15">
+													<td class="text-center d-flex"><span class="bg-info brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Premium 180 Days</span></td>
+													<td class="font-weight-semibold">8</td>
+													<td class="text-center text-muted"><?php echo $DaysPremium180?></td>
+													
+												</tr>
+												<tr class="border-bottom fs-15">
+													<td class="text-center d-flex"><span class="bg-orange brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Advanced 90 Days</span></td>
+													<td class="font-weight-semibold">4.5</td>
+													<td class="text-center text-muted"><?php echo $DaysAdvanced90; ?></td>
+													
+												</tr>
+												<tr class="border-bottom fs-15">
+													<td class="text-center d-flex"><span class="bg-orange brround d-block mr-3 mt-1 h-3 w-3"></span><span class="font-weight-semibold fs-15">Advanced 180 Days</span></td>
+													<td class="font-weight-semibold">4.5</td>
+													<td class="text-center text-muted"><?php echo $DaysAdvanced180; ?></td>
+													
+												</tr>
+												
+											</tbody>
+										</table>
+									</div>
+									
+								</div>
+							</div>
+                            
+                            
+                            
+                            <!--- 7 cols--->
+                            
+                            <div class="col-xl-7 col-md-12 col-lg-12">
 								<div class="card">
 									<div class="card-header border-0">
 										<h4 class="card-title">Recent Leads</h4>
@@ -329,18 +353,20 @@ global $database;
 									</div>
 								</div>
 							</div>
-							
-							
+                            
+                            
 						</div>
-						<!-- End Row -->
 
-						<!--Row-->
-						
-						<!-- End Row-->
 
-						<!--Row-->
-						
-						<!-- End Row-->
+
+  <!-- Action Panel -->
+  
+
+</div>
+
+
+						<!-- Row -->
+                        
 
 
                 

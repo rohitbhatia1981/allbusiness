@@ -24,7 +24,7 @@ if ($_GET['c']!="")
 
 </style>
 <!--aside open-->
-<aside class="app-sidebar">
+<aside class="app-sidebar" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); border-right: 1px solid rgba(0,0,0,0.05);border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);"">
 	<!-- <div class="app-sidebar__logo">
 		<a class="header-brand" href="index.html">
 			<img src="../../assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Dayonelogo">
@@ -33,7 +33,7 @@ if ($_GET['c']!="")
 			<img src="../../assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Dayonelogo">
 		</a>
 	</div> -->
-	<div class="app-sidebar3">
+	<div class="app-sidebar__user">
 		<div class="app-sidebar__user">
 			<div class="dropdown user-pro-body text-center">
 				<div class="user-pic">
@@ -54,7 +54,7 @@ if ($_GET['c']!="")
 		</div>
 
 
-		<ul class="side-menu">
+		<ul class="side-menu" style="padding-top:70px">
         
         <?php
 		if($_GET['c'] == ""){
