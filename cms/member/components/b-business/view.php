@@ -319,7 +319,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
                                     <br /><br />
                                    
                                     <div style="margin-bottom:8px;"><a href="#" ><i class="fe fe fe-eye" style="color:#F60"></i>&nbsp;Live Preview</a></div>
-                                    <div><a href="#" ><i class="fe fe fe-edit" style="color:#F60"></i>&nbsp;Edit Ad</a></div>
+                                    <div><a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" ><i class="fe fe fe-edit" style="color:#F60"></i>&nbsp;Edit Ad</a></div>
                                     
                                     
                                    

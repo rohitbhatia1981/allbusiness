@@ -26,17 +26,19 @@
 
 		}
 		
+		if($_GET['cmbCategory'] != "")
+		{
+
+			$sql .= " and business_category='".$database->filter($_GET['cmbCategory'])."'";
+
+		}
+		
 		/*if($_GET['txtSearchByTitle'] != "")
 		{
 			$sql .= " and (patient_first_name like '%".$database->filter($_GET['txtSearchByTitle'])."%' || patient_middle_name like '%".$database->filter($_GET['txtSearchByTitle'])."%' || patient_last_name like '%".$database->filter($_GET['txtSearchByTitle'])."%' || patient_id like '%".$database->filter($_GET['txtSearchByTitle'])."%' || patient_phone like '%".$database->filter($_GET['txtSearchByTitle'])."%' || patient_email like '%".$database->filter($_GET['txtSearchByTitle'])."%' || patient_phone like '%".$database->filter($_GET['txtSearchByTitle'])."%') ";
 
 		}		
-		if($_GET['cmbCategory'] != "")
-		{
-
-			$sql .= " and patient_kyc='".$database->filter($_GET['cmbCategory'])."'";
-
-		}*/
+		*/
 		$sql .= " order by inquiry_id desc";
 		
 		//print_r($sql);

@@ -131,7 +131,7 @@
                            
 											
 											
-											<div class="col-md-12 col-lg-12 col-xl-3">
+											<div class="col-md-12 col-lg-12 col-xl-2">
 												<div class="form-group">
 													<label class="form-label">From:</label>
                                                     
@@ -142,13 +142,60 @@
 											</div>
                                             
                                             
-                                            <div class="col-md-12 col-lg-12 col-xl-3">
+                                            <div class="col-md-12 col-lg-12 col-xl-2">
 												<div class="form-group">
 													<label class="form-label">To:</label>
                                                     
                                                   
                                                     
 													<input class="form-control fc-datepicker" name="txtEDate" placeholder="" type="date">
+												</div>
+											</div>
+                                            
+                                            <div class="col-md-12 col-lg-12 col-xl-3">
+												<div class="form-group">
+													<label class="form-label">Filter by Category:</label>
+                                                    
+                                                  
+                                                    
+													<?php
+// Fetch categories from the database
+$sqlCategories = "SELECT * FROM tbl_business_category WHERE bc_status = 1 ORDER BY bc_parent_id, bc_name";
+$resCategories = $database->get_results($sqlCategories);
+
+// Function to generate dropdown options recursively
+function generateCategoryOptions($categories, $parent_id = 0, $indent = '') {
+    $options = '';
+    foreach ($categories as $category) {
+        if ($category['bc_parent_id'] == $parent_id) {
+            // Add the category as an option
+			if ($parent_id==0)
+			$cssCls='parent';
+			else
+			$cssCls='child';
+			
+			if ($category['bc_id']==$_GET['cmbCategory'])
+			$selected="selected";
+			else
+			$selected="";
+			
+            $options .= '<option value="' . $category['bc_id'] . '" class="'.$cssCls.'" '.$selected.' >' . $indent . $category['bc_name'] . '</option>';
+            // Recursively add subcategories
+            $options .= generateCategoryOptions($categories, $category['bc_id'], $indent . '&nbsp;&nbsp;');
+        }
+    }
+    return $options;
+}
+
+// Generate dropdown options
+$dropdownOptions = generateCategoryOptions($resCategories);
+?>
+
+<select name="cmbCategory" class="form-control " data-placeholder="All">
+    <option label="All"></option>
+    <?php echo $dropdownOptions; ?>
+</select>
+
 												</div>
 											</div>
                                             
@@ -218,7 +265,9 @@
 									<div class="card-body pb-0 pt-3">
 										<div>
 											<label class="form-label mb-0"><?php echo $row['inquiry_message']; ?></label>
-											<p class="" style="font-weight:<?php echo $readStatus?>">Business id: <a href="?c=b-business&task=edit&id=<?php echo $row['business_id']?>" style="color:#09C">AB-<?php echo $row['business_id']; ?></a>, dt: <?php echo displayDateFormat($row['inquiry_date']); ?></p>
+											<p class="" style="font-weight:<?php echo $readStatus?>">Business id: <a href="?c=b-business&task=edit&id=<?php echo $row['business_id']?>" style="color:#09C">AB-<?php echo $row['business_id']; ?></a>, dt: <?php echo displayDateFormat($row['inquiry_date']); ?><br />
+                                            Category: <strong><?php echo getBusinessCategoryName($row['business_category']); ?></strong>
+                                            </p>
 										</div>
 									</div>	
 												
@@ -231,9 +280,19 @@
 										
 												
 												
-												Name: <?php echo $row['inquiry_name']; ?> <br />
-                                                Email: <?php echo $row['inquiry_email']; ?> <br />
-                                                Phone: <?php echo $row['inquiry_phone']; ?>
+												<p>
+    <i class="feather feather-user sidemenu_icon me-2"></i>
+    <?php echo $row['inquiry_name']; ?>
+</p>
+<p>
+    <i class="feather feather-mail sidemenu_icon me-2"></i>
+    <?php echo $row['inquiry_email']; ?>
+</p>
+<p>
+    <i class="feather feather-phone sidemenu_icon me-2"></i>
+    <?php echo $row['inquiry_phone']; ?>
+</p>
+
 												
 												
 												
