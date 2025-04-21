@@ -226,7 +226,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 											</div>
 										</div>
                                         <?php if ($_GET['payment']==1 && $_SESSION['sessListingId']!="") { ?>
-                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<i class="fa fa-check-circle-o mr-2" aria-hidden="true"></i> Thank you for making payment, your Listing ID: AB-<?php echo $_SESSION['sessListingId']; ?> is upgraded and Live.</div>
                                         <?php 
 											unset($_SESSION['sessListingId']);
@@ -1332,7 +1332,7 @@ $(document).ready(function () {
         return $('input[name="rdAddressDisp[]"]:checked').length > 0;
     }, "*");
 
-    // ðŸ‘‡ Define validator instance so it's accessible outside
+    // 👇 Define validator instance so it's accessible outside
     var validator = $("#adminForm").validate({
         rules: {
             txtAddress: "required",
@@ -1360,7 +1360,7 @@ $(document).ready(function () {
         }
     });
 
-    // ðŸ‘‡ Draft button - bypass validation
+    // 👇 Draft button - bypass validation
     $(".btn-draft").on("click", function (e) {
         e.preventDefault(); // prevent default button behavior
 
@@ -2215,7 +2215,7 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
 													else if ($rowGP['pg_option']==3)
 													{									
 												 ?>
-                                                	<tr><td colspan=2>I donâ€™t know my GP Practice details</td></tr>
+                                                	<tr><td colspan=2>I don’t know my GP Practice details</td></tr>
                                                     
                                                     
                                                     <?php }
@@ -2896,78 +2896,13 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
         <p style="font-size:18px; color:#F6591F">Net Total to Pay: <strong>$<span id="net-total">0</span></strong></p>
         
       
-        <button class="btn btn-primary mt-3 w-100" id="submitBtn" disabled="disabled" type="button">Review and Submit</button>
-
+        <button class="btn btn-primary mt-3 w-100" id="submitBtn" disabled="disabled" type="submit">Review and Submit</button>
       </div>
     </div>
   </div>
 </div>
 
 </form>
-
-
-<!-- Terms and Conditions Modal -->
-<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <form id="confirmForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="termsModalLabel">Terms & Conditions – Ad Package Order for Magicbricks</h5>
-          <button type="button" class="close" onclick="closeModal_terms()" aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-        </div>
-        <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
-         <p><strong>1. Order Confirmation</strong><br>
-You are placing a confirmed order for the selected advertising package(s) on Magicbricks as per the choices made above.</p>
-
-<p><strong>2. Billing & Invoicing</strong><br>
-- All orders submitted through this form are considered <strong>firm and billable</strong>.<br>
-- An official invoice will be raised at the <strong>end of each calendar month</strong> based on the confirmed ad packages selected.<br>
-- The invoice will include all applicable taxes and breakdowns.</p>
-
-<p><strong>3. Payment Obligation</strong><br>
-- Full payment is <strong>due within 7 days</strong> of invoice generation.<br>
-- Delays in payment beyond this period may result in temporary suspension of further ad credits or campaigns.</p>
-
-<p><strong>4. Cancellation Policy</strong><br>
-- Once the order is submitted, <strong>it cannot be cancelled</strong>.<br>
-- In case of any disputes, the agency must contact us within <strong>48 hours</strong> of invoice generation.</p>
-
-<p><strong>5. Usage and Activation</strong><br>
-- Ad packages will be activated and credits allotted to your agency account once the order is processed internally.<br>
-- It is your responsibility to utilize the ad credits within their validity period (e.g., 90 or 180 days, as selected).</p>
-
-<p><strong>6. Non-Transferability</strong><br>
-- Ordered ad packages are non-transferable and can only be used by the agency account that placed the order.</p>
-
-<p><strong>7. Acceptance and Agreement</strong><br>
-By checking the box and clicking <strong>"Accept & Submit"</strong>, you confirm that:<br>
-- You are authorized to place this order on behalf of your agency.<br>
-- You understand and accept the obligation to pay as per the terms mentioned above.<br>
-- You agree to abide by Magicbricks' standard policies regarding ad content and platform usage.</p>
-        </div>
-        <div class="modal-footer">
-          <div class="form-check me-auto">
-            <input class="form-check-input" type="checkbox" id="agreeCheck">
-            <label class="form-check-label" for="agreeCheck">I agree to the terms and conditions</label>
-          </div>
-          <button type="submit" id="finalSubmitBtn" class="btn btn-primary" disabled>Accept & Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<script language="javascript">
-	function closeModal_terms()
-					{
-						 $('#termsModal').modal('hide');
-					
-					}
-</script>
-
-
  
 <?php } else { ?>
 
@@ -3017,26 +2952,6 @@ By checking the box and clicking <strong>"Accept & Submit"</strong>, you confirm
 
     $('.price-check, .price-check2').on('change', updateTotals);
   });
-  
-  
-  $(document).ready(function () {
-  // Show modal on clicking submitBtn
-  $("#submitBtn").on("click", function () {
-    $("#termsModal").modal("show");
-  });
-
-  // Enable Accept & Submit only when checkbox is checked
-  $("#agreeCheck").on("change", function () {
-    $("#finalSubmitBtn").prop("disabled", !this.checked);
-  });
-
-  // On Accept & Submit inside modal
-  $("#confirmForm").on("submit", function (e) {
-    e.preventDefault();
-    $("#termsModal").modal("hide");
-    $("form[action*='task=adorder']")[0].submit(); // Submit original form
-  });
-});
 
 
 </script>
