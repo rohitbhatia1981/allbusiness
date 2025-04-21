@@ -2912,7 +2912,7 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
     <div class="modal-content">
       <form id="confirmForm">
         <div class="modal-header">
-          <h5 class="modal-title" id="termsModalLabel">Terms & Conditions – Ad Package Order for Magicbricks</h5>
+          <h5 class="modal-title" id="termsModalLabel" style="color:#F30; font-size:22px">Terms & Conditions – Ad Package Order for Magicbricks</h5>
           <button type="button" class="close" onclick="closeModal_terms()" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
