@@ -231,6 +231,18 @@ $dropdownOptions = generateCategoryOptions($resCategories);
                                         <?php 
 											unset($_SESSION['sessListingId']);
 										} ?>
+                                        
+                                        
+                                        <h5 style="color:#06C">
+											<?php 
+												if ($_GET['status']==1) echo 'Active Listings';
+												else if ($_GET['status']==2) echo 'Pending Drafts';
+												else if ($_GET['status']==3) echo 'Withdrawn';
+												else if ($_GET['status']==4) echo 'Sold';
+												else if ($_GET['status']==5) echo 'Under Offers';
+											
+											
+											 ?></h5>
 								<div class="table-responsive table-lg mt-3">
 									<table class="table table-bordered border-top text-nowrap" id="example1" width="100%">
 										<thead>
@@ -243,6 +255,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 												</th>
 												<th width="12%" class="border-bottom-0">Ad Image & ID.</th>
                                                 <th width="8%" class="border-bottom-0">Title</th> 
+                                                <th width="11%" class="border-bottom-0">Status</th>
                                                 
                                                 <th width="11%" class="border-bottom-0">Searched</th>
                                                 <th width="12%" class="border-bottom-0">Viewed</th>
@@ -250,7 +263,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
                                                 <th width="11%" class="border-bottom-0">Contact Views</th>
                                                 
 												<th width="11%" class="border-bottom-0">Added Date</th>
-                                                <th width="11%" class="border-bottom-0">Last Bumped Up</th>
+                                                
                                                
                                                                                                
                                               
@@ -315,7 +328,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
                                     <img alt="" src="<?php echo $imageurl; ?>" >
                                     <!--<a href="?c=<?php echo $component?>&task=detail&id=<?php echo $row['patient_id']; ?>"><?php echo $row['patient_id'] ?></a>-->
                                     <div style="height:10px"></div>
-                                    ID: <a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" style="color:#06F; text-decoration:underline">AB-<?php echo $row['business_id'] ?></a>
+                                    ID: <a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" style="color:#06F; text-decoration:underline"><?php echo $row['business_id'] ?></a>
                                     <br /><br />
                                    
                                     <div style="margin-bottom:8px;"><a href="#" ><i class="fe fe fe-eye" style="color:#F60"></i>&nbsp;Live Preview</a></div>
@@ -344,7 +357,7 @@ $shortTitle = mb_substr($fullTitle, 0, 45) . (strlen($fullTitle) > 45 ? '...' : 
                                     <span class="badge bg-grey-transparent">Basic Ad</span>
                                     <?php } ?>
                                     
-                                     <?php if ($row['business_plan_id']==2) { ?>
+                                     <?php if ($row['business_plan_id']==2 ) { ?>
                                     <span class="badge bg-orange-transparent">Advanced Ad</span>
                                     	<?php if ($row['business_plan_expiry_date']!="") { ?> 
                                     		| <font style="font-size:14px">Expiry date: <?php echo fn_GiveMeDateInDisplayFormat($row['business_plan_expiry_date']); ?></font>
@@ -357,17 +370,18 @@ $shortTitle = mb_substr($fullTitle, 0, 45) . (strlen($fullTitle) > 45 ? '...' : 
                                     <?php } ?>
                                     </div>
                                     <br /><br />
-                                    <?php if ($row['business_plan_id']<3) { ?>
+                                    <?php if ($row['business_plan_id']<3 && $row['business_status']=="current" ) { ?>
                                     <a href="#" data-toggle="modal" data-target="#newModel" data-id="<?php echo base64_encode($row['business_id'])?>" data-name="Premium" class="btn btn-indigo btn-sm mb-1">Upgrade to Premium</a> &nbsp;&nbsp;
                                     <?php } ?>
                                     
-                                    <?php if ($row['business_plan_id']==1) { ?>
+                                    <?php if ($row['business_plan_id']==1 && $row['business_status']=="current") { ?>
                                     
                                      <a href="#" data-toggle="modal" data-target="#newModel" data-id="<?php echo base64_encode($row['business_id'])?>" data-name="Adavnced" class="btn btn-orange btn-sm mb-1">Upgrade to Advanced</a> 
                                     <?php } ?>
                                    <!-- <br />
                                     <font style="color:#999"><?php echo getBusinessCategoryName($row['business_subcat']); ?></font>-->
                                     </td>
+                                    <td style="font-weight:bold"><?php if ($row['business_status']=="current") echo "Active"; else echo ucfirst($row['business_status']);  ?></td>
                                     
                                      <td><?php echo $row['business_stats_searched']; ?></td>
                                                 <td><?php echo $row['business_stats_viewed']; ?></td>
@@ -375,7 +389,7 @@ $shortTitle = mb_substr($fullTitle, 0, 45) . (strlen($fullTitle) > 45 ? '...' : 
                                                 <td><?php echo $row['business_stats_contact_viewed']; ?></td>
                                                 
 												<td><?php echo  date("d/m/Y",strtotime($row['business_added_date'])); ?></td>
-                                                <td>-</td>
+                                               
                                                 
                                     
                                     
@@ -595,18 +609,31 @@ else
     <form name="adminForm" id="adminForm" action="?c=<?php echo $component?>&task=<?php echo $task;?>" method="post" class="form-horizontal">
    
   <!-- Step Navigation -->
-  <div class="step-navigation mb-4">
-    <button type="button" class="btn btn-primary step-btn active" data-step="1">Step 1</button>
-    <button type="button" class="btn btn-outline-primary step-btn" data-step="2">Step 2</button>
-  </div>
+ 
   
   <!-- Step 1 Content -->
   <div class="step-content" id="step-1">
-    <h3>Step 1: Business Information</h3> 						
+   					
     <div class="card mt-4">
       <h4 class="dash-title-three mb-4" style="padding:10px; background-color:#069; color:#FFF">Business Summary</h4>
       <div class="card-body">
-       
+      
+      <?php if ($_GET['task']=="edit") { ?>
+       <div class="row" style="padding-top:15px">
+            <div class="col-lg-4">
+                <label class="form-label">Ad Status *</label>
+                <select class="form-control" name="cmbStatus" id="cmbStatus" required>
+                    <option value="" hidden>Select</option>
+                    <option value="current" <?php if ($rowBusiness['business_status'] == "current") echo "selected"; ?>>Active</option>
+                    <option value="offmarket" <?php if ($rowBusiness['business_status'] == "offmarket") echo "selected"; ?>>Withdrawn</option>
+                    <option value="sold" <?php if ($rowBusiness['business_status'] == "sold") echo "selected"; ?>>Sold</option>
+                    <option value="underoffer" <?php if ($rowBusiness['business_status'] == "underoffer") echo "selected"; ?>>Under Offer</option>
+                    <option value="draft" <?php if ($rowBusiness['business_status'] == "draft") echo "selected"; ?>>Draft</option> 
+                   
+                </select>
+            </div>
+         </div>
+        <?php } ?>
         <div class="row" style="padding-top:15px">
             <div class="col-12">
                 <label class="form-label">Ad Title *</label>
@@ -621,28 +648,36 @@ else
             
         </div>
         
+        <?php 
+		$selectedTypes=array();
+		$selectedTypes = explode(',', $rowBusiness['business_ad_type']);
+		
+		
+		
+		 ?>
+        
         <div class="row row-sm">
     <div class="col-lg-12">
         <label class="form-label">Ad Type *</label>
         <div class="row">
             <!-- First Column (6 items) -->
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <ul class="style-none filter-input" style="list-style: none; padding-left: 0;">
                     <li class="mb-2">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAdType[]" value="Independent Business" <?php if ($rowBusiness['business_manage_type'] == "Independent Business") echo "checked"; ?>>
+                            <input type="checkbox" name="rdAdType[]" value="Independent Business" <?php if (in_array("Independent Business", $selectedTypes)) echo "checked"; ?>>
                             <span class="ml-2">Independent Business</span>
                         </label>
                     </li>
                     <li class="mb-2">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAdType[]" value="Work from home" <?php if ($rowBusiness['business_manage_type'] == "Work from home") echo "checked"; ?>>
+                            <input type="checkbox" name="rdAdType[]" value="Work from home" <?php if (in_array("Work from home", $selectedTypes)) echo "checked"; ?>>
                             <span class="ml-2">Work from home</span>
                         </label>
                     </li>
                     <li class="mb-2">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAdType[]" value="Online" <?php if ($rowBusiness['business_manage_type'] == "Online") echo "checked"; ?>>
+                            <input type="checkbox" name="rdAdType[]" value="Online" <?php if (in_array("Online", $selectedTypes)) echo "checked"; ?>>
                             <span class="ml-2">Online</span>
                         </label>
                     </li>
@@ -650,50 +685,55 @@ else
             </div>
             
             <!-- Second Column (6 items) -->
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <ul class="style-none filter-input" style="list-style: none; padding-left: 0;">
                     <li class="mb-2">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAdType[]" value="Franchise" <?php if ($rowBusiness['business_manage_type'] == "Franchise") echo "checked"; ?>>
+                            <input type="checkbox" name="rdAdType[]" value="Franchise" <?php if (in_array("Franchise", $selectedTypes)) echo "checked"; ?>>
                             <span class="ml-2">Franchise</span>
                         </label>
                     </li>
                     <li class="mb-2">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAdType[]" value="Self managed" <?php if ($rowBusiness['business_manage_type'] == "Self managed") echo "checked"; ?>>
+                            <input type="checkbox" name="rdAdType[]" value="Self managed" <?php if (in_array("Self managed", $selectedTypes)) echo "checked"; ?>>
                             <span class="ml-2">Self-managed</span>
                         </label>
                     </li>
                     <li class="mb-2">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAdType[]" value="Fully managed" <?php if ($rowBusiness['business_manage_type'] == "Fully managed") echo "checked"; ?>>
+                            <input type="checkbox" name="rdAdType[]" value="Fully managed" <?php if (in_array("Fully managed", $selectedTypes)) echo "checked"; ?>>
                             <span class="ml-2">Fully-managed</span>
                         </label>
                     </li>
                 </ul>
             </div>
-        </div>
-        <div id="checkbox-error-container"></div>
-    </div>
-</div>
-        
-        <div class="row" style="padding-top:15px">
-            <div class="col-lg-5">
+            
+            <div class="col-lg-4">
+            
+           
                 <label class="form-label"> Realestate *</label>
                 <select class="form-control" name="cmbPropertyWithBus" id="cmbPropertyWithBus" required>
                     <option value="">Select</option>
                     <option value="Leasehold" <?php if ($rowBusiness['business_property_included'] == "Leasehold") echo "selected"; ?>>Leasehold</option>
                     <option value="Freehold" <?php if ($rowBusiness['business_property_included'] == "Freehold") echo "selected"; ?>>Freehold</option>
-                    <option value="N/A" <?php if ($rowBusiness['business_property_included'] == "N/A") echo "selected"; ?>>N/A</option>
+                   
                 </select>
+            
+            
             </div>
-            
-            
-            
         </div>
+        <div id="checkbox-error-container"></div>
+    </div>
+</div>
+     
         
      <div class="row" style="padding-top:15px">
-            <div class="col-lg-5">
+     
+     	 <div class="col-lg-6">
+         
+          <div class="row">
+         
+            <div class="col-lg-6">
             
              <?php 
 							 
@@ -731,7 +771,7 @@ else
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <label class="form-label">Subcategory</label>
                 <div id="showSubcategory1">
                     <select class="form-control" name="cmbSubCategory[]" id="cmbSubCategory1">
@@ -739,13 +779,25 @@ else
                     </select>
                 </div>
             </div>
+          
+          </div>
+            
+          </div>
+            
             
                   
       
         </div>
         
         <div class="row align-items-center mb-3" id="rowCat2" <?php if ($totalCategory < 2) { ?> style="display:none;padding-top:15px" <?php } ?>>
-    <div class="col-md-5">
+    
+     <div class="col-lg-6">
+         
+          <div class="row" style="padding-top:15px">
+         
+            <div class="col-lg-6">
+    
+    	
         <div class="form-group">
             <label for="cmbCategory2">Category 2</label>
             <select class="form-control" name="cmbCategory[]" id="cmbCategory2" onChange="getSubcategory(this.value, 2)" >
@@ -763,7 +815,7 @@ else
             </select>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group">
             <label for="cmbSubCategory2">Subcategory 2</label>
             <div id="showSubcategory2">
@@ -773,10 +825,14 @@ else
             </div>
         </div>
     </div>
+    </div>
+    </div>
 </div>
 
 <div class="row align-items-center mb-3" id="rowCat3" <?php if ($totalCategory < 3) { ?> style="display:none" <?php } ?>>
-    <div class="col-md-5">
+   <div class="col-lg-6">
+   		<div class="row" style="padding-top:15px">
+     		<div class="col-lg-6">
         <div class="form-group">
             <label for="cmbCategory3">Category 3</label>
             <select class="form-control" name="cmbCategory[]" id="cmbCategory3" onChange="getSubcategory(this.value, 3)" >
@@ -794,7 +850,7 @@ else
             </select>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group">
             <label for="cmbSubCategory3">Subcategory 3</label>
             <div id="showSubcategory3">
@@ -804,6 +860,8 @@ else
             </div>
         </div>
     </div>
+   </div>
+ </div>
 </div>
 
 <div class="text-end" id="rowAddmore" style="margin-top:10px; margin-bottom:20px;">
@@ -832,7 +890,10 @@ else
                 <label class="form-label">Suburb *</label>
                 <input class="form-control mb-4" placeholder="Enter your suburb" type="text" value="<?php echo $suburb; ?>" name="txtSuburb" id="txtLocation" required>
                 <input type="hidden" id="hdLocationId" name="location" value="">
+                
+                <input type="hidden" id="hdRegion" name="hdRegion" value="">
                 <div id="suggesstion-box"></div>
+                <div id="showRegion"></div>
             </div>
         </div>
 
@@ -855,7 +916,13 @@ else
                     <li style="margin-top:8px !important">
                      <label class="custom-control custom-radio">
                         <input type="checkbox" name="rdAddressDisp[]" id="rdAddressDisp3" value="3" <?php if ($rowBusiness['business_address_display'] == 3) echo "checked"; ?>>
-                        <label style="font-weight:400">State</label>
+                        <label style="font-weight:400">Suburb, State and Region only </label>
+                     </label>
+                    </li>
+                    <li style="margin-top:8px !important">
+                     <label class="custom-control custom-radio">
+                        <input type="checkbox" name="rdAddressDisp[]" id="rdAddressDisp4" value="4" <?php if ($rowBusiness['business_address_display'] == 3) echo "checked"; ?>>
+                        <label style="font-weight:400">State and Region Only </label>
                      </label>
                     </li>
                 </ul>
@@ -871,154 +938,173 @@ else
     <div class="card-body">
        
         <div class="row" style="padding-top:15px">
-          <div class="col-4">
+          <div class="col-lg-4">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control mb-3" name="txtVendorName" value="<?php //echo $rowBusiness['business_heading']; ?>" >
+                <input type="text" class="form-control mb-3" name="txtVendorName" value="<?php echo $rowBusiness['business_vendor_name']; ?>" >
             </div>
-          <div class="col-4">
+          <div class="col-lg-4">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control mb-3" name="txtVendorEmail" value="<?php //echo $rowBusiness['business_heading']; ?>" >
+                <input type="email" class="form-control mb-3" name="txtVendorEmail" value="<?php echo $rowBusiness['business_vendor_email']; ?>" >
             </div>
-          <div class="col-4">
+          <div class="col-lg-4">
                 <label class="form-label">Phone</label>
-                <input type="text" class="form-control mb-3" name="txtVendorPhone" value="<?php //echo $rowBusiness['business_heading']; ?>" >
+                <input type="text" class="form-control mb-3" name="txtVendorPhone" value="<?php echo $rowBusiness['business_vendor_phone']; ?>" >
             </div>
         </div>
     </div>
 </div>
     
-    <div class="text-end mt-4">
-      <button type="button" class="btn btn-primary next-step" data-next="2">Next Step</button>
-    </div>
-  </div>
+  
   
   <!-- Step 2 Content -->
-  <div class="step-content" id="step-2" style="display:none;">
-    <h3>Step 2: Pricing and Financials</h3>
+  <div class="step-content" >
+   
     
     <div class="card mt-4">
-    <h4 class="dash-title-three mb-4" style="padding:10px; background-color:#069; color:#FFF">Price & Financials</h4>
+    <h4 class="dash-title-three mb-4" style="padding:10px; background-color:#069; color:#FFF">Pricing & Financials</h4>
     <div class="card-body">
         <div class="row">
+    <div class="col-md-6">
+        <h4><u>Price Details</u></h4>
+
+        <!-- Price -->
+        <div class="row pt-3">
+            <div class="col-lg-6">
+                <label class="form-label">Price *</label>
+                <input type="text" placeholder="" class="form-control" name="txtAskingPrice" value="<?php  echo $rowBusiness['business_asking_price']?>" required>
+                
+            </div>
+            <div class="col-lg-6" style="padding-top:25px">
             
-            <div class="col-md-6">
-                <h3>Price Details</h3>
-                <div class="row" style="padding-top:15px">
-                    <div class="col-12">
-                        <label class="form-label">Price *</label>
-                        <input type="text" placeholder="" class="form-control" name="txtActualPrice" value="<?php // echo $rowBusiness['business_asking_price']?>" required>
-                        <div class="style-none d-flex filter-input" style="padding-left:10px; padding-top:10px;">
-                            <input type="checkbox" value="1" style="height:20px !important" name="ckPOA" <?php //if ($rowBusiness['business_plus_sav']==1) echo "checked"; ?>>
-                            &nbsp;&nbsp;<label style="font-weight:400">POA (don't display price)</label>
-                        </div>
-                    </div>
+            		<div class="style-none d-flex filter-input pt-2 ps-2" >
+                    <input type="checkbox" value="1" style="height:20px !important" name="ckPOA" <?php if ($rowBusiness['business_poa']==1) echo "checked"; ?>>
+                    &nbsp;&nbsp;<label style="font-weight:400">POA (don't display price)</label>
                 </div>
-                
-                <div class="row" style="padding-top:15px">    
-                    <div class="col-12">
-                        <label class="form-label">Price Display</label>
-                        <select class="form-control" name="cmbPriceDisplay" id="cmbPriceDisplay">
-                            <option value="Display price" <?php //if ($rowBusiness['business_tax']=="Unknown") echo "selected"; ?>>Display price</option>
-                            <option value="Do not display price" <?php //if ($rowBusiness['business_tax']=="Exempt") echo "selected"; ?>>Do not display price</option>
-                            <option value="Display "price view" instead" <?php //if ($rowBusiness['business_tax']=="Inclusive") echo "selected"; ?>>Display "price view" instead</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="row" style="padding-top:15px">
-                    <div class="col-12">
-                        <label class="form-label">Plus Stock</label>
-                        <input type="text" placeholder="" class="form-control" name="txtPlusStock" value="<?php // echo $rowBusiness['business_asking_price']?>" required>
-                    </div>
-                </div>
-                
-                <div class="row" style="padding-top:15px">
-                    <div class="col-12">
-                        <label class="form-label">Search Price</label>
-                        <input type="text" placeholder="" class="form-control" name="txtAskingPrice" value="<?php echo $rowBusiness['business_asking_price']?>" required>
-                    </div>
-                </div>
+            
             </div>
             
-          
+        </div>
+
+        <!-- Price Display -->
+        <div class="row pt-3">
+            <div class="col-lg-6">
+                <label class="form-label">Price Display</label>
+                <select class="form-control" name="cmbPriceDisplay" id="cmbPriceDisplay" onchange="showPriceView()">
+                    <option value="1" <?php if ($rowBusiness['business_price_display']=="1") echo "selected"; ?>>Display price</option>
+                    <option value="2" <?php if ($rowBusiness['business_price_display']=="2") echo "selected"; ?>>Do not display price</option>
+                    <option value='3' <?php if ($rowBusiness['business_price_display']=="3") echo "selected"; ?>>Display "price view" instead</option>
+                </select>
+            </div>
+             <div class="col-lg-6">
+             
+             	<span id="spanPriceVal" style="display:none">
+             	<label class="form-label">Price View</label>
+                <input type="text" placeholder="" class="form-control" name="txtPriceViewVal" id="txtPriceViewVal" value="<?php  echo $rowBusiness['business_price_value']?>" >
+             	</span>
+            
+             </div>
+        </div>
+
+        <!-- Plus Stock & Search Price in two columns -->
+        <div class="row pt-3">
             <div class="col-md-6">
-                <h3>Financials</h3> 
+                <label class="form-label">Plus Stock</label>
+                <input type="text" placeholder="" class="form-control" name="txtPlusStock" value="<?php  echo $rowBusiness['business_plus_stock']?>" >
+            </div>
+           <div class="col-md-6">
+                <label class="form-label">Search Price *</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light">$</span>
+                    <input type="number" placeholder="" class="form-control" name="txtSearchPrice" value="<?php echo $rowBusiness['business_asking_price']?>" required>
+                </div>
+			</div>
+
+        </div>
+    </div>
+</div>
+
+        
+        
+        
+        <div class="row" style="padding-top:45px">
+            
+            <div class="col-md-6">
+                <h4><u>Financials</u></h4> 
                 
                 <div class="row align-items-end" style="padding-top:15px">
-                    <div class="col-12">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label">Period Count *</label>
-                            <select class="form-control" name="cmbPeriodCount" id="cmbPeriodCount" required>
-                                <option value="Weekly" <?php //if ($rowBusiness['business_takings']=="Weekly") echo "selected"; ?>>Per Week</option>
-                                <option value="Monthly" <?php //if ($rowBusiness['business_takings']=="Monthly") echo "selected"; ?>>Per Month</option>
-                                <option value="Annually" <?php //if ($rowBusiness['business_takings']=="Annually") echo "selected"; ?>>Per Quarter</option>
-                                <option value="Annually" <?php //if ($rowBusiness['business_takings']=="Annually") echo "selected"; ?>>Per Year</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-12">
+        <div class="dash-input-wrapper mb-30">
+            <label class="form-label d-block mb-2">Period Count *</label>
+            
+               <?php //if ($rowBusiness['business_takings']=="Weekly") echo "checked"; ?>
+            <div class="btn-radio-group d-flex flex-wrap">
+            
+                <input type="radio" id="periodWeekly"  name="cmbPeriodCount" value="Weekly" <?php if ($rowBusiness['business_takings']=="Weekly" || $rowBusiness['business_takings']=="") echo "checked"; ?> required checked="checked" />
+                 
+                <label class="btn btn-outline-primary" for="periodWeekly">Per Week</label>
+
+                <input type="radio" id="periodMonthly" name="cmbPeriodCount" value="Monthly" <?php if ($rowBusiness['business_takings']=="Monthly" ) echo "checked"; ?> />
                 
-                <div class="row align-items-end" style="padding-top:15px">
-                    <div class="col-10">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label">Sales Revenue *</label>
-                            <input type="text" class="form-control" placeholder="" name="txtSalesRevenue" value="<?php //echo $rowBusiness['business_takings_value']; ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label"></label>
-                            /Week
-                        </div>
-                    </div>
-                </div>
+                <label class="btn btn-outline-primary" for="periodMonthly">Per Month</label>
+
+                <input type="radio" id="periodQuarterly" name="cmbPeriodCount" value="Quarterly" <?php if ($rowBusiness['business_takings']=="Quarterly") echo "checked"; ?> />
                 
-                <div class="row align-items-end" style="padding-top:15px">
-                    <div class="col-10">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label">Rent *</label>
-                            <input type="text" class="form-control" placeholder="" name="txtRent" value="<?php //echo $rowBusiness['business_rent_value']; ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label"></label>
-                            /Week
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row align-items-end" style="padding-top:15px">
-                    <div class="col-10">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label">Expenses *</label>
-                            <input type="text" class="form-control" placeholder="" name="txtExpenses" value="<?php //echo $rowBusiness['business_expenses_value']; ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label"></label>
-                            /Week
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row align-items-end" style="padding-top:15px">
-                    <div class="col-10">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label">Net Profit *</label>
-                            <input type="text" class="form-control" placeholder="" name="txtNetProfit" value="<?php //echo $rowBusiness['business_profit_value']; ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="dash-input-wrapper mb-30">
-                            <label class="form-label"></label>
-                            /Week
-                        </div>
-                    </div>
-                </div>
+                <label class="btn btn-outline-primary" for="periodQuarterly">Per Quarter</label>
+
+                <input type="radio" id="periodYearly" name="cmbPeriodCount" value="Annually" <?php if ($rowBusiness['business_takings']=="Annually") echo "checked"; ?>  />              
+                <label class="btn btn-outline-primary" for="periodYearly">Per Year</label>
             </div>
         </div>
+    </div>
+</div>
+
+
+                
+                <div class="row" style="padding-top:30px">
+    <!-- Left Column (Financial Inputs) -->
+    <div class="col-md-6 pe-3">
+        <div class="dash-input-wrapper mb-3">
+            <label class="form-label fw-bold">Sales Revenue *</label>
+            <div class="input-group">
+                <input type="number" class="form-control" name="txtSalesRevenue" value="<?php echo $rowBusiness['business_turnover']?>" required>
+                <span class="input-group-text bg-light"><span id="dispPeriod1">/Week</span></span>
+            </div>
+        </div>
+
+        <div class="dash-input-wrapper mb-3">
+            <label class="form-label fw-bold">Rent *</label>
+            <div class="input-group">
+                <input type="number" class="form-control" name="txtRent" value="<?php echo $rowBusiness['business_rent']?>" required>
+                <span class="input-group-text bg-light"><span id="dispPeriod2">/Week</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column (Financial Inputs) -->
+    <div class="col-md-6 ps-3">
+        <div class="dash-input-wrapper mb-3">
+            <label class="form-label fw-bold">Expenses *</label>
+            <div class="input-group">
+                <input type="number" class="form-control" name="txtExpenses" value="<?php echo $rowBusiness['business_expenses']?>" required>
+                <span class="input-group-text bg-light"><span id="dispPeriod3">/Week</span></span>
+            </div>
+        </div>
+
+        <div class="dash-input-wrapper mb-3">
+            <label class="form-label fw-bold">Net Profit *</label>
+            <div class="input-group">
+                <input type="number" class="form-control" name="txtNetProfit" value="<?php echo $rowBusiness['business_takings_value']?>" required>
+                <span class="input-group-text bg-light"><span id="dispPeriod4">/Week</span></span>
+            </div>
+        </div>
+    </div>
+</div>
+            
+          
+            
+        </div>
+        
+        
     </div>
 </div>
 
@@ -1033,132 +1119,115 @@ else
         </div>
     </div>
 </div>
-    
-    <div class="row row-sm mt-4">
-      <div class="col-lg-6 text-start">
-        <button type="button" class="btn btn-outline-primary prev-step" data-prev="1">Previous Step</button>
-      </div>
-      <div class="col-lg-6 text-end">
+
+<div class="row row-sm mt-4">
+      
+      <div class="col-lg-12 text-center">
+      
+      <?php if ($_GET['task']=="add") { ?>
+      <button type="submit"  class="btn btn-outline-primary btn-draft" >Save in Draft</button>
+      <?php } ?>
+      &nbsp;
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
+    
+  <div style="height:20px"></div>
+    
+    
   </div>
 
   <input type="hidden" name="bid" value="<?php echo base64_encode($rowBusiness['business_id'])?>" />	
 </form>
 
 <style>
-  .step-navigation {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .step-content {
-    transition: all 0.3s ease;
-  }
+    .btn-radio-group .btn {
+        border-radius: 5px;
+        margin-right: 8px;
+    }
+	
+	.btn-radio-group .btn:hover {
+		  background-color: #0d6efd !important;
+        border-radius: 5px;
+        margin-right: 8px;
+    }
+    .btn-radio-group input[type="radio"] {
+        display: none;
+    }
+    .btn-radio-group input[type="radio"]:checked + label {
+        background-color: #0d6efd;
+        color: #fff !important;
+        border-color: #0d6efd;
+    }
+	
+	/* Hide number input arrows for all browsers */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
 </style>
 
 <script>
-$(document).ready(function() {
-  // Handle next step button click
-  $('.next-step').click(function() {
-    var currentStep = $(this).closest('.step-content').attr('id').split('-')[1];
-    var nextStep = $(this).data('next');
-    
-    // Validate current step before proceeding
-    if(validateStep(currentStep)) {
-      $('#' + 'step-' + currentStep).hide();
-      $('#' + 'step-' + nextStep).show();
-      
-      // Update navigation buttons
-      $('.step-btn').removeClass('active btn-primary').addClass('btn-outline-primary');
-      $('.step-btn[data-step="' + nextStep + '"]').removeClass('btn-outline-primary').addClass('active btn-primary');
-      
-      // Scroll to top of next step
-      $('html, body').animate({
-        scrollTop: $('#' + 'step-' + nextStep).offset().top - 20
-      }, 500);
-    }
-  });
-  
-  // Handle previous step button click
-  $('.prev-step').click(function() {
-    var prevStep = $(this).data('prev');
-    var currentStep = $(this).closest('.step-content').attr('id').split('-')[1];
-    
-    $('#' + 'step-' + currentStep).hide();
-    $('#' + 'step-' + prevStep).show();
-    
-    // Update navigation buttons
-    $('.step-btn').removeClass('active btn-primary').addClass('btn-outline-primary');
-    $('.step-btn[data-step="' + prevStep + '"]').removeClass('btn-outline-primary').addClass('active btn-primary');
-    
-    // Scroll to top of previous step
-    $('html, body').animate({
-      scrollTop: $('#' + 'step-' + prevStep).offset().top - 20
-    }, 500);
-  });
-  
-  // Handle step navigation button click
-  $('.step-btn').click(function() {
-    var step = $(this).data('step');
-    
-    // Hide all steps
-    $('.step-content').hide();
-    
-    // Show selected step
-    $('#' + 'step-' + step).show();
-    
-    // Update navigation buttons
-    $('.step-btn').removeClass('active btn-primary').addClass('btn-outline-primary');
-    $(this).removeClass('btn-outline-primary').addClass('active btn-primary');
-    
-    // Scroll to top of selected step
-    $('html, body').animate({
-      scrollTop: $('#' + 'step-' + step).offset().top - 20
-    }, 500);
-  });
-  
-  // Function to validate step before proceeding
-  function validateStep(step) {
-    var isValid = true;
-    
-    // Validate Step 1 fields
-    if (step == 1) {
-      $('#step-1').find('[required]').each(function() {
-        if (!$(this).val()) {
-          isValid = false;
-          $(this).addClass('is-invalid');
-		  
-         // $(this).after('<div class="invalid-feedback">This field is required</div>');
-        } else {
-          $(this).removeClass('is-invalid');
-          $(this).next('.invalid-feedback').remove();
+
+function showPriceView()
+{
+	
+	
+	valP=$("#cmbPriceDisplay").val();
+	
+	
+	if (valP==3)
+	$("#spanPriceVal").show();
+	else
+	$("#spanPriceVal").hide();
+	
+	
+}
+<?php if ($rowBusiness['business_price_display']=="3") { ?>
+showPriceView();
+<?php } ?>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const radios = document.querySelectorAll('input[name="cmbPeriodCount"]');
+        const periodSpans = [
+            document.getElementById("dispPeriod1"),
+            document.getElementById("dispPeriod2"),
+            document.getElementById("dispPeriod3"),
+            document.getElementById("dispPeriod4")
+        ];
+
+        function updatePeriods(value) {
+			
+            let text = "/Week"; // default fallback
+
+            if (value === "Monthly") text = "/Month";
+            else if (value === "Quarterly") text = "/Quarter";
+            else if (value === "Annually") text = "/Year";
+
+            periodSpans.forEach(span => {
+                span.textContent = text;
+            });
         }
-      });
-	  
-	  
-      
-      // Validate checkboxes (example for Ad Type)
-      if ($('#step-1 input[name="rdAdType[]"]:checked').length === 0) {
-        isValid = false;
-        $('#checkbox-error-container').html('<div class="invalid-feedback d-block">Please select at least one Ad Type</div>');
-      } else {
-        $('#checkbox-error-container').empty();
-      }
-    }
-  
-    if (!isValid) {
-      // Scroll to first invalid field
-      $('html, body').animate({
-        scrollTop: $('#step-1 .is-invalid').first().offset().top - 20
-      }, 500);
-    }
-    
-    return isValid;
-  }
-});
+
+        // Initial load (for pre-checked value)
+        const selected = document.querySelector('input[name="cmbPeriodCount"]:checked');
+        if (selected) {
+            updatePeriods(selected.value);
+        }
+
+        // Update on change
+        radios.forEach(radio => {
+            radio.addEventListener("change", function () {
+                updatePeriods(this.value);
+            });
+        });
+    });
 </script>
+
     
     <?php
 			$pImageStr="";
@@ -1248,30 +1317,23 @@ $(document).ready(function(){
 
 </script>
 <script src="<?php echo URL?>js/jquery.validate.js"></script>
- <script>
-        $(document).ready(function() {
-            $('input[type="checkbox"][name="rdAddressDisp"]').on('change', function() {
-                $('input[type="checkbox"][name="rdAddressDisp"]').not(this).prop('checked', false);
-            });
-			
-			
-			 
-    </script>
+
  
 
 
 
-  <script>
- /*      $(document).ready(function() {
-    $('input[type="checkbox"][name="rdAddressDisp[]"]').on('change', function() {
+ <script>
+$(document).ready(function () {
+    $('input[type="checkbox"][name="rdAddressDisp[]"]').on('change', function () {
         $('input[type="checkbox"][name="rdAddressDisp[]"]').not(this).prop('checked', false);
     });
 
-    $.validator.addMethod("atLeastOneChecked", function(value, element) {
+    $.validator.addMethod("atLeastOneChecked", function (value, element) {
         return $('input[name="rdAddressDisp[]"]:checked').length > 0;
     }, "*");
 
-    $("#adminForm").validate({
+    // 👇 Define validator instance so it's accessible outside
+    var validator = $("#adminForm").validate({
         rules: {
             txtAddress: "required",
             txtSuburb: "required",
@@ -1286,20 +1348,39 @@ $(document).ready(function(){
                 atLeastOneChecked: "Please select at least one option."
             }
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             if (element.attr("name") == "rdAddressDisp[]") {
                 error.appendTo("#checkbox-error-container");
             } else {
                 error.insertAfter(element);
             }
         },
-        submitHandler: function(form) {
-            // Directly submit the form
+        submitHandler: function (form) {
             form.submit();
         }
     });
+
+    // 👇 Draft button - bypass validation
+    $(".btn-draft").on("click", function (e) {
+        e.preventDefault(); // prevent default button behavior
+
+        // Optional hidden field to indicate "draft"
+        $("<input>").attr({
+            type: "hidden",
+            name: "is_draft",
+            value: "1"
+        }).appendTo("#adminForm");
+
+        // Disable validation temporarily
+        validator.resetForm(); // Clears error messages
+        $("#adminForm").off("submit"); // Remove validation's submit handler
+
+        $("#adminForm")[0].submit(); // Submit without validation
+    });
 });
-*/
+
+
+
 		
 		/*function putCatVal()
 		{
@@ -1376,7 +1457,7 @@ $(document).ready(function(){
     $("#txtLocation").keyup(function(){
         $.ajax({
             type: "POST",
-            url: "<?php echo URL?>ajax/load-location.php",
+            url: "<?php echo URL?>ajax/load-location-post.php",
             data: { keyword: $(this).val() },
             beforeSend: function(){
                 // Optionally, you can add a loading indicator here
@@ -1393,11 +1474,14 @@ $(document).ready(function(){
 });
 
 
-function selectLocation(val,lid) {
+function selectLocation(val,lid,regName) {
 
 $("#txtLocation").val(val);
 $("#hdLocationId").val(lid);
 $("#suggesstion-box").hide();
+
+$("#showRegion").html("Region: <strong>"+regName+"</strong>");
+$("#hdRegion").val(regName);
 
 }
 
@@ -2811,8 +2895,8 @@ else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
         <hr>
         <p style="font-size:18px; color:#F6591F">Net Total to Pay: <strong>$<span id="net-total">0</span></strong></p>
         
-        <input type="checkbox" name="ckTerms"  required /> Accept <a href="#" style="color:#C60">Terms and Conditions</a>
-        <button class="btn btn-primary mt-3 w-100" id="submitBtn" disabled="disabled" type="submit">Submit Order</button>
+      
+        <button class="btn btn-primary mt-3 w-100" id="submitBtn" disabled="disabled" type="submit">Review and Submit</button>
       </div>
     </div>
   </div>

@@ -17,6 +17,20 @@
 
 		$sql = "select * from tbl_business,tbl_members where business_owner_id=member_id and business_owner_id='".$database->filter($_SESSION['sess_member_id'])."'";
 
+
+		if ($_GET['status']==1)
+		$sql.=" and business_status='current'";
+		else if ($_GET['status']==2)
+		$sql.=" and business_status='draft'";
+		else if ($_GET['status']==3)
+		$sql.=" and business_status='offmarket'";
+		else if ($_GET['status']==4)
+		$sql.=" and business_status='sold'";
+		else if ($_GET['status']==5)
+		$sql.=" and business_status='underoffer'";
+		
+		
+
 		if ($_GET['txtSearchByTitle'] != "") {
     $searchTerms = explode(" ", $_GET['txtSearchByTitle']); // Break input into words
     $searchConditions = array();
@@ -80,7 +94,6 @@
 	global $database, $component;
 
 	
-
 		  if ($_POST['txtSuburb']!="")
 		  {
 			  $arrSub=explode(",",$_POST['txtSuburb']);
@@ -104,82 +117,75 @@
     $subCat = @implode(",", $filteredSubCategories);
 	}
 	
-
+	
 	$curDate = date("Y-m-d H:i:s");	
 	$street=$_POST['txtAddress'];
 	$address=$_POST['txtAddress']." ".$suburb.", ".$state.", ".$postcode;		
-	$addressDisplay=$_POST['rdAddressDisp'][0];
-	$name=$_POST['txtBusinessName'];
-	$abn=$_POST['txtABN'];	
-	$propertyIncluded=$_POST['cmbPropertyWithBus'];
-	$leaseAmount=$_POST['txtLeaseAmount'];
-	$leaseAmountPeriod=$_POST['cmbLeaseAmountPeriod'];
-	$leaseEnd=$_POST['txtLeaseEnd'];
-	$furtherOption=$_POST['txtFurther'];
-	$terms=$_POST['txtTerms'];
-	$buildingArea=$_POST['txtBuilding'];
-	$askingPrice=$_POST['txtAskingPrice'];	
-	$price=removeSpecialCharacters($_POST['txtAskingPrice']);	
-	$plusSav=$_POST['ckPlusSav'];
-	$tax=$_POST['cmbTax'];
-	$takings=$_POST['cmbTakings'];
-	$takingsvalue=$_POST['txtTakingsValue'];
-	$turnover=$_POST['cmbTurnover'];
-	$netProfit=$_POST['txtNetProfit'];
-	$heading=$_POST['txtHeading'];
-	$description=$_POST['txtDescription'];
-	$franchise=$_POST['cmbFranchisee'];
-	$manageType=$_POST['cmbManageType'];
+	$addressDisplay=$_POST['rdAddressDisp'][0];		
+	$regionArray=getRegionId($_POST['hdRegion']);		
+	$regionId=$regionArray['region_id'];
+	$greaterRegionId=$regionArray['region_greater_region'];	
+	$selectedValues = isset($_POST['rdAdType']) ? $_POST['rdAdType'] : array();
+	$adType = implode(',', $selectedValues); // This becomes "Independent Business,Franchise" etc.
+
+	if ($_POST['cmbPriceDisplay']==3)
+	$priceViewval=$_POST['txtPriceViewVal'];
+	else
+	$priceViewval="";
 	
-		
+	if ($_POST['is_draft']==1)
+	$status="draft";
+	else
+	$status="current";
 
 		$curDate=date("Y-m-d");
-
 		$names = array(
-
-			'business_street' => $street, 
-			'business_address' => $address, 
 			'business_owner_id' => $_SESSION['sess_member_id'],
+			'business_heading' => $_POST['txtHeading'],
+			'business_description' => $_POST['txtDescription'],	
+			'business_ad_type' => $adType,		
+			'business_street' => $street, 
+			'business_address' => $address, 			
 			'business_suburb' => $suburb,
 			'business_state' => $state, 
 			'business_postcode' => $postcode,
-			'business_address_display' => $addressDisplay,
-			'business_name' => $name,
-			'business_abn' => $abn,
+			'business_region' => $regionId,
+			'business_greater_region' => $greaterRegionId,
+			'business_address_display' => $addressDisplay,			
 			'business_category' => $category,
 			'business_subcat' => $subCat,
-			'business_property_included' => $propertyIncluded,
-			'business_further_option' => $furtherOption,
-			'business_lease_amount' => $leaseAmount,
-			'business_lease_amount_period' => $leaseAmountPeriod,			
-			'business_lease_end' => $leaseEnd,			
-			'business_terms' => $terms,
-			'business_building_area' => $buildingArea,
-			'business_asking_price' => $askingPrice,
-			'business_price' => $price,
-			'business_plus_sav' => $plusSav,
-			'business_tax' => $tax,
-			'business_takings' => $takings,
-			'business_takings_value' => $takingsvalue,
-			'business_turnover' => $turnover,
-			'business_net_profit' => $netProfit,
-			'business_heading' => $heading,
-			'business_status' => 'current',
-			'business_description' => $description,
-			'business_franchise' => $franchise,
-			'business_manage_type' => $manageType,			
+			'business_property_included' => $_POST['cmbPropertyWithBus'],	
+			'business_asking_price' => $_POST['txtAskingPrice'],			
+			'business_price' => $_POST['txtSearchPrice'],
+			'business_price_display' => $_POST['cmbPriceDisplay'],	
+			'business_price_value' => $priceViewval,
+			'business_poa' => $_POST['ckPOA'],
+			'business_takings' => $_POST['cmbPeriodCount'],
+			'business_takings_value' => $_POST['txtNetProfit'],
+			'business_turnover' => $_POST['txtSalesRevenue'],
+			'business_rent' => $_POST['txtRent'],
+			'business_expenses' => $_POST['txtExpenses'],	
+			
+			'business_vendor_name' => $_POST['txtVendorName'],			
+			'business_vendor_email' => $_POST['txtVendorEmail'],			
+			'business_vendor_phone' => $_POST['txtVendorPhone'],
+			
+			'business_plus_stock' => $_POST['txtPlusStock'],			
+			
+						
 			'business_added_date' => $curDate,
 			'business_mod_date' => $curDate,
+			'business_status' => $status,
 			'business_active_status' => 0,
 			'business_added_method_direct' => 1
-
-
 		);
 		
-		
-
+	
 		$add_query = $database->insert( 'tbl_business', $names );
 		$lastInsertedId=$database->lastid();
+		
+		
+		
 		
 		if (!empty($_POST['images4ex'])) {			
 		
@@ -203,7 +209,7 @@
 
 		{
 
-			print "<script>window.location='index.php?c=".$component."&Cid=6'</script>";
+			print "<script>window.location='index.php?c=".$component."'</script>";
 
 		}
 
@@ -423,14 +429,9 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 
 	{
 
-	
-		
+	global $database,$component;	
 
-			global $database,$component;	
-
-			
-
-			  if ($_POST['txtSuburb']!="")
+	 if ($_POST['txtSuburb']!="")
 		  {
 			  $arrSub=explode(",",$_POST['txtSuburb']);
 			  $suburb=$arrSub[0];
@@ -451,72 +452,56 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 	
 	$filteredSubCategories = array_filter($_POST['cmbSubCategory']);
     $subCat = @implode(",", $filteredSubCategories);
-	}
+	}	
 	
-
 	$curDate = date("Y-m-d H:i:s");	
 	$street=$_POST['txtAddress'];
 	$address=$_POST['txtAddress']." ".$suburb.", ".$state.", ".$postcode;		
-	$addressDisplay=$_POST['rdAddressDisp'][0];
-	$name=$_POST['txtBusinessName'];
-	$abn=$_POST['txtABN'];	
-	$propertyIncluded=$_POST['cmbPropertyWithBus'];
-	$leaseAmount=$_POST['txtLeaseAmount'];
-	$leaseAmountPeriod=$_POST['cmbLeaseAmountPeriod'];
-	$leaseEnd=$_POST['txtLeaseEnd'];
-	$furtherOption=$_POST['txtFurther'];
-	$terms=$_POST['txtTerms'];
-	$buildingArea=$_POST['txtBuilding'];
-	$askingPrice=$_POST['txtAskingPrice'];	
-	$price=removeSpecialCharacters($_POST['txtAskingPrice']);	
-	$plusSav=$_POST['ckPlusSav'];
-	$tax=$_POST['cmbTax'];
-	$takings=$_POST['cmbTakings'];
-	$takingsvalue=$_POST['txtTakingsValue'];
-	$turnover=$_POST['cmbTurnover'];
-	$netProfit=$_POST['txtNetProfit'];
-	$heading=$_POST['txtHeading'];
-	$description=$_POST['txtDescription'];
-	$franchise=$_POST['cmbFranchisee'];
-	$manageType=$_POST['cmbManageType'];
-			
+	$addressDisplay=$_POST['rdAddressDisp'][0];		
+	$regionArray=getRegionId($_POST['hdRegion']);		
+	$regionId=$regionArray['region_id'];
+	$greaterRegionId=$regionArray['region_greater_region'];	
+	$selectedValues = isset($_POST['rdAdType']) ? $_POST['rdAdType'] : array();
+	$adType = implode(',', $selectedValues); // This becomes "Independent Business,Franchise" etc.
 
-			$update = array(
+	if ($_POST['cmbPriceDisplay']==3)
+	$priceViewval=$_POST['txtPriceViewVal'];
+	else
+	$priceViewval="";			
 
+			$update = array(			
+			'business_heading' => $_POST['txtHeading'],
+			'business_description' => $_POST['txtDescription'],	
+			'business_ad_type' => $adType,		
 			'business_street' => $street, 
 			'business_address' => $address, 			
 			'business_suburb' => $suburb,
 			'business_state' => $state, 
 			'business_postcode' => $postcode,
-			'business_address_display' => $addressDisplay,
-			'business_name' => $name,
-			'business_abn' => $abn,
+			'business_region' => $regionId,
+			'business_greater_region' => $greaterRegionId,
+			'business_address_display' => $addressDisplay,			
 			'business_category' => $category,
 			'business_subcat' => $subCat,
-			'business_property_included' => $propertyIncluded,
-			'business_further_option' => $furtherOption,
-			'business_lease_amount' => $leaseAmount,	
-			'business_lease_amount_period' => $leaseAmountPeriod,			
-			'business_lease_end' => $leaseEnd,			
-			'business_terms' => $terms,
-			'business_building_area' => $buildingArea,
-			'business_asking_price' => $askingPrice,			
-			'business_price' => $price,
-			'business_plus_sav' => $plusSav,
-			'business_tax' => $tax,
-			'business_takings' => $takings,
-			'business_takings_value' => $takingsvalue,
-			'business_turnover' => $turnover,
-			'business_net_profit' => $netProfit,
-			'business_heading' => $heading,
-			'business_status' => 'current',
-			'business_description' => $description,
-			'business_franchise' => $franchise,
-			'business_manage_type' => $manageType,	
+			'business_property_included' => $_POST['cmbPropertyWithBus'],	
+			'business_asking_price' => $_POST['txtAskingPrice'],			
+			'business_price' => $_POST['txtSearchPrice'],
+			'business_price_display' => $_POST['cmbPriceDisplay'],	
+			'business_price_value' => $priceViewval,
+			'business_poa' => $_POST['ckPOA'],
+			'business_takings' => $_POST['cmbPeriodCount'],
+			'business_takings_value' => $_POST['txtNetProfit'],
+			'business_turnover' => $_POST['txtSalesRevenue'],
+			'business_rent' => $_POST['txtRent'],
+			'business_expenses' => $_POST['txtExpenses'],	
+			
+			'business_vendor_name' => $_POST['txtVendorName'],			
+			'business_vendor_email' => $_POST['txtVendorEmail'],			
+			'business_vendor_phone' => $_POST['txtVendorPhone'],			
+			'business_plus_stock' => $_POST['txtPlusStock'],			
 			'business_mod_date' => $curDate,
-			'business_added_method_direct' => 1
-
-			);
+			'business_status' => $_POST['cmbStatus'],
+		);
 			
 		
 
@@ -525,6 +510,7 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 		$where_clause = array(
 
 			'business_id' => base64_decode($_POST['bid']),
+			'business_owner_id' => $_SESSION['sess_member_id']
 
 		);
 		$updated = $database->update( 'tbl_business', $update, $where_clause, 1 );
@@ -568,7 +554,7 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 
 		{
 
-			print "<script>window.location='index.php?c=".$component."'</script>";
+			print "<script>window.location='index.php?c=".$component."&status=1'</script>";
 
 		}
 

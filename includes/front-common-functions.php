@@ -83,20 +83,27 @@ function getParentCategory($id)
 	
 	
 }
-function getPlanName($id)
+function getRegionId($regionName)
 {
 	global $database;
-	$sqlCategory="select * from tbl_plans_ps where plan_id='".$database->filter($id)."'";
-	$loadCategory=$database->get_results($sqlCategory);
-	$rowCategory=$loadCategory[0];
-	
-	if ($rowCategory['plan_ad_title']!="")
-	return $rowCategory['plan_ad_title'];
-	else
-	return "-";
-	
-	
+
+	$sql = "SELECT * FROM tbl_regions WHERE region_name = '".$database->filter($regionName)."' AND region_status = 1";
+	$result = $database->get_results($sql);
+
+	if (!empty($result)) {
+		$row = $result[0];
+		return array(
+			'region_id' => $row['region_id'],
+			'region_greater_region' => $row['region_greater_region']
+		);
+	} else {
+		return array(
+			'region_id' => null,
+			'region_greater_region' => null
+		);
+	}
 }
+
 
 function getLeadsCount($id)
 {
@@ -1000,6 +1007,17 @@ function getAgencyName($id)
 	$row=$res[0];
 	$agencyName=$row['member_tradingname'];
 	return $agencyName;
+}
+
+function getRegionName($id)
+{
+	global $database;
+	
+	$sql="select region_name from tbl_regions where region_id='".$database->filter($id)."'";
+	$res=$database->get_results($sql);
+	$row=$res[0];
+	$regionName=$row['region_name'];
+	return $regionName;
 }
 
 function generateBusinessLink($id)

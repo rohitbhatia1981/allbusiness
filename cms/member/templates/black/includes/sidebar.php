@@ -1,215 +1,146 @@
-<?php
-if ($_GET['c']!="")
-{
-	$sqlCid="select * from tbl_components where component_option='".$database->filter($_GET['c'])."'";
-	$resCid=$database->get_results($sqlCid);
-	if (count($resCid)>0)
-	{
-		$rowCid=$resCid[0];
-		$cidVal=$rowCid['component_headingid'];
-		
-	
-	}
-}
-?>
-<style>
-.alert-number {
-  background-color: red; /* Red background color */
-  color: white; /* Text color on the alert number */
-  padding: 2px 4px; /* Adjust padding as needed */
-  border-radius: 50%; /* Makes it a circular shape */
-  font-weight: bold; /* Bold text for the number */
-  font-size:12px;
-}
-
-</style>
-<!--aside open-->
-<aside class="app-sidebar" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); border-right: 1px solid rgba(0,0,0,0.05);border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);"">
-	<!-- <div class="app-sidebar__logo">
-		<a class="header-brand" href="index.html">
-			<img src="../../assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Dayonelogo">
-			<img src="../../assets/images/brand/logo-white.png" class="header-brand-img dark-logo" alt="Dayonelogo">
-			<img src="../../assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Dayonelogo">
-			<img src="../../assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Dayonelogo">
-		</a>
-	</div> -->
-	<div class="app-sidebar__user">
-		<div class="app-sidebar__user">
-			<div class="dropdown user-pro-body text-center">
-				<div class="user-pic">
-					<img src="<?php echo URL?>images/allbusiness_Logo.svg" alt="" >
-                    
-				</div>
-                <div style="height:20px"></div>
-				<div class="user-info">
-                <?php if ($_SESSION['sess_member_groupid']==4)
+ <?php if ($_SESSION['sess_member_groupid']==4)
 				$uTypeMember="Private Seller";
 				if ($_SESSION['sess_member_groupid']==5)
 				$uTypeMember=$_SESSION['sess_member_tradingname']."";
 				 ?>
-					<h5 class=" mb-2" style="color:#333;padding-top:20px; "><?php echo $uTypeMember; ?> Account</h5>
-					
-				</div>
+
+<style>
+.alert-number {
+  background-color: red;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size:12px;
+}
+.side-menu__item {
+  border-radius: 6px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+.side-menu__item:hover {
+  background: rgba(74,108,247,0.1);
+}
+.sidemenu_icon {
+  margin-right: 10px;
+  color: #4a6cf7;
+}
+.slide-menu {
+  padding-left: 20px;
+}
+.slide-item {
+  padding: 8px 15px;
+  display: block;
+  color: #333;
+}
+.slide-item:hover {
+  background: rgba(74,108,247,0.1);
+  border-left: 3px solid #4a6cf7;
+}
+</style>
+
+<!--aside open-->
+<aside class="app-sidebar" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); border-right: 1px solid rgba(0,0,0,0.05); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+	<div class="app-sidebar__user">
+		<div class="dropdown user-pro-body text-center">
+			<div class="user-pic">
+				<img src="<?php echo URL?>images/allbusiness_Logo.svg" alt="">
+			</div>
+			<div style="height:20px"></div>
+			<div class="user-info">
+				
+                <h5 style="color:#06C"><?php echo $uTypeMember; ?></h5>
+              
+                <h6 style="color:#999">Trial Period: <strong>18 days left</strong></h5>
 			</div>
 		</div>
-
-
-		<ul class="side-menu" style="padding-top:70px">
-        
-        <?php
-		if($_GET['c'] == ""){
-					$class = 'is-expanded';
-					}else{
-					$class = '';
-					}
-		?>
-
-			<li class="slide <?php echo $class?>">
-			<a class="side-menu__item"  data-toggle="slide" href="<?php echo URL?><?php echo FOLDER_MEMBER?>">
-					<i class="feather  feather-star sidemenu_icon"></i>
-					<span class="side-menu__label ">Overview</span>
-				</a>
-            </li>
-            
-            <?php
-			$sqlDirect="SELECT * FROM tbl_components,tbl_rights_groups where tbl_rights_groups.rights_menu_id = tbl_components.component_id and tbl_rights_groups.rights_group_id = '".$_SESSION['sess_member_groupid']."' and component_parentid=0 and tbl_rights_groups.rights_menu_id != 1 order by tbl_components.component_ordering ASC";
-			$resultsDirect = $database->get_results($sqlDirect);
-			$totalDirect = count($resultsDirect);
-			
-			
-			
-			
-			
-			?>
-            
-            <?php
-				
-				foreach ($resultsDirect as $valueDirect ) {
-				
-				
-					if($_GET['c'] == $valueDirect['component_option']){
-					$class = 'is-expanded';
-					}else{
-					$class = '';
-					}
-
-					?>
-					<li  class="slide <?php echo $class; ?> "><a href="<?php echo URL?><?php echo FOLDER_MEMBER?>index.php?c=<?php echo $valueDirect['component_option']?>" class="side-menu__item">
-					
-                    <i class="<?php echo $valueDirect['component_small_image']?> sidemenu_icon"></i>
-					<span class="side-menu__label">
-					<?php echo $valueDirect['component_title']?> 
-                    </span>
-					</a>
-				
-				</li>
-
-			<?php } ?>		
-            
-            
-            
-                    
-			<?php
-
-				
-
-global $component,$database;
-
-
-
-$sqlcat = "select * from tbl_component_categories order by category_ordering asc";
-
-$resultscat = $database->get_results($sqlcat);
-
-//$rowcat = $resultscat[0];
-
-//print_r($rowcat);
-
-$resultcat = $database->num_rows($sqlcat);
-
-
-
-foreach ($resultscat as $valuecat ) 
-
-{
-
-	
-
-	//echo $valuecat['category_id'];
-
-	if($cidVal == $valuecat['category_id']){
-
-				
-
-			$class1 = 'active';
-			$expanded="is-expanded";
-
-			}else{
-
-				$class1 = '';
-				$expanded="";
-
-			}
-
-
-
-	
-
-		$sql="SELECT * FROM tbl_components,tbl_rights_groups where tbl_rights_groups.rights_menu_id = tbl_components.component_id and tbl_rights_groups.rights_group_id = '".$_SESSION['sess_member_groupid']."' and tbl_components.component_headingid='".$valuecat['category_id']."' and tbl_rights_groups.rights_menu_id != 1 order by tbl_components.component_ordering ASC";
-
-		$results = $database->get_results($sql);
-
-		$totalsubmenu = count($results);
-
-?>					
-			<li class="slide <?php echo $expanded?>">
-
-	
-				<a class="side-menu__item <?php //echo $class1; ?>" <?php if($totalsubmenu == 0 ){ echo 'style="display:none"';} ?>" data-toggle="slide" href="javascript:;">
-					<i class="<?php echo $valuecat['category_icon_class']?> sidemenu_icon"></i>
-					<span class="side-menu__label <?php //echo $class1; ?>"><?php echo $valuecat['category_name']?></span><i class="angle fa fa-angle-right"></i>
-				</a>
-
-	
-
-				<ul class="slide-menu">
-
-				<?php
-
-
-
-							foreach ($results as $value ) {
-
-								
-
-								if($_GET['c'] == $value['component_option']){
-
-									
-
-								$class = 'active';
-
-								}else{
-
-									$class = '';
-
-								}
-
-						?>
-					<li><a href="<?php echo URL?><?php echo FOLDER_MEMBER?>index.php?c=<?php echo $value['component_option']?>" class="slide-item <?php echo $class; ?>">
-					
-					<?php echo $value['component_title']?></a>
-				
-				
-				</li>
-
-			<?php } ?>		
-					
-		
-			
-		</ul>
-		<?php } ?>		
-		
 	</div>
-	
-</div>
+
+	<ul class="side-menu" style="padding-top:70px">
+		<!-- 1) Dashboard -->
+		<li class="slide <?php if ($_GET['c']=="") echo "is-expanded"; ?>">
+			<a class="side-menu__item" data-toggle="slide" href="<?php echo URL?>cms/member">
+				<i class="feather feather-star sidemenu_icon"></i>
+				<span class="side-menu__label">Dashboard</span>
+			</a>
+		</li>
+		
+		<!-- 2) My Listings -->
+		<li class="slide <?php if ($_GET['c']=="b-business" && $_GET['task']!="upgrade") echo "is-expanded"; ?>">
+			<a class="side-menu__item" data-toggle="slide" href="javascript:;">
+				<i class="feather feather-list sidemenu_icon"></i>
+				<span class="side-menu__label">My Listings</span>
+				<i class="angle fa fa-angle-right"></i>
+			</a>
+			<ul class="slide-menu is-expanded">
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-business&status=1" class="slide-item">Active Listings</a></li>
+				<li>
+					<a href="<?php echo URL?>cms/member/index.php?c=b-business&status=2" class="slide-item">
+						Pending Drafts 
+                        
+                        <?php 
+							$sqlCtrDraft="select count(business_id) as ctrDraft from tbl_business where business_status='draft'";
+							$resCtrDraft=$database->get_results($sqlCtrDraft);
+							$ctrDraft=$resCtrDraft[0]['ctrDraft'];
+						
+							if ($ctrDraft>0)
+							{						
+						?>
+                        <span class="alert-number"><?php echo $ctrDraft; ?></span>
+                        <?php } ?>
+                        
+                        
+					</a>
+				</li>
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-business&status=3" class="slide-item">Withdrawn</a></li>
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-business&status=4" class="slide-item">Sold</a></li>
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-business&status=5" class="slide-item">Under Offer</a></li>
+			</ul>
+		</li>
+		
+		<!-- 3) Enquiries -->
+		<li class="slide <?php if ($_GET['c']=="b-leads") echo "is-expanded"; ?>">
+			<a class="side-menu__item" href="<?php echo URL?>cms/member/index.php?c=b-leads">
+				<i class="feather feather-mail sidemenu_icon"></i>
+				<span class="side-menu__label">Enquiries</span>
+			</a>
+		</li>
+        
+        
+        <li class="slide <?php if ($_GET['c']=="b-business" && $_GET['task']=="upgrade") echo "is-expanded"; ?>">
+            <a class="side-menu__item" href="<?php echo URL?>cms/member/index.php?c=b-business&task=upgrade">
+                <i class="feather feather-shopping-cart sidemenu_icon"></i>
+                <span class="side-menu__label">Buy Credit</span>
+            </a>
+		</li>
+		
+		<!-- 4) My Account -->
+		<li class="slide <?php if ($_GET['c']=="b-edit-profile" || $_GET['c']=="b-agents") echo "is-expanded"; ?>">
+			<a class="side-menu__item" data-toggle="slide" href="javascript:;">
+				<i class="feather feather-user sidemenu_icon"></i>
+				<span class="side-menu__label">My Account</span>
+				<i class="angle fa fa-angle-right"></i>
+			</a>
+			<ul class="slide-menu">
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-edit-profile" class="slide-item">Company Profile</a></li>
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-agents" class="slide-item">Agents</a></li>
+			</ul>
+		</li>
+		
+		<!-- 5) Credit Order -->
+		<li class="slide <?php if ($_GET['c']=="orders" || $_GET['c']=="b-credits-usage") echo "is-expanded"; ?>">
+			<a class="side-menu__item" data-toggle="slide" href="javascript:;">
+				<i class="feather feather-credit-card sidemenu_icon"></i>
+				<span class="side-menu__label">Credit Order</span>
+				<i class="angle fa fa-angle-right"></i>
+			</a>
+			<ul class="slide-menu">
+				<li><a href="<?php echo URL?>cms/member/index.php?c=orders" class="slide-item">Order History</a></li>
+				<li><a href="<?php echo URL?>cms/member/index.php?c=b-credits-usage" class="slide-item">Credit Usage</a></li>
+			</ul>
+		</li>
+	</ul>
+</aside>
 <!-- End Sidemenu -->

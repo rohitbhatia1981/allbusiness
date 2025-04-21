@@ -94,6 +94,7 @@ $adId=decryptId($_POST['adId']);
 				
 				$names = array(		
 				'usage_agency_id' => $_SESSION['sess_member_id'],	
+				'usage_ad_id' => $adId,
 				'usage_description' => $adTypeUsage,			
 				'usage_date' => $curDateTime
 				);	
