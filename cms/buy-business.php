@@ -19,7 +19,7 @@ if ($_GET['landing']!="")
 		$resData=$database->get_results($sqlData);
 		$rowData=$resData[0];
 		$cityName=$rowData['city_name'];
-		$pageDesc=$rowData['city_page_desc'];
+		$pageDesc=fnUpdateHTML($rowData['city_page_desc']);
 		$stateName=$rowData['city_state'];
 		
 		

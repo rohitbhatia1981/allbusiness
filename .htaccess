@@ -230,10 +230,8 @@ RewriteRule  ^sea-for-sale$ cms/buy-business.php?category=191&landing=category [
 RewriteRule  ^taxi-for-sale$ cms/buy-business.php?category=192&landing=category [L] 
 RewriteRule  ^truck-for-sale$ cms/buy-business.php?category=193&landing=category [L] 
 
-#RewriteRule  ^truck-for-sale/vic/melbourne$ cms/buy-business.php?lid=3000&category=193&landing=city [L]
 
-RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([0-9]+)/([0-9]+)$ cms/buy-business.php?type=$1&state=$2&city=$3&lid=$4&category=$5&landing=city [L,QSA]
-
+RewriteRule ^([^/]+)/vic/melbourne/([0-9]+)/([0-9]+)$ cms/buy-business.php?type=$1&lid=$2&category=$3&landing=city [L,QSA]
 
 #ErrorDocument 404 /pharmahealth/pages/404.php
 
@@ -252,6 +250,7 @@ RewriteRule ^detail-(.*)-(.*)$ cms/news-detail?id=$2 [L]
 RewriteRule  ^private-seller cms/private-seller-signup.php [L,NC,END]
 
 RewriteRule ^login cms/login?id=$2 [L]
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
