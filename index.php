@@ -56,11 +56,24 @@ include PATH."include/headerhtml.php";
 <section class="top_banner">
 
 	<div class="container">
-		<h3 class="title_h3 text-center mb-4">More Businesses, All the Time.</h3>
+		<h3 class="title_h3 text-center mb-4">Find your perfect business in Australia</h3>
 		
         <?php include PATH."include/search-form.php"; ?>
         
-	</div>
+        <div style="background: #fff; border: 1px solid #e0e0e0; padding: 20px; margin-top: 20px;">
+          <p>
+            <strong>AllBusiness</strong> is Australia’s trusted business-for-sale listing marketplace, offering one of the largest directories for buying and selling businesses. 
+            With thousands of listings across the country, we connect buyers with incredible business opportunities in 
+            <strong>Melbourne</strong>, <strong>Sydney</strong>, <strong>Brisbane</strong>, <strong>Perth</strong>, <strong>Adelaide</strong>, <strong>Canberra</strong>, <strong>Gold Coast</strong>, <strong>Hobart</strong>, and beyond.
+          </p>
+          <p>
+            Our mission is to simplify the process of buying and selling businesses, making it efficient, transparent, and stress-free for everyone involved.
+          </p>
+        </div>
+
+</div>
+    
+    
     
     
 </section>
@@ -213,11 +226,65 @@ if ($totalProp > 0) {
 <section class="about_section">
 	<div class="container">
 		<h6>About Allbusinesses.com.au</h6>
-		<h3 class="title_h3">Buy a Business</h3>
-		<p>Starting a business from scratch is tough. Buying an established business for sale in Australia can be the answer. By buying an existing business, you can skip the startup hassle and start making profits right away. Magicbricks helps you find the right business for sale in Melbourne and across Victoria, with plans to expand into other states soon. Our platform simplifies the search process, allowing you to find businesses by industry, location, and price range.</p>
-		<p>With Magicbricks, investing in an Australian business for sale means investing in certainty and a proven formula. Whether you're interested in small businesses or franchises, we can help you find the right opportunity. Buying a business gives you access to systems, clients, inventory, and leases. It's a smart move for any entrepreneur.</p>
-		<p>Melbourne, as Victoria's capital, is a hub for businesses of all sizes. With its pro-business government and favourable taxation, it's a hub for small and start-up companies. Whether you're looking for large corporations or smaller retail operations, Melbourne has options for you.
-Find your perfect business for sale today with Magicbricks.</p>
+<div style="display: flex; flex-wrap: wrap; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 30px;">
+
+  <!-- Buy a Business Section -->
+  <div style="flex: 0 0 50%; padding: 20px; border-right: 1px solid #eee;">
+    <h2>Buy a Business</h2>
+    <p>
+      Looking to become a business owner without the startup risks? 
+      <strong>AllBusiness</strong> connects you with established businesses for sale across Australia.
+    </p>
+    <p>
+      Skip the uncertainty of starting from zero. When you buy an existing business, you get proven customers, revenue, and systems from day one.
+    </p>
+    <p>
+      We list businesses in every industry throughout 
+      <strong>Queensland</strong>, <strong>New South Wales</strong>, <strong>Victoria</strong>, 
+      <strong>South Australia</strong>, <strong>Western Australia</strong>, 
+      <strong>Northern Territory</strong>, and <strong>Tasmania</strong>.
+    </p>
+    <p>
+      Finding your perfect business is easy on our website. Just search by industry, location, and price to see businesses that match what you're looking for.
+    </p>
+    <div style="margin-top: 15px;">
+      <a href="<?php echo URL?>buy-business" style="display: inline-block; background: #0073e6; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+        Find Businesses
+      </a>
+    </div>
+  </div>
+
+  <!-- Sell Your Business Section -->
+  <div style="flex: 0 0 50%; padding: 20px;">
+    <h2>Sell Your Business</h2>
+    <p>
+      Thinking about selling your business? <strong>AllBusiness</strong> can help you find the right buyer. We connect business owners like you with people who are ready to buy.
+    </p>
+    <p>
+      Our platform makes it easy to showcase your business to interested buyers across Australia. From small businesses to established franchises, we help you reach the right audience.
+    </p>
+    <p>
+      Start by creating your listing with photos, key business details, and reasons why someone would want to buy it. Manage all your buyer conversations in one place.
+    </p>
+    <p>
+      We reach serious buyers in every Australian city - <strong>Sydney</strong>, <strong>Melbourne</strong>, <strong>Brisbane</strong>, <strong>Perth</strong>, <strong>Adelaide</strong>, <strong>Canberra</strong>, <strong>Hobart</strong>, <strong>Darwin</strong>, and beyond.
+    </p>
+    <p>
+      Whether you're working with a broker or selling independently, <strong>AllBusiness</strong> gives you the visibility and tools you need for a successful business sale.
+    </p>
+    <div style="margin-top: 15px;">
+      <a href="<?php echo URL?>private-sellers" style="display: inline-block; background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; margin-right: 10px;">
+        Sell Your Business
+      </a>
+      <a href="<?php echo URL?>for-brokers" style="display: inline-block; background: #FC6B35; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+        For Business Brokers
+      </a>
+    </div>
+  </div>
+
+</div>
+
+
 	</div>
 </section>
 
