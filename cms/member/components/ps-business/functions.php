@@ -73,14 +73,13 @@
 
 	
 
-	function saveFormValues()
+function saveFormValues()
 
 	{
 
 	global $database, $component;
 
 	
-
 		  if ($_POST['txtSuburb']!="")
 		  {
 			  $arrSub=explode(",",$_POST['txtSuburb']);
@@ -104,82 +103,72 @@
     $subCat = @implode(",", $filteredSubCategories);
 	}
 	
-
+	
 	$curDate = date("Y-m-d H:i:s");	
 	$street=$_POST['txtAddress'];
 	$address=$_POST['txtAddress']." ".$suburb.", ".$state.", ".$postcode;		
-	$addressDisplay=$_POST['rdAddressDisp'][0];
-	$name=$_POST['txtBusinessName'];
-	$abn=$_POST['txtABN'];	
-	$propertyIncluded=$_POST['cmbPropertyWithBus'];
-	$leaseAmount=$_POST['txtLeaseAmount'];
-	$leaseAmountPeriod=$_POST['cmbLeaseAmountPeriod'];
-	$leaseEnd=$_POST['txtLeaseEnd'];
-	$furtherOption=$_POST['txtFurther'];
-	$terms=$_POST['txtTerms'];
-	$buildingArea=$_POST['txtBuilding'];
-	$askingPrice=$_POST['txtAskingPrice'];	
-	$price=removeSpecialCharacters($_POST['txtAskingPrice']);	
-	$plusSav=$_POST['ckPlusSav'];
-	$tax=$_POST['cmbTax'];
-	$takings=$_POST['cmbTakings'];
-	$takingsvalue=$_POST['txtTakingsValue'];
-	$turnover=$_POST['cmbTurnover'];
-	$netProfit=$_POST['txtNetProfit'];
-	$heading=$_POST['txtHeading'];
-	$description=$_POST['txtDescription'];
-	$franchise=$_POST['cmbFranchisee'];
-	$manageType=$_POST['cmbManageType'];
+	$addressDisplay=$_POST['rdAddressDisp'][0];		
+	$regionArray=getRegionId($_POST['hdRegion']);		
+	$regionId=$regionArray['region_id'];
+	$greaterRegionId=$regionArray['region_greater_region'];	
+	$selectedValues = isset($_POST['rdAdType']) ? $_POST['rdAdType'] : array();
+	$adType = implode(',', $selectedValues); // This becomes "Independent Business,Franchise" etc.
 	
-		
+	
+	
+
+	if ($_POST['cmbPriceDisplay']==3)
+	$priceViewval=$_POST['txtPriceViewVal'];
+	else
+	$priceViewval="";
+	
+	if ($_POST['is_draft']==1)
+	$status="draft";
+	else
+	$status="current";
 
 		$curDate=date("Y-m-d");
-
 		$names = array(
-
-			'business_street' => $street, 
-			'business_address' => $address, 
 			'business_owner_id' => $_SESSION['sess_member_id'],
+			'business_heading' => $_POST['txtHeading'],
+			'business_description' => $_POST['txtDescription'],				
+			'business_ad_type' => $adType,		
+			'business_street' => $street, 
+			'business_address' => $address, 			
 			'business_suburb' => $suburb,
 			'business_state' => $state, 
 			'business_postcode' => $postcode,
-			'business_address_display' => $addressDisplay,
-			'business_name' => $name,
-			'business_abn' => $abn,
+			'business_region' => $regionId,
+			'business_greater_region' => $greaterRegionId,
+			'business_address_display' => $addressDisplay,			
 			'business_category' => $category,
 			'business_subcat' => $subCat,
-			'business_property_included' => $propertyIncluded,
-			'business_further_option' => $furtherOption,
-			'business_lease_amount' => $leaseAmount,
-			'business_lease_amount_period' => $leaseAmountPeriod,			
-			'business_lease_end' => $leaseEnd,			
-			'business_terms' => $terms,
-			'business_building_area' => $buildingArea,
-			'business_asking_price' => $askingPrice,
-			'business_price' => $price,
-			'business_plus_sav' => $plusSav,
-			'business_tax' => $tax,
-			'business_takings' => $takings,
-			'business_takings_value' => $takingsvalue,
-			'business_turnover' => $turnover,
-			'business_net_profit' => $netProfit,
-			'business_heading' => $heading,
-			'business_status' => 'current',
-			'business_description' => $description,
-			'business_franchise' => $franchise,
-			'business_manage_type' => $manageType,			
+			'business_property_included' => $_POST['cmbPropertyWithBus'],	
+			'business_asking_price' => $_POST['txtAskingPrice'],			
+			'business_price' => $_POST['txtSearchPrice'],
+			'business_price_display' => $_POST['cmbPriceDisplay'],	
+			'business_price_value' => $priceViewval,
+			
+			'business_takings' => $_POST['cmbPeriodCount'],
+			'business_takings_value' => $_POST['txtNetProfit'],
+			'business_turnover' => $_POST['txtSalesRevenue'],
+			'business_rent' => $_POST['txtRent'],
+			'business_expenses' => $_POST['txtExpenses'],						
+			'business_plus_stock' => $_POST['txtPlusStock'],							
 			'business_added_date' => $curDate,
 			'business_mod_date' => $curDate,
+			'business_status' => $status,
+			'business_plan_id' => 1,
 			'business_active_status' => 0,
 			'business_added_method_direct' => 1
-
-
 		);
 		
-		
-
+	
 		$add_query = $database->insert( 'tbl_business', $names );
 		$lastInsertedId=$database->lastid();
+		
+		
+		
 		
 		if (!empty($_POST['images4ex'])) {			
 		
@@ -197,15 +186,15 @@
 		
 		}
 
-		
+		//$encryptOrderId=base64_encode($lastInsertedId);
 
-		if( $add_query )
+	
+			if ($status=="draft")
+			print "<script>window.location='index.php?c=".$component."&status=2'</script>";
+			else
+			print "<script>window.location='index.php?c=".$component."&task=submitted&id=".$encryptOrderId."'</script>";
 
-		{
-
-			print "<script>window.location='index.php?c=".$component."&Cid=6'</script>";
-
-		}
+	
 
 		
 
@@ -224,7 +213,6 @@
 		
 
 	}
-
 	
 
 	function createFormForPages($id)

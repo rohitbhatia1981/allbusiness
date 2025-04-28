@@ -1,33 +1,12 @@
 <?php
-
-
-
 	function showList()
-
 	{
 
-	
-
 	global $database, $page, $pagingObject;
-
-				
-
-		//$sql = "SELECT * FROM tbl_pages where 1 order by page_title asc";
-
-
-	 $sql="select * from tbl_members where member_id='".$_SESSION['sess_member_id']."'";
 	
-	
-		$results = $database->get_results( $sql );
-
-		
-
-			
-
-		showRecordsListing( $results );
-
-		
-
+	$sql="select * from tbl_members where member_id='".$_SESSION['sess_member_id']."'";
+	$results = $database->get_results( $sql );
+	showRecordsListing( $results );
 	}
 
 	
@@ -142,15 +121,21 @@
 			global $database,$component;	
 
 			
-
+			
 							
 
 			$update = array(
-
-			'patient_city' => $_POST['txtCity'],
-			'patient_address1' => $_POST['txtAddress1'],
-			'patient_address2' => $_POST['txtAddress2'],
-			'patient_postcode' => $_POST['txtPostCode'],
+			'member_firstname' => $_POST['txtFirstName'],
+			'member_lastname' => $_POST['txtLastName'],
+			'member_email' => $_POST['txtEmail'],
+			'member_phone' => $_POST['txtPhone'],			
+			'member_company' => $_POST['txtCompany'],
+			'member_tradingname' => $_POST['txtAgency'],
+			'member_website' => $_POST['txtWebsite'],
+			'member_address' => $_POST['txtAddress'],
+			'member_aboutus' => $_POST['txtAbout'],
+			'member_speciality' => $_POST['txtSpeciality'],
+			'member_locations' => $_POST['txtLocations'],		
 
 			);
 			
@@ -160,57 +145,31 @@
 
 		$where_clause = array(
 
-			'patient_id' => $_SESSION['sess_patient_id']
+			'member_id' => $_SESSION['sess_member_id']
 
 		);
-		$updated = $database->update( 'tbl_patients', $update, $where_clause, 1 );
+		$updated = $database->update( 'tbl_members', $update, $where_clause, 1 );
 		
 		
-		//-----------Email for confirmation of editing to Patient---
-				
 		
-				$sqlCheck="select * from tbl_patients where patient_id='".$database->filter($_SESSION['sess_patient_id'])."'";
-				$resCheck=$database->get_results($sqlCheck);
-				$rowMemberid=$resCheck[0];				
+		if (!empty($_POST['images4ex'])) {			
+		
+				$imageName=$_POST['images4ex'][0];
 				
-				$receiverName=$rowMemberid['patient_title']." ".$rowMemberid['patient_first_name']." ".$rowMemberid['patient_middle_name']." ".$rowMemberid['patient_last_name'];
-				$email=$rowMemberid['patient_email'];
+				$update = array(
+				'member_agency_logo' => $imageName			
+				);
 				
-				include PATH."include/email-templates/email-template.php";
-				include_once PATH."mail/sendmail.php";
+				$where_clause = array(
+				'member_id' => $_SESSION['sess_member_id']
+				);
 				
-				$sqlEmail="select * from tbl_emails where email_id=34 and email_status=1";
-			    $resEmail=$database->get_results($sqlEmail);
+				$updated = $database->update( 'tbl_members', $update, $where_clause, 1 );
+				
+				
 			
-			
-				if (count($resEmail)>0)
-				{
-					$rowEmail=$resEmail[0];
-					$emailContent=fnUpdateHTML($rowEmail['email_description']);					
-					$emailContent=str_replace("<name>",$receiverName,$emailContent);					
-					$emailContent=str_replace("\n","<br>",$emailContent);
-					
-					$headingContent=$emailContent;
-
-				 $mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
-				
-
-
-				$ToEmail=$email;
-				$FromEmail=ADMIN_FORM_EMAIL;
-				$FromName=FROM_NAME;
-				
-				$SubjectSend="Confirmation - Change of account details";
-				$BodySend=$mailBody;	
-				
-				
-
-				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
-				}
 		
-		
-		//------------end email for confirmation of editing----
-
+		}
 		
 
 		if( $updated )

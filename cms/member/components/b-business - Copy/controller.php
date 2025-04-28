@@ -117,10 +117,6 @@ switch($task)
 		case 'adorder':
 		fnSaveOrder();
 		break;
-		
-		case 'submitted':
-		fnSubmitted($id);
-		break;
 
 		
 

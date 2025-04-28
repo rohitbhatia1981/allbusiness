@@ -39,15 +39,15 @@
 				<h4 class="page-title"><?php echo pageheading(); ?></h4>
 			</div>
 			<div class="page-rightheader ml-md-auto">
-				<!--<div class=" btn-list">
+				<div class=" btn-list">
 
-								<?php if($permission['rights_add'] == 1) { ?>
+								
 
 
 
 <a href="index.php?c=<?php echo $component?>&task=add&Cid=<?php echo $menuid['component_headingid']; ?>" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#addawardmodal">Add New</a>
 
-<?php } ?>							
+						
 								
 					<a href="" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" role="button" title="Actions" aria-haspopup="true" aria-expanded="false">
 									Action
@@ -59,19 +59,15 @@
 				<ul class="dropdown-menu dropdown-menu-right" role="menu">
 
 
-				<?php if($permission['rights_delete'] == 1) { ?>
+				
 
 				<li><a href="javascript:if (document.adminForm.hidCheckedBoxes.value == 0){ alert('Please make a selection from the list to delete'); } else if (confirm('Are you sure you want to delete selected items?')){ submitbutton('remove');}"><i class="feather feather-trash-2 mr-2"></i> Delete</a></li>
 
-				<?php } ?>
+				
 
-				<?php if($permission['rights_enable'] == 1) { ?>
+				
 
-				<li><a href="javascript:if (document.adminForm.hidCheckedBoxes.value == 0){ alert('Please make a selection from the list to enable'); } else {submitbutton('publishList', '');}"><i class="fa fa-check-circle mr-2"></i> Enable</a></li>
-
-				<li><a href="javascript:if (document.adminForm.hidCheckedBoxes.value == 0){ alert('Please make a selection from the list to disable'); } else {submitbutton('unpublishList', '');}"><i class="fa fa-ban mr-2"></i> Disable</a></li>
-
-				<?php } ?>
+				
 					
 
 				</ul>
@@ -81,7 +77,7 @@
 	
 	
 									
-								</div>-->
+								</div>
 				
 			</div>
 		</div>
@@ -136,10 +132,11 @@
                                                 
                                                 <th width="13%" class="border-bottom-0">Profile Picture</th>
                                                <th width="24%" class="border-bottom-0">Agent Name</th>
-                                             <th width="14%" class="border-bottom-0">Agency </th>                                              
+                                                                                           
                                               <th width="13%" class="border-bottom-0">Email</th>                                                
-                                              <th width="13%" class="border-bottom-0">Phone</th>
+                                              
                                               <th width="13%" class="border-bottom-0">Mobile</th>
+                                              <th width="13%" class="border-bottom-0">Status</th>
                                                
                                               
                                                                                            
@@ -168,7 +165,7 @@
 									<td class="align-middle">
 										<label class="custom-control custom-checkbox">
 				
-				<input name="deletes[]" id="chkDelete" onClick="isChecked(this.checked);" class="custom-control-input" value="<?php echo $row['member_id']; ?>" type="checkbox"  />			
+				<input name="deletes[]" id="chkDelete" onClick="isChecked(this.checked);" class="custom-control-input" value="<?php echo $row['agent_id']; ?>" type="checkbox"  />			
 											<span class="custom-control-label"></span>
 										</label>
 									</td>
@@ -191,22 +188,30 @@
 									
                                     <td class="align-middle">
 										
-												<?php echo $row['agent_name']; ?>
+												<a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['agent_id']; ?>" ><?php echo $row['agent_name']." ".$row['agent_lastname']; ?></a>
 											
 									</td>
-                                     <td class="align-middle">
-										
-												<div class="ml-3 mt-1">
-															<?php echo getAgencyName($row['agent_agency_id']); ?>
-                                                            
-											</div>
-											
-									</td>
+                                    
                                     <td class="align-middle"><?php echo $agentEmail; ?></td>
                                     
-                                    <td class="align-middle"><?php echo $row['agent_phone']; ?></td>
-                                    <td class="align-middle"><?php echo $row['agent_mobile']; ?></td>
                                     
+                                    <td class="align-middle"><?php echo $row['agent_mobile']; ?></td>
+                                    <td class="align-middle">
+										<div class="btn-group align-top">
+										<?php if($row['agent_status'] == 1){ ?>
+
+										<span class="tag tag-green">Enabled</span>
+
+										<?php }else if($row['agent_status'] == 0){ ?>
+
+										<span class="tag tag-red">Disabled</span>
+
+										<?php } ?>
+
+
+											
+										</div>
+									</td>
                                     
                                    
                                     
@@ -318,7 +323,7 @@ else
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
 	<div class="page-leftheader">
-	<h4 class="page-title">Private Seller : <?php if ($_GET['task']=="edit") echo 'Edit'; else if ($_GET['task']=="add") echo 'Add'; else if ($_GET['task']=="detail") echo 'Detail'; ?></h4>
+	<h4 class="page-title">Agent : <?php if ($_GET['task']=="edit") echo 'Edit'; else if ($_GET['task']=="add") echo 'Add'; else if ($_GET['task']=="detail") echo 'Detail'; ?></h4>
 	</div>
 	<div class="page-rightheader ml-md-auto">
 		<div class=" btn-list">
@@ -359,25 +364,31 @@ else
 										<div class="row row-sm">
 											<div class="col-lg-4">
                                             	<label class="form-label">First Name *</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_firstname']?>" name="txtFirstName" required>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['agent_name']?>" name="txtFirstName" required>
 											</div>	
                                             
                                             <div class="col-lg-4">
                                             	<label class="form-label">Last Name *</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_lastname']?>" name="txtLastName" required="required">
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['agent_lastname']?>" name="txtLastName" required="required">
 											</div>										
 										</div>
                                         
                                         <div class="row row-sm">
                                         	<div class="col-lg-4">
                                             	<label class="form-label">Email Address *</label>
-												<input class="form-control mb-4" placeholder="" type="email" value="<?php echo $row['member_email']?>" name="txtEmail" required="required">
+												<input class="form-control mb-4" placeholder="" type="email" value="<?php echo $row['agent_email']?>" name="txtEmail" required="required">
 											</div>
 											<div class="col-lg-4">
                                             	<label class="form-label">Phone *</label>
-												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['member_phone']?>" name="txtPhone" required="required">
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $row['agent_phone']?>" name="txtPhone" required="required">
 											</div>											
 										</div>
+                                        
+                                        <div class="row" style="padding-top:15px">
+                                        <div class="col-12">
+                                            <div id="images4ex" orakuploader="on"></div>
+                                        </div>
+                                    </div>
                                         
                                        
                                        
@@ -418,26 +429,7 @@ else
                                 
                              
                                 
-                                <div class="card">
-									<div class="card-header border-bottom-0">
-										<h3 class="card-title">Activate registration and send email to Private Seller</h3>
-									</div>
-									<div class="card-body pb-2">
-                                    
-										
-                                        
-                                       
-                                        
-                                        <div style="height:20px"></div>
-                        
-                        
-                                        <div class="custom-controls-stacked">
-                                            <label class="custom-control custom-radio">
-                                                <input type="checkbox"  class="" name="ckEmail" id="ckEmail" value="1" >
-                                                &nbsp;
-                                                Send Welcome Email and Password to Private Seller</label></div>
-                                     </div>
-                                  </div>	
+                                	
                    				</div>
                                 
                             
@@ -447,12 +439,46 @@ else
 					</div>
 					</div>	
 
-<input type="hidden" name="pid" value="<?php echo $row['member_id']?>" />	
+<input type="hidden" name="pid" value="<?php echo $row['agent_id']?>" />	
 
 	</form>			            
                             	
-            
+     <?php 
+	 if ($row['agent_picture']!="")
+	 $pImageStr="'".$row['agent_picture']."'"; ?>       
             <script language="javascript">
+			
+			
+			$(document).ready(function(){
+	$('#images4ex').orakuploader({
+		orakuploader : true,
+		orakuploader_path : 'orakuploader/',
+
+		orakuploader_main_path : '../../images/agentpic',
+		orakuploader_thumbnail_path : '../../images/agentpic',
+		
+		orakuploader_use_main : true,
+		orakuploader_use_sortable : true,
+		orakuploader_use_dragndrop : true,
+		
+		orakuploader_add_image : 'orakuploader/images/add.png',
+		orakuploader_add_label : 'Browser for images',
+		
+		orakuploader_resize_to	     : 700,
+		orakuploader_thumbnail_size  : 700,
+		orakuploader_maximum_uploads : 1,
+		orakuploader_attach_images: [<?php echo $pImageStr?>],
+		
+		orakuploader_main_changed    : function (filename) {
+			$("#mainlabel-images").remove();
+			$("div").find("[filename='" + filename + "']").append("<div id='mainlabel-images' class='maintext'>Main Image</div>");
+		}
+
+	});
+	
+	
+});
+			
 			
 			function addMoreFile(val)
 					{

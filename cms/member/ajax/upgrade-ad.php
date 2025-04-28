@@ -81,7 +81,7 @@ exit;
 			$credits90_a=$rowCredits['inventory_advanced_90'];
 			$credits180_a=$rowCredits['inventory_advanced_180'];
 			
-			$encryptedAdId=encryptId($_GET['id']);
+			$encryptedAdId=$_GET['id'];
 	
 			
 	if ($_GET['name']=="Premium") { ?>

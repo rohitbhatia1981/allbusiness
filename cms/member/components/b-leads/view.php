@@ -76,11 +76,11 @@
 				<ul class="dropdown-menu dropdown-menu-right" role="menu">
 
 
-				<?php if($permission['rights_delete'] == 1) { ?>
+				
 
 				<li><a href="javascript:if (document.adminForm.hidCheckedBoxes.value == 0){ alert('Please make a selection from the list to delete'); } else if (confirm('Are you sure you want to delete selected items?')){ submitbutton('remove');}"><i class="feather feather-trash-2 mr-2"></i> Delete</a></li>
 
-				<?php } ?>
+				
 
 				
 					
@@ -267,6 +267,8 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 											<label class="form-label mb-0"><?php echo $row['inquiry_message']; ?></label>
 											<p class="" style="font-weight:<?php echo $readStatus?>">Business id: <a href="?c=b-business&task=edit&id=<?php echo $row['business_id']?>" style="color:#09C">AB-<?php echo $row['business_id']; ?></a>, dt: <?php echo displayDateFormat($row['inquiry_date']); ?><br />
                                             Category: <strong><?php echo getBusinessCategoryName($row['business_category']); ?></strong>
+                                            
+                                            (<?php echo getBusinessCategoryName($row['business_subcat']); ?>)
                                             </p>
 										</div>
 									</div>	

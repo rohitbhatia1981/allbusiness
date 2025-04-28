@@ -127,10 +127,6 @@
 	$greaterRegionId=$regionArray['region_greater_region'];	
 	$selectedValues = isset($_POST['rdAdType']) ? $_POST['rdAdType'] : array();
 	$adType = implode(',', $selectedValues); // This becomes "Independent Business,Franchise" etc.
-	
-	
-	$selectedAgents = isset($_POST['rdAgent']) ? $_POST['rdAgent'] : array();
-	$adAgents = implode(',', $selectedAgents);
 
 	if ($_POST['cmbPriceDisplay']==3)
 	$priceViewval=$_POST['txtPriceViewVal'];
@@ -146,8 +142,7 @@
 		$names = array(
 			'business_owner_id' => $_SESSION['sess_member_id'],
 			'business_heading' => $_POST['txtHeading'],
-			'business_description' => $_POST['txtDescription'],				
-			'business_agent_id' => $adAgents,
+			'business_description' => $_POST['txtDescription'],	
 			'business_ad_type' => $adType,		
 			'business_street' => $street, 
 			'business_address' => $address, 			
@@ -164,7 +159,7 @@
 			'business_price' => $_POST['txtSearchPrice'],
 			'business_price_display' => $_POST['cmbPriceDisplay'],	
 			'business_price_value' => $priceViewval,
-			
+			'business_poa' => $_POST['ckPOA'],
 			'business_takings' => $_POST['cmbPeriodCount'],
 			'business_takings_value' => $_POST['txtNetProfit'],
 			'business_turnover' => $_POST['txtSalesRevenue'],
@@ -181,8 +176,7 @@
 			'business_added_date' => $curDate,
 			'business_mod_date' => $curDate,
 			'business_status' => $status,
-			'business_plan_id' => 1,
-			'business_active_status' => 1,
+			'business_active_status' => 0,
 			'business_added_method_direct' => 1
 		);
 		
@@ -209,15 +203,15 @@
 		
 		}
 
-		$encryptOrderId=base64_encode($lastInsertedId);
+		
 
-	
-			if ($status=="draft")
-			print "<script>window.location='index.php?c=".$component."&status=2'</script>";
-			else
-			print "<script>window.location='index.php?c=".$component."&task=submitted&id=".$encryptOrderId."'</script>";
+		if( $add_query )
 
-	
+		{
+
+			print "<script>window.location='index.php?c=".$component."'</script>";
+
+		}
 
 		
 
@@ -239,7 +233,7 @@
 	
 	function fnSaveOrder()
 	{
-		global $database,$component;
+		global $database,$component;;
 		
 		
 		//echo "<br><br><br>";
@@ -307,9 +301,6 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 		//-----Create Order-------
 		
 		$curDateTime = date("Y-m-d H:i:s"); 
-		
-		$gst=$sumTotal*10/100;
-		$netTotal=$sumTotal+$gst;
 
 		$names = array(		
 			'ad_agency_id' => $_SESSION['sess_member_id'],	
@@ -321,9 +312,7 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 			'ad_advance_90_qty' => $number_of_advance_ad_90_days,			
 			'ad_advance_180_amount' => $number_of_advance_ad_180_total_amount,
 			'ad_advance_180_qty' => $number_of_advance_ad_180_days,
-			'ad_total_amount' => $sumTotal,			
-			'ad_total_gst' => $gst,
-			'ad_net_total' => $netTotal,			
+			'ad_total_amount' => $sumTotal,
 			'ad_order_date' => $curDateTime
 
 		);	
@@ -390,17 +379,6 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 
 }
 
-
-		function fnSubmitted($id)
-			{
-
-				global $database;
-				 $sql = "SELECT * FROM tbl_business where business_id='".$database->filter(base64_decode($id))."'";
-				$results = $database->get_results( $sql );
-				
-				createFormForPagesHtml_details($results);
-
-			}
 	
 
 	function createFormForPages($id)
@@ -485,9 +463,6 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 	$greaterRegionId=$regionArray['region_greater_region'];	
 	$selectedValues = isset($_POST['rdAdType']) ? $_POST['rdAdType'] : array();
 	$adType = implode(',', $selectedValues); // This becomes "Independent Business,Franchise" etc.
-	
-	$selectedAgents = isset($_POST['rdAgent']) ? $_POST['rdAgent'] : array();
-	$adAgents = implode(',', $selectedAgents);
 
 	if ($_POST['cmbPriceDisplay']==3)
 	$priceViewval=$_POST['txtPriceViewVal'];
@@ -497,7 +472,6 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 			$update = array(			
 			'business_heading' => $_POST['txtHeading'],
 			'business_description' => $_POST['txtDescription'],	
-			'business_agent_id' => $adAgents,
 			'business_ad_type' => $adType,		
 			'business_street' => $street, 
 			'business_address' => $address, 			
@@ -514,7 +488,7 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 			'business_price' => $_POST['txtSearchPrice'],
 			'business_price_display' => $_POST['cmbPriceDisplay'],	
 			'business_price_value' => $priceViewval,
-			
+			'business_poa' => $_POST['ckPOA'],
 			'business_takings' => $_POST['cmbPeriodCount'],
 			'business_takings_value' => $_POST['txtNetProfit'],
 			'business_turnover' => $_POST['txtSalesRevenue'],

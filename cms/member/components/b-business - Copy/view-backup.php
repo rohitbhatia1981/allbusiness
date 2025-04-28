@@ -226,7 +226,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 											</div>
 										</div>
                                         <?php if ($_GET['payment']==1 && $_SESSION['sessListingId']!="") { ?>
-                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<i class="fa fa-check-circle-o mr-2" aria-hidden="true"></i> Thank you for making payment, your Listing ID: AB-<?php echo $_SESSION['sessListingId']; ?> is upgraded and Live.</div>
                                         <?php 
 											unset($_SESSION['sessListingId']);
@@ -330,13 +330,8 @@ $dropdownOptions = generateCategoryOptions($resCategories);
                                     <div style="height:10px"></div>
                                     ID: <a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" style="color:#06F; text-decoration:underline"><?php echo $row['business_id'] ?></a>
                                     <br /><br />
-                                    
-                                    
-                                    <?php  $detailLink = generateBusinessLink($row['business_id']); ?>
                                    
-                                   <?php if ($row['business_status']=="current") { ?>
-                                    <div style="margin-bottom:8px;"><a href="<?php echo $detailLink; ?>" target="_blank" ><i class="fe fe fe-eye" style="color:#F60"></i>&nbsp;Live Preview</a></div>
-                              		<?php } ?>
+                                    <div style="margin-bottom:8px;"><a href="#" ><i class="fe fe fe-eye" style="color:#F60"></i>&nbsp;Live Preview</a></div>
                                     <div><a href="?c=<?php echo $component?>&task=edit&id=<?php echo $row['business_id']; ?>" ><i class="fe fe fe-edit" style="color:#F60"></i>&nbsp;Edit Ad</a></div>
                                     
                                     
@@ -644,63 +639,6 @@ else
                 <label class="form-label">Ad Title *</label>
                 <input type="text" class="form-control mb-3" name="txtHeading" value="<?php echo $rowBusiness['business_heading']; ?>" required>
             </div>
-            
-            
-         </div>
-         
-         
-         <div class="row row-sm">
-    <div class="col-lg-12">
-        <label class="form-label">Agents </label>
-        <div class="row">
-            <!-- First Column (6 items) -->
-            <div class="col-md-4">
-                <ul class="style-none filter-input" style="list-style: none; padding-left: 0;">
-                
-                <?php $sqlAgents="select * from tbl_member_agents where agent_agency_id='".$database->filter($_SESSION['sess_member_id'])."' and agent_status=1";
-				$resAgents=$database->get_results($sqlAgents);
-				
-				if (count($resAgents)>0)
-				{
-					
-					$arrAgents=array();
-					$arrAgents = explode(',', $rowBusiness['business_agent_id']);
-					
-					for ($a=0;$a<count($resAgents);$a++)
-					{
-						
-						$rowAgents=$resAgents[$a];
-				
-				 ?>
-                    <li class="mb-2">
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" name="rdAgent[]" value="<?php echo $rowAgents['agent_id']; ?>" <?php if (in_array($rowAgents['agent_id'], $arrAgents)) echo "checked"; ?>>
-                            <span class="ml-2"><?php echo $rowAgents['agent_name']." ".$rowAgents['agent_lastname']; ?></span>
-                        </label>
-                    </li>
-                
-                <?php }
-				}?>
-                    
-                     
-                    
-                    
-                </ul>
-            </div>
-            
-           
-            
-            
-            
-        </div>
-        <div id="checkbox-error-container"></div>
-    </div>
-</div>
-         
-         
-         
-         <div class="row" style="padding-top:15px">   
-            
             <div class="col-12">
                 <label class="form-label">Description *</label>
                 <textarea class="form-control mb-3" rows="3" name="txtDescription" required><?php echo $rowBusiness['business_description']; ?></textarea>
@@ -1039,8 +977,8 @@ else
             <div class="col-lg-6" style="padding-top:25px">
             
             		<div class="style-none d-flex filter-input pt-2 ps-2" >
-                   
-                    &nbsp;&nbsp;<label style="font-weight:400"></label>
+                    <input type="checkbox" value="1" style="height:20px !important" name="ckPOA" <?php if ($rowBusiness['business_poa']==1) echo "checked"; ?>>
+                    &nbsp;&nbsp;<label style="font-weight:400">POA (don't display price)</label>
                 </div>
             
             </div>
@@ -1055,10 +993,6 @@ else
                     <option value="1" <?php if ($rowBusiness['business_price_display']=="1") echo "selected"; ?>>Display price</option>
                     <option value="2" <?php if ($rowBusiness['business_price_display']=="2") echo "selected"; ?>>Do not display price</option>
                     <option value='3' <?php if ($rowBusiness['business_price_display']=="3") echo "selected"; ?>>Display "price view" instead</option>
-                    <option value='4' <?php if ($rowBusiness['business_price_display']=="4") echo "selected"; ?>>POA (don't display price)</option>
-                    
-                    
-                   
                 </select>
             </div>
              <div class="col-lg-6">
@@ -1074,7 +1008,7 @@ else
         <!-- Plus Stock & Search Price in two columns -->
         <div class="row pt-3">
             <div class="col-md-6">
-                <label class="form-label">Plus stock (SAV - stock at value)</label>
+                <label class="form-label">Plus Stock</label>
                 <input type="text" placeholder="" class="form-control" name="txtPlusStock" value="<?php  echo $rowBusiness['business_plus_stock']?>" >
             </div>
            <div class="col-md-6">
@@ -1130,17 +1064,17 @@ else
     <!-- Left Column (Financial Inputs) -->
     <div class="col-md-6 pe-3">
         <div class="dash-input-wrapper mb-3">
-            <label class="form-label fw-bold">Sales Revenue </label>
+            <label class="form-label fw-bold">Sales Revenue *</label>
             <div class="input-group">
-                <input type="number" class="form-control" name="txtSalesRevenue" value="<?php echo $rowBusiness['business_turnover']?>" >
+                <input type="number" class="form-control" name="txtSalesRevenue" value="<?php echo $rowBusiness['business_turnover']?>" required>
                 <span class="input-group-text bg-light"><span id="dispPeriod1">/Week</span></span>
             </div>
         </div>
 
         <div class="dash-input-wrapper mb-3">
-            <label class="form-label fw-bold">Rent </label>
+            <label class="form-label fw-bold">Rent *</label>
             <div class="input-group">
-                <input type="number" class="form-control" name="txtRent" value="<?php echo $rowBusiness['business_rent']?>" >
+                <input type="number" class="form-control" name="txtRent" value="<?php echo $rowBusiness['business_rent']?>" required>
                 <span class="input-group-text bg-light"><span id="dispPeriod2">/Week</span></span>
             </div>
         </div>
@@ -1149,17 +1083,17 @@ else
     <!-- Right Column (Financial Inputs) -->
     <div class="col-md-6 ps-3">
         <div class="dash-input-wrapper mb-3">
-            <label class="form-label fw-bold">Expenses </label>
+            <label class="form-label fw-bold">Expenses *</label>
             <div class="input-group">
-                <input type="number" class="form-control" name="txtExpenses" value="<?php echo $rowBusiness['business_expenses']?>" >
+                <input type="number" class="form-control" name="txtExpenses" value="<?php echo $rowBusiness['business_expenses']?>" required>
                 <span class="input-group-text bg-light"><span id="dispPeriod3">/Week</span></span>
             </div>
         </div>
 
         <div class="dash-input-wrapper mb-3">
-            <label class="form-label fw-bold">Net Profit </label>
+            <label class="form-label fw-bold">Net Profit *</label>
             <div class="input-group">
-                <input type="number" class="form-control" name="txtNetProfit" value="<?php echo $rowBusiness['business_takings_value']?>" >
+                <input type="number" class="form-control" name="txtNetProfit" value="<?php echo $rowBusiness['business_takings_value']?>" required>
                 <span class="input-group-text bg-light"><span id="dispPeriod4">/Week</span></span>
             </div>
         </div>
@@ -1207,13 +1141,6 @@ else
 </form>
 
 <style>
-
-
-	.input-error {
-		border: 1px solid red !important;
-	}
-
-
     .btn-radio-group .btn {
         border-radius: 5px;
         margin-right: 8px;
@@ -1405,6 +1332,7 @@ $(document).ready(function () {
         return $('input[name="rdAddressDisp[]"]:checked').length > 0;
     }, "*");
 
+    // 👇 Define validator instance so it's accessible outside
     var validator = $("#adminForm").validate({
         rules: {
             txtAddress: "required",
@@ -1414,35 +1342,40 @@ $(document).ready(function () {
             }
         },
         messages: {
-            txtAddress: "",
-            txtSuburb: "",
-            'rdAddressDisp[]': ""
+            txtAddress: "This field is required.",
+            txtSuburb: "This field is required.",
+            'rdAddressDisp[]': {
+                atLeastOneChecked: "Please select at least one option."
+            }
         },
         errorPlacement: function (error, element) {
-            // do nothing — suppress error messages
-        },
-        highlight: function(element) {
-            $(element).addClass('input-error'); // highlight with a CSS class
-        },
-        unhighlight: function(element) {
-            $(element).removeClass('input-error'); // remove highlight when valid
+            if (element.attr("name") == "rdAddressDisp[]") {
+                error.appendTo("#checkbox-error-container");
+            } else {
+                error.insertAfter(element);
+            }
         },
         submitHandler: function (form) {
             form.submit();
         }
     });
 
+    // 👇 Draft button - bypass validation
     $(".btn-draft").on("click", function (e) {
-        e.preventDefault();
+        e.preventDefault(); // prevent default button behavior
+
+        // Optional hidden field to indicate "draft"
         $("<input>").attr({
             type: "hidden",
             name: "is_draft",
             value: "1"
         }).appendTo("#adminForm");
 
-        validator.resetForm();
-        $("#adminForm").off("submit");
-        $("#adminForm")[0].submit();
+        // Disable validation temporarily
+        validator.resetForm(); // Clears error messages
+        $("#adminForm").off("submit"); // Remove validation's submit handler
+
+        $("#adminForm")[0].submit(); // Submit without validation
     });
 });
 
@@ -1594,11 +1527,11 @@ $("#suggesstion-box").hide();
 <!--Page header-->
 <div class="page-header d-lg-flex d-block">
 	<div class="page-leftheader">
-	<h4 class="page-title">Ad Submitted</h4>
+	<h4 class="page-title">Order Details</h4>
 	</div>
 	<div class="page-rightheader ml-md-auto">
 		<div class=" btn-list">
-		<a href="?c=b-business&status=1" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back">
+		<a href="javascript:history.back()" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back">
 																<i class="fa fa-close"></i>
 															</a>
 		</div>
@@ -1618,9 +1551,7 @@ $("#suggesstion-box").hide();
 					
 						
 						
-						$row = &$rows[0];
-						
-						 $detailLink = generateBusinessLink($row['business_id']);
+						$rowPres = &$rows[0];
 							
 					?>
 
@@ -1629,167 +1560,1200 @@ $("#suggesstion-box").hide();
 
 						<!-- Row -->
 						<div class="row" style="padding-top:15px">
-							<div class="col-xl-12 col-md-12 col-lg-12">
+							<div class="col-xl-4 col-md-12 col-lg-12">
 								<div class="card">
-									
+									<div class="card-header  border-0">
+										<div class="card-title">Prescription Status: <?php echo getPrescriptionStatus($rowPres['pres_stage'],$rowPres['pres_id']); ?></div>
+									</div>
 									<div class="card-body pt-2 pl-3 pr-3">
 										<div class="table-responsive">
-											<div class="ad-success-container">
-    <div class="ad-success-message">
-        <h2>🎉 Your Ad has been successfully created!</h2>
-        <p>Your advertisement is now live. You can view, edit, or upgrade your ad.
-        <p>Ad ID: <strong><?php echo $row['business_id']; ?></strong><br>
-        Ad Type: 
-        
-         <?php if ($row['business_plan_id']==1) { ?>
-                                    <strong>Basic Ad</strong>
-                                    <?php } ?>
-                                    
-                                     <?php if ($row['business_plan_id']==2 ) { ?>
-                                    <strong>Advanced Ad</strong>
-                                    	<?php if ($row['business_plan_expiry_date']!="") { ?> 
-                                    		| <font style="font-size:14px">Expiry date: <?php echo fn_GiveMeDateInDisplayFormat($row['business_plan_expiry_date']); ?></font>
-                                    	<?php } ?>
-                                    <?php } ?>
-                                    
-                                     <?php if ($row['business_plan_id']==3) { ?>
-                                   <strong> Premium Ad</strong>
-                                    <font style="font-size:14px">| Expiry date: <?php echo fn_GiveMeDateInDisplayFormat($row['business_plan_expiry_date']); ?></font>
-                                    <?php } ?>
-                                    </div>
-        
-        </p>
-    </div>
-  
-    <div class="ad-success-buttons">
-    
-    
-        <a href="<?php echo $detailLink?>" target="_blank" class="btn-primary btn-sm mb-1">View Ad</a>
-        
-        <?php if ($row['business_plan_id']==1) { ?>
-        <a href="#" data-toggle="modal" data-target="#newModel" data-id="<?php echo base64_encode($row['business_id'])?>" data-name="Premium" class="btn btn-indigo btn-sm mb-1">Upgrade to Premium</a> 
-        <a href="#" data-toggle="modal" data-target="#newModel" data-id="<?php echo base64_encode($row['business_id'])?>" data-name="Adavnced" class="btn btn-orange btn-sm mb-1">Upgrade to Advanced</a>
-        <?php } ?>
-        <a href="#" class="btn-outline btn-sm mb-1">Edit Ad</a>
-    </div>
-</div>
-
-<div class="modal fade" id="newModel">                 
-    			<div class="modal-dialog modal-lg" role="document">
-       			 <div class="modal-content" id="modalContent" style="max-height: 90vh; overflow-y: auto; padding: 20px;"> 
-                     
-                    
-				</div>
-			</div>
-           	</div>
-            
-            
-            
-      
-
-
-
-<style>
-.ad-success-container {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.ad-success-message h2 {
-    color: #2e7d32;
-    margin-bottom: 10px;
-}
-
-.ad-success-message p {
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 30px;
-}
-
-.ad-success-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.ad-success-buttons a {
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.btn-primary {
-    background-color: #1976d2;
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background-color: #125aa2;
-}
-
-.btn-secondary {
-    background-color: #388e3c;
-    color: #fff;
-}
-
-.btn-secondary:hover {
-    background-color: #2e7d32;
-}
-
-.btn-outline {
-    background-color: transparent;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-}
-
-.btn-outline:hover {
-    background-color: #1976d2;
-    color: #fff;
-}
-
-/* For WebKit browsers (Chrome, Safari, Edge) */
-    #modalContent::-webkit-scrollbar {
-        width: 10px; /* Width of the scrollbar */
-    }
-
-    #modalContent::-webkit-scrollbar-track {
-        background: #f1f1f1; /* Light grey track */
-    }
-
-    #modalContent::-webkit-scrollbar-thumb {
-        background: #003366; /* Dark blue thumb */
-        border-radius: 5px; /* Rounded corners */
-    }
-
-    #modalContent::-webkit-scrollbar-thumb:hover {
-        background: #F0F; /* Darker blue on hover */
-    }
-
-    /* For Firefox */
-    #modalContent {
-        scrollbar-width: thin; /* "auto" or "thin" */
-        scrollbar-color: #F0F #f1f1f1; /* Dark blue thumb and light grey track */
-    }
-
-</style>
-
+											<table class="table">
+												<tbody>
+                                                
+                                                	<tr>
+														<td>
+															<span class="w-50">Order Number</span>
+														</td>
+														<td>:</td>
+														<td>
+															PH-<?php echo $rowPres['pres_id'] ?>
+														</td>
+													</tr>
+                                                
+                                               		 <tr>
+														<td>
+															<span class="w-50">Patient Name</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php echo $rowPres['patient_first_name']." ".$rowPres['patient_middle_name']." ".$rowPres['patient_last_name']; ?></span>
+														</td>
+													</tr>
+                                                    
+                                                    <tr>
+														<td>
+															<span class="w-50"> DOB</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php 
+									
+									/*$from = new DateTime($rowPres['patient_dob']);
+									$to   = new DateTime('today');
+									echo $from->diff($to)->y;*/
+									$date=date_create($rowPres['patient_dob']);
+									echo date_format($date,"d/m/Y");
+									//echo date_format($rowPres['patient_dob'],'d/m/Y') ?></span>
+														</td>
+													</tr>
+                                                    
+                                                    <tr>
+														<td>
+															<span class="w-50">Gender</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php echo getGenderName($rowPres['patient_gender']) ?></span>
+														</td>
+													</tr>
+                                                    
+                                                    <tr>
+														<td>
+															<span class="w-50">Phone</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php echo $rowPres['patient_phone'] ?></span>
+														</td>
+													</tr>
+                                                    
+                                                     <tr>
+														<td>
+															<span class="w-50">Email</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php echo $rowPres['patient_email'] ?></span>
+														</td>
+													</tr>
+													
+													
+													
+													
+													<tr>
+														<td>
+															<span class="w-50">Condition</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php echo getConditionName($rowPres['pres_condition']) ?></span>
+														</td>
+													</tr>
+                                                    
+                                                    <tr>
+														<td>
+															<span class="w-50">Medication</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold"><?php 
+																$sqlMedicine="select * from tbl_prescription_medicine where pm_pres_id='".$database->filter($rowPres['pres_id'])."'";
+																$resMedicine=$database->get_results($sqlMedicine);
+																for ($m=0;$m<count($resMedicine);$m++)
+																{
+																	$rowMedicine=$resMedicine[$m];
+																	
+																	echo $rowMedicine['pm_med']." - ".$rowMedicine['pm_med_qty'];
+															
+                                                            
+                                                            
+                                                           } ?></span>
+														</td>
+													</tr>
+                                                    
+                                                    
+                                                    
+													
+													
+													<tr>
+														<td>
+															<span class="w-50">Submitted Date</span>
+														</td>
+														<td>:</td>
+														<td>
+                                                        
+                                                        	<?php echo  date("d/m/Y",strtotime($rowPres['pres_date'])); ?>
+                                                            
+														</td>
+													</tr>
+                                                    
+                                                    <tr>
+														<td>
+															<span class="w-50">Prescription Expires</span>
+														</td>
+														<td>:</td>
+														<td>
+                                                        
+                                                        	-
+															
+														</td>
+													</tr>
+                                                    
+												</tbody>
+											</table>
 										</div>
 										
 									</div>
 								</div>
 								
 							</div>
-							
+							<div class="col-xl-8 col-md-12 col-lg-12">
+								<div class="tab-menu-heading hremp-tabs p-0 ">
+									<div class="tabs-menu1">
+										<!-- Tabs -->
+										<ul class="nav panel-tabs">
+                                        <li><a href="#tab6" data-toggle="tab"  <?php if ($_GET['message']!=1) { ?> class="active" <?php } ?> >Completed Medical Assessment</a></li>
+											
+											
+											<li><a href="#tab7"  data-toggle="tab" <?php if ($_GET['message']==1) { ?> class="active" <?php } ?>>Messages</a></li>
+											
+										</ul>
+									</div>
+								</div>
+								<div class="panel-body tabs-menu-body hremp-tabs1 p-0">
+									<div class="tab-content">
+										
+										<div class="tab-pane <?php if ($_GET['message']!=1) echo "active";  ?>" id="tab6">
+											<div class="card-body">
+                                            
+                                            <div class="row" style="padding-top:15px" >
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f5f5f5; color:#444; border:1px solid #d8d8d8">
+														<table class="table row table-borderless w-100 m-0 text-nowrap">
+															<tbody class="col-lg-12 col-xl-6 p-0">
+																<tr>
+														<td><span class="font-weight-semibold">Date :</span> <?php echo  date("d/m/Y",strtotime($rowPres['pres_date'])); ?></td>
+<td><span class="font-weight-semibold">Overall Risk Stratification :</span> 
+<?php $overallRisk=$rowPres['pres_overall_risk'];
+if ($overallRisk==1) { $btnClr="green"; $btnText="Low"; }
+else if ($overallRisk==2) { $btnClr="orange"; $btnText="Moderate"; }
+else if ($overallRisk==3) { $btnClr="red"; $btnText="High"; }
+
+ ?>
+<span style="background-color:<?php echo $btnClr; ?>; color:#FFF; padding:10px; font-weight:bold"><?php echo $btnText; ?></span>
+
+
+</td>
+<td><span class="font-weight-semibold">Condition :</span> <span class="btn btn-primary" style="cursor:text"><?php echo  getConditionName($rowPres['pres_condition']) ?></span></td>																																														                                                   </tr>
+                                                                    </tbody>
+                                                               </table>     
+														</div>
+													</div>
+                                </div>
+                                
+                               			 <div class="row" style="padding-top:15px" >
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                    	<h4 style="background:#648bff; color:#fff; padding:15px">Medication</h4>
+                                                   
+														<div class="table-responsive">
+											<table class="table border-top" style="background:#fff; width:95%; margin:auto; border:1px solid #d9d9d9; margin-bottom:15px">
+												<thead style="padding-left:20px">
+                                                
+													<tr>
+														<th>Medication</th>
+														<th>Strength</th>
+														<th>Quantity</th>
+														<th>Price</th>
+                                                        <th>Dosage Instruction</th>
+                                                        <th></th>
+                                                        <th></th>
+													</tr>
+												</thead>
+												<tbody style="padding-left:20px">
+                                                
+                                                 <?php
+																$sqlMedicine="select * from tbl_prescription_medicine where pm_pres_id='".$database->filter($rowPres['pres_id'])."'";
+																$resMedicine=$database->get_results($sqlMedicine);
+																for ($m=0;$m<count($resMedicine);$m++)
+																{
+																	$rowMedicine=$resMedicine[$m];
+												 ?>
+													<tr>
+														<th scope="row"><?php echo $rowMedicine['pm_med']; ?></th>
+														<td>-</td>
+														<td><?php echo $rowMedicine['pm_med_qty']; ?></td>
+														<td><?php echo CURRENCY?><?php echo $rowMedicine['pm_med_price']; ?></td>
+                                                        <td>-</td>
+                                                       
+													</tr>
+                                               
+                                                <?php } ?>
+                                               
+                                               
+												</tbody>
+											</table>
+                                            
+                                            
+                                           
+										</div>   
+														</div>
+													</div>
+                                </div>
+                                
+                                
+                                
+                                
+                               				 <div class="row" style="padding-top:15px;margin-bottom:30px" >
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                     <h4 style="background:#648bff; color:#fff; padding:15px">About You</h4>
+                                                     
+                                                 <?php 
+											 $aboutYou=unserialize(fnUpdateHTML($rowPres['pres_about_you']));									 
+											
+											  ?>
+								<div class="panel-body p-0">
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab5">
+											<div class="card-body" style="padding-top:0px">
+												
+												<div class="form-group">
+                                                
+                                                
+                                                  <?php foreach($aboutYou as $que => $val) { ?>
+													<div class="row alternate-item">
+														<div class="col-md-5">
+															<label class="form-label mb-0 mt-2" style="color:#777"><?php echo base64_decode($que) ?></label>
+														</div>
+														<div class="col-md-7 mt-2">
+															<h5 style="vertical-align:middle"> <?php echo base64_decode($val) ?></h5>
+														</div>
+													</div>
+                                                   <?php } ?>
+                                                    
+                                                    
+                                                        
+                                                       
+                                                    
+                                                     
+												</div>
+												
+												
+												
+												
+											
+										</div>
+                                        </div>
+										
+									</div>
+								</div> 
+														</div>
+													</div>
+                                			</div>
+                                            
+												 <div class="row" style="padding-top:15px;margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                     <h4 style="background:#648bff; color:#fff; padding:15px">Symptoms</h4>
+												<div class="panel-body p-0">
+                                     
+                                     <?php  $symptoms=unserialize(fnUpdateHTML($rowPres['pres_symptoms'])); ?>           
+                                                
+                                                
+									<div class="tab-content">
+										<div class="card" style="background-color:transparent">
+									
+									<div class="card-body pb-0 pt-3">
+                                    
+                                     <?php 
+												if (is_array($symptoms))
+												for($a=0;$a<count($symptoms);$a++) { ?>
+										<div class="alternate-item">
+											<label class="form-label mb-0"><?php echo base64_decode($symptoms[$a]['question']);  ?> :</label>
+											<p style="margin-top:10px">
+											
+                                            <table width="100%">
+                                            <tr><td width="3%" >
+											
+											<?php
+											$answer=base64_decode($symptoms[$a]['answer']);
+											
+											$riskVal="";
+											$riskVal=base64_decode($symptoms[$a]['risk']);
+											
+											$position=strpos($answer, "~~~");
+											if ($position=="")
+											{
+												if ($riskVal==1)
+												echo '<div class="circle-green"></div>';
+												else if ($riskVal==2)
+												echo '<div class="circle-orange"></div>';
+												else if ($riskVal==3)
+												echo '<div class="circle-red"></div>';
+											 
+											?>
+                                            </td><td style="font-size:14px">
+											
+											 <?php echo $answer; ?>
+                                             
+                                              
+                                             
+                                           </td>
+                                           <?php }
+										   else
+											{
+												echo '<table width="100%" border="0px" style="border-color:#CCC">
+                                                            	<tr>';
+															$arrAnswer=explode("|",$answer);
+															
+															for ($k=0;$k<count($arrAnswer);$k++)
+															{
+																$arrAnsB=explode("~~~",$arrAnswer[$k]);
+																
+																$riskVal=$arrAnsB[1];
+																
+																	if ($riskVal==1)
+																	echo '<td width="3%"><div class="circle-green"></div></td>';
+																	else if ($riskVal==2)
+																	echo '<td width="3%"><div class="circle-orange"></div></td>';
+																	else if ($riskVal==3)
+																	echo '<td width="3%"><div class="circle-red"></div></td>';
+																
+																echo "<td style='font-size:14px'>".$arrAnsB[0]."</td>";
+																echo "</tr>";
+																
+															}
+															
+															echo "</tr></table>";
+											}
+											
+											
+										   
+										    ?>
+                                            
+                                           
+                                                        
+                                                        
+                                           
+                                           </tr>
+                                           </table>
+                                           
+                                           <?php
+														if ($symptoms[$a]['more']!="")
+														 echo " <br /><br /><font style='color:#000; font-size:15px'>Additional information:</font> ".base64_decode($symptoms[$a]['more']) ?>
+                                            
+                                            
+                                            </p>
+										</div>
+									
+                                    <?php } ?>	
+										
+										
+										
+									</div>
+									
+								</div>
+										
+									</div>
+								</div> 
+														</div>
+													</div>
+                                			</div>
+												
+                                                
+                                                 <div class="row" style="padding-top:15px"  style="margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                     <h4 style="background:#648bff; color:#fff; padding:15px">Your Medical History</h4>
+												<div class="panel-body p-0">
+                                     
+                                     <?php   $medicalHistory=unserialize(fnUpdateHTML($rowPres['pres_medical_history'])); ?>           
+                                                
+                                                
+									<div class="tab-content">
+										<div class="card" style="background-color:transparent">
+									
+									<div class="card-body pb-0 pt-3">
+                                    
+                                     <?php 
+												if (is_array($medicalHistory))
+												for($a=0;$a<count($medicalHistory);$a++) { ?>
+										<div class="alternate-item">
+											<label class="form-label mb-0"><?php echo base64_decode($medicalHistory[$a]['question']);  ?> :</label>
+											<p style="margin-top:10px">
+											
+                                            <table width="100%">
+                                            <tr><td width="3%" >
+											
+											<?php
+											$answer=base64_decode($medicalHistory[$a]['answer']);
+											
+											$riskVal="";
+											$riskVal=base64_decode($medicalHistory[$a]['risk']);
+											
+											$position=strpos($answer, "~~~");
+											if ($position=="")
+											{
+												if ($riskVal==1)
+												echo '<div class="circle-green"></div>';
+												else if ($riskVal==2)
+												echo '<div class="circle-orange"></div>';
+												else if ($riskVal==3)
+												echo '<div class="circle-red"></div>';
+											 
+											?>
+                                            </td><td style="font-size:14px">
+											
+											 <?php echo $answer; ?>
+                                           </td>
+                                           <?php }
+										   else
+											{
+												echo '<table width="100%" border="0px" style="border-color:#CCC">
+                                                            	<tr>';
+															$arrAnswer=explode("|",$answer);
+															
+															for ($k=0;$k<count($arrAnswer);$k++)
+															{
+																$arrAnsB=explode("~~~",$arrAnswer[$k]);
+																
+																$riskVal=$arrAnsB[1];
+																
+																	if ($riskVal==1)
+																	echo '<td width="3%"><div class="circle-green"></div></td>';
+																	else if ($riskVal==2)
+																	echo '<td width="3%"><div class="circle-orange"></div></td>';
+																	else if ($riskVal==3)
+																	echo '<td width="3%"><div class="circle-red"></div></td>';
+																
+																echo "<td style='font-size:14px'>".$arrAnsB[0]."</td>";
+																echo "</tr>";
+																
+															}
+															
+															echo "</tr></table>";
+											}
+										   
+										    ?>
+                                            
+                                            
+                                           
+                                           </tr>
+                                           </table>
+                                             <?php
+														if ($medicalHistory[$a]['more']!="")
+														 echo "<br><br><font style='color:#000; font-size:15px'>Additional information: ".base64_decode($medicalHistory[$a]['more']) ?></font>
+                                            
+                                            </p>
+										</div>
+									
+                                    <?php } ?>	
+										
+										
+										
+									</div>
+									
+								</div>
+										
+									</div>
+								</div> 
+														</div>
+													</div>
+                                			</div>
+                                            
+                                             <div class="row" style="padding-top:15px"  style="margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                     <h4 style="background:#648bff; color:#fff; padding:15px">Your Medication History</h4>
+												<div class="panel-body p-0">
+                                     
+                                     <?php   $medication=unserialize(fnUpdateHTML($rowPres['pres_medication'])); ?>           
+                                                
+                                                
+									<div class="tab-content">
+										<div class="card" style="background-color:transparent">
+									
+									<div class="card-body pb-0 pt-3">
+                                    
+                                     <?php 
+												if (is_array($medication))
+												for($a=0;$a<count($medication);$a++) { ?>
+										<div class="alternate-item">
+											<label class="form-label mb-0"><?php echo base64_decode($medication[$a]['question']);  ?> :</label>
+											<p style="margin-top:10px">
+											
+                                            <table width="100%">
+                                            <tr><td width="3%" >
+											
+											<?php
+											$answer=base64_decode($medication[$a]['answer']);
+											
+											$riskVal="";
+											$riskVal=base64_decode($medication[$a]['risk']);
+											
+											$position=strpos($answer, "~~~");
+											if ($position=="")
+											{
+												if ($riskVal==1 || $riskVal=="")
+												echo '<div class="circle-green"></div>';
+												else if ($riskVal==2)
+												echo '<div class="circle-orange"></div>';
+												else if ($riskVal==3)
+												echo '<div class="circle-red"></div>';
+											 
+											?>
+                                            </td><td style="font-size:14px">
+											
+											 <?php echo $answer; ?>
+                                           </td>
+                                           <?php }
+										   else
+											{
+												echo '<table width="100%" border="0px" style="border-color:#CCC">
+                                                            	<tr>';
+															$arrAnswer=explode("|",$answer);
+															
+															for ($k=0;$k<count($arrAnswer);$k++)
+															{
+																$arrAnsB=explode("~~~",$arrAnswer[$k]);
+																
+																$riskVal=$arrAnsB[1];
+																
+																	if ($riskVal==1)
+																	echo '<td width="3%"><div class="circle-green"></div></td>';
+																	else if ($riskVal==2)
+																	echo '<td width="3%"><div class="circle-orange"></div></td>';
+																	else if ($riskVal==3)
+																	echo '<td width="3%"><div class="circle-red"></div></td>';
+																
+																echo "<td style='font-size:14px'>".$arrAnsB[0]."</td>";
+																echo "</tr>";
+																
+															}
+															
+															echo "</tr></table>";
+											}
+										   
+										    ?>
+                                            
+                                             
+                                           
+                                           </tr>
+                                           </table>
+                                           
+                                           <?php
+														if ($medication[$a]['more']!="")
+														 echo "<br><br><font style='color:#000; font-size:15px'>Additional information: ".base64_decode($medication[$a]['more']) ?></font>
+                                            
+                                            
+                                            </p>
+										</div>
+									
+                                    <?php } ?>	
+										
+										
+										
+									</div>
+									
+								</div>
+										
+									</div>
+								</div> 
+														</div>
+													</div>
+                                			</div>
+                                            
+                                            <div class="row" style="padding-top:15px"  style="margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                     <h4 style="background:#648bff; color:#fff; padding:15px">Disclaimer, Consent &amp; Agreement</h4>
+												<div class="panel-body p-0">
+									<div class="tab-content">
+										<div class="card" style="background-color:transparent">
+									
+                                    <div class="card-body pb-0 pt-3">
+                                    	<table class="table">
+                                                <?php if ($rowPres['pres_disclaimer_file']!="") { ?>
+													<tr><td>Disclaimer</td><td><a href="<?php echo URL?>uploads/patients/agreement/<?php echo $rowPres['pres_disclaimer_file']?>" target="_blank">View</a></td></tr>
+                                                    <?php } ?>
+                                                    <?php if ($rowPres['pres_agreement_file']!="") { ?>
+                                                    <tr><td>Agreement</td><td><a href="<?php echo URL?>uploads/patients/agreement/<?php echo $rowPres['pres_agreement_file']?>" target="_blank">View</a></td></tr>
+                                                     <?php } ?>
+                                                </table>
+                                    	
+												<table class="table">
+												<tbody>
+                                                <?php  
+													 $sqlGP="select * from tbl_patient_gps where pg_patient_id='".$rowPres['pres_patient_id']."'";
+													$resGP=$database->get_results($sqlGP);
+													$rowGP=$resGP[0];
+													
+													if ($rowGP['pg_option']==1)
+													{									
+												 ?>
+                                                	<tr><td>GP Name</td><td><?php echo $rowGP['pg_gp'] ?></td></tr>
+                                                    
+                                                    <?php }
+													
+													else if ($rowGP['pg_option']==2)
+													{									
+												 ?>
+                                                	<tr><td>GP Practise</td><td><?php echo $rowGP['pg_gp_name'] ?></td></tr>
+                                                    <tr><td>Address</td><td><?php echo $rowGP['pg_gp_address'] ?></td></tr>
+                                                    <tr><td>Email</td><td><?php echo $rowGP['pg_gp_email'] ?></td></tr>
+                                                    <tr><td>Telephone</td><td><?php echo $rowGP['pg_gp_phone'] ?></td></tr>
+                                                    
+                                                    <?php }
+													
+													else if ($rowGP['pg_option']==3)
+													{									
+												 ?>
+                                                	<tr><td colspan=2>I don’t know my GP Practice details</td></tr>
+                                                    
+                                                    
+                                                    <?php }
+													
+													else if ($rowGP['pg_option']==4)
+													{									
+												 ?>
+                                                	<tr><td colspan=2> I do not have a registered GP in the UK</td></tr>
+                                                    
+                                                    
+                                                    <?php }
+													
+													else if ($rowGP['pg_option']==5)
+													{									
+												 ?>
+                                                	<tr><td colspan=2> I will take responsibility to inform my GP</td></tr>
+                                                    
+                                                    
+                                                    <?php }
+													
+													
+													 ?>
+                                                    
+                                                    
+                                                </tbody>
+                                                </table>
+												
+									</div>
+									
+								</div>
+										
+									</div>
+								</div> 
+														</div>
+													</div>
+                                			</div>
+                                            
+                                            
+                                             <div class="row" style="padding-top:15px" style="margin-bottom:30px" id="notes">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                    	<h4 style="background:#648bff; color:#fff; padding:15px">Clinician Consultation Notes</h4>
+                                                        <div class="card-body pt-1">
+                                                        
+                                                       
+                                                       
+                                                        <!--<a class="btn btn-light" href="#">Contact by email</a>-->
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        <table style="margin-top:10px" width="100%" class="table  table-vcenter table-bordered border-bottom" id="miles-tables">
+														<thead>
+															<tr>
+																<th width="2%" class="border-bottom-0 text-center w-5">No</th>
+																<th class="border-bottom-0" width="57%">Notes</th>
+																<th width="17%" class="border-bottom-0">Date</th>
+                                                                <th width="24%" class="border-bottom-0">Added by</th>
+															
+																
+															</tr>
+														</thead>
+														<tbody>
+                                                        
+                                                        <?php $sqlNotes="select * from tbl_prescriptions_notes where pn_pres_id='".$database->filter($_GET['id'])."' order by pn_id desc";
+														$resNotes=$database->get_results($sqlNotes);
+														if (count($resNotes)>0)
+														{
+															for ($j=0;$j<count($resNotes);$j++)
+															{
+																$rowNotes=$resNotes[$j];
+														 ?>
+															<tr>
+																<td class="text-center"><?php echo $j+1; ?></td>
+																<td>
+																	<?php echo $rowNotes['pn_action_details']?>
+																</td>
+																<td><?php echo fn_formatDateTime($rowNotes['pn_date_time'])?></td>
+																<td>
+                                                                
+                                                                	<?php
+																		
+																		echo getUserNameByType($rowNotes['pn_user_type'],$rowNotes['pn_user_id'])
+																	
+																	?>
+                                                                
+                                                                </td>
+																
+															</tr>
+														<?php }
+														} else {?>
+                                                        <tr><td colspan="4">No notes added!</td></tr>
+                                                        <?php } ?>	
+															
+														</tbody>
+													</table>
+                                                        
+                                                   </div>
+														
+                                            
+										</div>   
+														</div>
+													</div>
+                                                    
+                                                <div class="row" style="padding-top:15px" style="margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                    	<h4 style="background:#648bff; color:#fff; padding:15px">Completed Past Medical Assessment</h4>
+                                                   
+														<div class="table-responsive">
+											<table class="table border-top" style="background:#fff; width:95%; margin:auto; border:1px solid #d9d9d9; margin-bottom:15px">
+												<thead style="padding-left:20px">
+                                                
+													<tr>
+														<th>Date </th>
+														<th>Medical Condition</th>
+														<th>Medication Supplied</th>
+													
+                                                        <th></th>
+                                                        
+													</tr>
+												</thead>
+												<tbody style="padding-left:20px">
+                                                
+                                                <?php 
+													$sqlAss="select * from tbl_prescriptions,tbl_patients where patient_id=pres_patient_id and (pres_stage=3 || pres_stage=6) and pres_condition='".$rowPres['pres_condition']."' ";
+													
+													$resAss=$database->get_results($sqlAss);
+													if (count($resAss)>0)
+													{
+													
+													for ($j=0;$j<count($resAss);$j++)
+													{
+												
+														$rowAss=$resAss[$j];
+												?>
+                                                
+													<tr>
+														<th scope="row"><?php echo  date("d/m/Y",strtotime($rowAss['pres_date'])); ?></th>
+														<td><?php echo getConditionName($rowAss['pres_condition']); ?></td>
+														<td><?php 
+																$sqlMedicine="select * from tbl_prescription_medicine where pm_pres_id='".$database->filter($rowAss['pres_id'])."'";
+																$resMedicine=$database->get_results($sqlMedicine);
+																for ($m=0;$m<count($resMedicine);$m++)
+																{
+																	$rowMedicine=$resMedicine[$m];
+																	
+																	echo $rowMedicine['pm_med']." - ".$rowMedicine['pm_med_qty'];
+															
+                                                            
+                                                            
+                                                           }
+														   
+														   ?></td>
+									
+                                                        <td><a class="btn btn-primary" href="#">View Detail</a></td>
+													</tr>
+                                                    
+                                                    <?php }
+													} else {?>
+                                                    <tr><td colspan="4">No previous record found</td></tr>
+                                                    <?php } ?>
+                                                    
+												</tbody>
+											</table>
+                                            
+                                         
+										</div>   
+														</div>
+													</div>
+                               				 </div>
+                                                 
+                                                    
+                                                  <div class="row" style="padding-top:15px" style="margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                    	<h4 style="background:#648bff; color:#fff; padding:15px">Message for pharmacy</h4>
+                                                   
+														<div class="card-body pt-3">
+														<?php if ($rowPres['pres_pharmacy_note']!="") { ?>
+                                                        <p><?php echo $rowPres['pres_pharmacy_note']; ?></p>
+                                            			<?php } else echo "-"; ?>
+                                                       
+                                            
+                                            			
+                                         
+										</div>   
+														</div>
+													</div>
+                               				 </div>
+                                             
+                                              <div class="row" style="padding-top:15px" style="margin-bottom:30px">
+                                				<div class="col-sm-12 col-md-12">
+													<div style="background:#f9f9f9; color:#444; border:1px solid #d8d8d8">
+                                                    
+                                                    	<h4 style="background:#648bff; color:#fff; padding:15px">Actions / Logs</h4>
+                                                        <div class="card-body">
+												<div class="table-responsive">
+													
+													<table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="miles-tables">
+														<thead>
+															<tr>
+																<th class="border-bottom-0 text-center w-5">No</th>
+																<th class="border-bottom-0">Log Details</th>
+																<th class="border-bottom-0">Date</th>
+                                                                <th class="border-bottom-0">Action Taken by</th>
+															
+																
+															</tr>
+														</thead>
+														<tbody>
+                                                        
+                                                        <?php $sqlLogs="select * from tbl_prescriptions_actions where pa_pres_id='".$database->filter($_GET['id'])."' order by pa_id desc";
+														$resLogs=$database->get_results($sqlLogs);
+														if (count($resLogs)>0)
+														{
+															for ($j=0;$j<count($resLogs);$j++)
+															{
+																$rowLogs=$resLogs[$j];
+														 ?>
+															<tr>
+																<td class="text-center"><?php echo $j+1; ?></td>
+																<td>
+																	<?php echo $rowLogs['pa_action_details']?>
+																</td>
+																<td><?php echo fn_formatDateTime($rowLogs['pa_date_time'])?></td>
+																<td>
+                                                                
+                                                                	<?php
+																		
+																		echo getUserNameByType($rowLogs['pa_user_type'],$rowLogs['pa_user_id'])
+																	
+																	?>
+                                                                
+                                                                </td>
+																
+															</tr>
+														<?php }
+														}?>	
+															
+														</tbody>
+													</table>
+                                                    
+                                                    
+												</div>
+											</div>
+														
+                                            
+										</div>   
+														</div>
+													</div>
+                                                 
+                                                 
+                                              		<input type="hidden" name="hdOutcomes" id="hdOutcomes" value="" />
+                                                    
+                                                  
+                                                    
+                               				 </div>
+										</div>
+										<div class="tab-pane <?php if ($_GET['message']==1) echo "active";  ?>" id="tab7">
+											<div class="card-body">
+												
+                                                
+                                                
+                                                
+                                                
+												
+                                                
+                                                 <?php 
+														$sqlMessage="select * from tbl_messages where  message_pres_id='".$database->filter($_GET['id'])."' order by message_id desc";
+														$resMessage=$database->get_results($sqlMessage);
+														if (count($resMessage)>0)
+														{
+															
+															for ($i=0;$i<count($resMessage);$i++)
+															{
+																
+																$rowMessage=$resMessage[$i];																
+																$mysqlDate = $rowMessage['message_date'];
+																$timestamp = strtotime($mysqlDate);
+																$formattedDate = date("d M Y", $timestamp);
+																
+																$formattedTime = date("H:i", $timestamp);
+																
+																			if ($rowMessage['message_sender_type']=="Patient")
+																				{
+																				$sqlSender="select * from tbl_patients where patient_id='".$rowMessage['message_sender_id']."'";
+																				//else if ($rowMessage['message_sender_type']=="Clinician")
+																				//$sqlSender="select * from tbl_prescribers where pres_id='".$rowMessage['message_sender_id']."'";
+																				$resSender=$database->get_results($sqlSender);
+																				$rowSender=$resSender[0];
+																				$replierName=$rowSender['patient_first_name']." ".$rowSender['patient_middle_name']." ".$rowSender['patient_last_name']." (".$rowMessage['message_sender_type'].")";
+																				$colorCss="danger";
+																				}
+																				else if ($rowMessage['message_sender_type']=="Clinician")
+																				{
+																					
+																				$sqlSender="select * from tbl_prescribers where pres_id='".$rowMessage['message_sender_id']."'";
+																				$resSender=$database->get_results($sqlSender);
+																				$rowSender=$resSender[0];
+																				$replierName=$rowSender['pres_forename']." ".$rowSender['pres_surname']." (".$rowMessage['message_sender_type'].")";
+																					
+																					
+																				
+																					$colorCss="primary";
+																				}
+																				
+																				else if ($rowMessage['message_sender_type']=="Pharmacy")
+																				{
+																					
+																				$sqlSender="select * from tbl_pharmacies where pharmacy_id='".$rowMessage['message_sender_id']."'";
+																				$resSender=$database->get_results($sqlSender);
+																				$rowSender=$resSender[0];
+																				$replierName=$rowSender['pharmacy_name']." (".$rowMessage['message_sender_type'].")";
+																					
+																					
+																				
+																					$colorCss="secondary";
+																				}
+
+
+
+														
+													?>
+                                                    <div class="card shadow-none border">
+													<div class="d-sm-flex p-5">
+													
+                                                    
+                                                    
+                                                    
+                                                    	
+														<div class="media-body">
+															<h5 class="mt-1 mb-1 font-weight-semibold"><?php echo $rowMessage['message_subject']?> <span class="badge badge-<?php echo $colorCss; ?>-light badge-md ms-2"><?php echo $replierName; ?></span></h5>
+															<small class="text-muted"><i class="fa fa-calendar"></i> <?php echo $formattedDate; ?> <i class=" ms-3 fa fa-clock-o"></i> <?php echo $formattedTime; ?></small>
+															<p class="fs-13 mb-2 mt-1">
+															   <?php echo $rowMessage['message_text']?>
+															</p>
+															 <!---------Attachment of new message------------>
+                                                            
+                                                             <?php if ($rowMessage['message_attachment']!="") {
+																 
+																 $arrUnSerMes=unserialize(fnUpdateHTML($rowMessage['message_attachment']));
+																
+																  ?>
+                                                                    
+                                                                    <div class="row" style="padding-top:15px">
+                                                                    
+                                                                    <?php for ($j=0;$j<count($arrUnSerMes);$j++) {
+																		
+																		
+															$fileExtension = pathinfo($arrUnSerMes[$j], PATHINFO_EXTENSION);
+															
+															// Check if the file extension is PDF
+															if (strtolower($fileExtension) === 'pdf') {
+																// The file is a PDF
+																$type="pdf";
+															} elseif (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png'])) {
+																// The file is an image
+																$type="image";
+															} 
+																		
+																		 ?>
+                                                                        <div class="col-lg-2 col-md-3">
+                                                                            <a  href="<?php echo URL?>uploads/patients/<?php echo $arrUnSerMes[$j]; ?>" download class="attach-supportfiles">
+                                                                                
+                                                                                <?php if ($type=="image") { ?>
+                                                                                <img src="<?php echo URL?>uploads/patients/<?php echo $arrUnSerMes[$j]; ?>" style="max-height:100px" alt="<?php echo $arrUnSerMes[0]; ?>" title="<?php echo $arrUnSerMes[0]; ?>" class="img-fluid">
+                                                                                <div class="attach-title"><?php echo $arrUnSerMes[0]; ?></div>
+                                                                                <?php } else { ?>
+                                                                                <img src="<?php echo URL?>images/pdf.png" style="max-height:100px" alt="<?php echo $arrUnSerMes[0]; ?>" title="<?php echo $arrUnSerMes[0]; ?>" class="img-fluid">
+                                                                                <div class="attach-title"><?php echo $arrUnSerMes[0]; ?></div>
+                                                                                <?php } ?>
+                                                                                
+                                                                            </a>
+                                                                        </div>
+                                                                      <?php } ?>
+												
+											</div>
+                                            <?php } ?> 
+                                            <!-----------end attachment------->
+                                                            
+                                                          
+                                                                
+                                                               
+                                                            
+														</div>
+                                                        
+                                                        
+                                                        
+                                                        
+													</div>
+                                                    </div>
+                                                    
+                                                    <?php }
+														}
+														else
+														
+														echo "<p style='font-size:18px; padding:30px'>No communication yet for this order</p>";
+														?>
+												
+												
+											</div>
+										
+										
+										
+										
+										
+									</div>
+										
+										
+										<div class="tab-pane" id="tab10">
+											<div class="card-body">
+                                            
+                                            No Payments found!
+												<!--<table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="invoice-tables">
+														<thead>
+															<tr>
+																<th class="border-bottom-0">InvoiceID</th>
+																<th class="border-bottom-0">Amount</th>
+																<th class="border-bottom-0">Invoice Date</th>
+																<th class="border-bottom-0">Due Date</th>
+																<th class="border-bottom-0">Payment</th>
+																<th class="border-bottom-0">Status</th>
+																<th class="border-bottom-0">Actions</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>
+																	<a href="#">INV-0478</a>
+																</td>
+																<td>$345.00</td>
+																<td>12-01-2021</td>
+																<td>14-02-2021</td>
+																<td>
+																	<span class="text-primary">$345.000</span>
+																</td>
+																<td><span class="badge badge-success-light">Paid</span></td>
+																<td>
+																	<div class="d-flex">
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="feather feather-eye  text-primary"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download"><i class="feather feather-download   text-success"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<a href="#">INV-1245</a>
+																</td>
+																<td>$834.00</td>
+																<td>12-01-2021</td>
+																<td>14-02-2021</td>
+																<td>
+																	<span class="text-primary">$834.000</span>
+																</td>
+																<td><span class="badge badge-danger-light">UnPaid</span></td>
+																<td>
+																	<div class="d-flex">
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="feather feather-eye  text-primary"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download"><i class="feather feather-download   text-success"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<a href="#">INV-5280</a>
+																</td>
+																<td>$16,753.00</td>
+																<td>21-01-2021</td>
+																<td>15-01-2021</td>
+																<td>
+																	<span class="text-primary">$16,753.000</span>
+																</td>
+																<td><span class="badge badge-success-light">Paid</span></td>
+																<td>
+																	<div class="d-flex">
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="feather feather-eye  text-primary"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download"><i class="feather feather-download   text-success"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<a href="#">INV-2876</a>
+																</td>
+																<td>$297.00</td>
+																<td>05-02-2021</td>
+																<td>21-02-2021</td>
+																<td>
+																	<span class="text-primary">$297.000</span>
+																</td>
+																<td><span class="badge badge-success-light">Paid</span></td>
+																<td>
+																	<div class="d-flex">
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="feather feather-eye  text-primary"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download"><i class="feather feather-download   text-success"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<a href="#">INV-1986</a>
+																</td>
+																<td>$12,897.00</td>
+																<td>01-01-2021</td>
+																<td>24-02-2021</td>
+																<td>
+																	<span class="text-primary">$12,897.00</span>
+																</td>
+																<td><span class="badge badge-danger-light">UnPaid</span></td>
+																<td>
+																	<div class="d-flex">
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="feather feather-eye  text-primary"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download"><i class="feather feather-download   text-success"></i></a>
+																		<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>-->
+											</div>
+										</div>
+										<div class="tab-pane" id="tab11">
+											<div class="card-body">
+												No log history yet!
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<!-- End Row-->
 
@@ -1797,38 +2761,6 @@ $("#suggesstion-box").hide();
 				</div>
 		</div>
 </div>
-
- <script language="javascript">
-			
-			$(document).ready(function() {
-   
-				$('#newModel').on('show.bs.modal', function (e) {
-				 var dataId = $(e.relatedTarget).data('id');
-				 var dataName = $(e.relatedTarget).data('name');
-					$.ajax({
-						url: 'ajax/upgrade-ad.php',  // Replace with your server-side script
-						method: 'GET',
-						data: { id: dataId,name: dataName },
-						success: function(response) {
-						 
-							$('#modalContent').html(response);
-						},
-						error: function() {
-						  
-							$('#modalContent').html('<p>Error loading content. Please try again later.</p>');
-						}
-					});
-				});
-			
-				
-				$('#newModel').on('hidden.bs.modal', function () {
-					$('#modalContent').html('<p>Loading...</p>');
-				});
-			});
-			
-
-			
-			</script>
 
              <?php } ?>
              
@@ -1961,144 +2893,22 @@ $("#suggesstion-box").hide();
         <p><strong>Premium Ad Total:</strong> $<span id="total-price">0</span></p>
         <p><strong>Advanced Ad Total:</strong> $<span id="total-price2">0</span></p>
         <hr>
-        <p style="font-size:18px; color:#F6591F">Total to Pay: <strong>$<span id="net-total">0</span></strong></p>
+        <p style="font-size:18px; color:#F6591F">Net Total to Pay: <strong>$<span id="net-total">0</span></strong></p>
         
       
-        <button class="btn btn-primary mt-3 w-100" id="submitBtn" disabled="disabled" type="button">Review Your Order</button>
-
-<br /><br />
-		<div style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 15px; border-radius: 5px; font-size: 15px; line-height: 1.6;">
-  <strong>How ad packs work</strong><br>
-  • No upfront payment required<br>
-  • No lock-in contract<br>
-  • Ad packs do not expire<br>
-  • You can add a mix of premium and advanced ad packs to suit your needs.<br><br>
-
-  <strong>Need Help?</strong> Email us at <a href="mailto:sales@allbusiness.com.au">sales@allbusiness.com.au</a>, and we'll assist you with your ad packs.
-</div>
-
-
+        <button class="btn btn-primary mt-3 w-100" id="submitBtn" disabled="disabled" type="submit">Review and Submit</button>
       </div>
     </div>
   </div>
 </div>
 
 </form>
-
-
-<!-- Terms and Conditions Modal -->
-<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <form id="confirmForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="termsModalLabel" style="color:#F30; font-size:22px">Confirm your order</h5>
-          <button type="button" class="close" onclick="closeModal_terms()" aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-        </div>
-        <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
-        <h4 align="center">You've selected the following ad packs</h4>
-        
-        <div style="margin:auto;border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; max-width: 600px;  font-size: 14px; color: #1c1e21;">
-  <div style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Order summary</div>
-
-  <div id="dispPremium" style="display: none; justify-content: space-between; margin-bottom: 4px;">
-    <div><span id='dispcountPremium'></span> X Premium Ad</div>
-    <div id="totalPremiumAd"></div>
-  </div>
-  
-  
-  <div id="dispAdvanced" style="display: none; justify-content: space-between; margin-bottom: 4px;">
-    <div><span id='dispcountAdvanced'></span> X Advanced Ad</div>
-    <div id="totalAdvancedAd"></div>
-  </div>
-  
-  <div style="color: #6a6a6a; font-size: 13px; margin-bottom: 15px;"></div>
-
-  <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-
-  <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-    <div>Subtotal</div>
-    <div><span id="subTotal"></span></div>
-  </div>
-  <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-    <div>GST</div>
-    <div><span id="subGST"></span></div>
-  </div>
-
-  <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 15px;">
-    <div>Total to pay</div>
-    <div><span id="netTotal"></span></div>
-  </div>
-</div>
-
-       <br /><br />
-  <div style="padding:20px">
- <div style="padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
-  
-  <h3 style="margin-bottom: 10px;">Order Agreement</h3>
-  <p><strong>By checking the box and clicking “Confirm Order”, you acknowledge that:</strong></p>
-  
-  <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;">
-    <li>You are authorized to place this order on behalf of your organization, forming a binding agreement.</li>
-    <li>You have read and understood AllBusiness’s Terms and Conditions, including limitations on liability.</li>
-    <li>You accept the obligation to pay according to the Advertising Terms.</li>
-    <li>You agree to comply with AllBusiness’s platform policies and usage guidelines.</li>
-  </ul>
-
-  <h4 style="margin-top: 20px;">Payment Method</h4>
-  <p>
-    An invoice will be sent within <strong>5 business days</strong>, and payment is <strong>due within 14 days</strong> of invoice generation.
-    Your ad pack will be available immediately after you click “Confirm Order” below.
-  </p>
-
-  <h4 style="margin-top: 20px;">Cancellation</h4>
-  <p>
-    Once the order is submitted, <strong>it cannot be cancelled</strong>.
-  </p>
-
-  <h4 style="margin-top: 20px;">Usage and Activation</h4>
-  <p>
-    Your ad pack will be activated immediately, and credits will be allotted to your agency account once the order is confirmed.
-  </p>
-
-  <h4 style="margin-top: 20px;">Non-Transferability</h4>
-  <p>
-    Ordered ad packages are <strong>non-transferable</strong> and can only be used by the agency account that placed the order.
-  </p>
-
-</div>
-
-     
-        </div>
-        <div class="modal-footer">
-          <div class="form-check me-auto">
-            <input class="form-check-input" type="checkbox" id="agreeCheck">
-            <label class="form-check-label" for="agreeCheck">I have read and accept the terms and conditions</label>
-          </div>
-          <button type="submit" id="finalSubmitBtn" class="btn btn-primary" disabled>Confirm order</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<script language="javascript">
-	function closeModal_terms()
-					{
-						 $('#termsModal').modal('hide');
-					
-					}
-</script>
-
-
  
 <?php } else { ?>
 
 <div class="table-responsive mb-5">
     <table class="table card-table table-vcenter text-nowrap table-primary mb-0">
-    	<tr><td><h4>Ad Upgraded</h4>Thank you for your recent Ad package purchase! Credits purchased now credited under your account.<br /><br />   	      
+    	<tr><td><h4>Your Order Has Been Placed</h4>Thank you for your recent Ad package purchase! Credits purchased now credited under your account.<br /><br />   	      
     	Your  Order ID is: <strong><?php echo decryptId($_GET['cI']); ?></strong></td></tr>
     
     </table>
@@ -2115,67 +2925,24 @@ $("#suggesstion-box").hide();
 
   $(document).ready(function () {
     function updateTotals() {
-    let total1 = 0;
-  let total2 = 0;
-  let countPremium = 0;
-  let countAdvancedAd = 0;
+      let total1 = 0;
+      $('.price-check:checked').each(function () {
+        total1 += parseFloat($(this).val().split('|')[1]);
+      });
 
-  $('.price-check:checked').each(function () {
-    let parts = $(this).val().split('|'); // ["premium_5_90", "400"]
-    let meta = parts[0].split('_');       // ["premium", "5", "90"]
-    let price = parseFloat(parts[1]);
-    let adCount = parseInt(meta[1]);
+      let total2 = 0;
+      $('.price-check2:checked').each(function () {
+        total2 += parseFloat($(this).val().split('|')[1]);
+      });
 
-    total1 += price;
-    countPremium += adCount;
-  });
+      let netTotal = total1 + total2;
 
-  $('.price-check2:checked').each(function () {
-    let parts = $(this).val().split('|'); // ["advance_5_180", "320"]
-    let meta = parts[0].split('_');       // ["advance", "5", "180"]
-    let price = parseFloat(parts[1]);
-    let adCount = parseInt(meta[1]);
-
-    total2 += price;
-    countAdvancedAd += adCount;
-  });
-
-  let netTotal = total1 + total2;
-
-  $('#total-price').text(total1.toLocaleString());
-  $('#total-price2').text(total2.toLocaleString());
-  $('#net-total').text(netTotal.toLocaleString());
-
-  // Update modal content
-  if (total1 != 0) {
-    $('#dispPremium').css('display', 'flex');
-    $('#dispcountPremium').text(countPremium);
-    $('#totalPremiumAd').text("$" + total1.toLocaleString());
-  } else {
-    $('#dispPremium').css('display', 'none');
-  }
-
-  if (total2 != 0) {
-    $('#dispAdvanced').css('display', 'flex');
-    $('#dispcountAdvanced').text(countAdvancedAd);
-    $('#totalAdvancedAd').text("$" + total2.toLocaleString());
-  } else {
-    $('#dispAdvanced').css('display', 'none');
-  }
+      $('#total-price').text(total1.toLocaleString());
+      $('#total-price2').text(total2.toLocaleString());
+      $('#net-total').text(netTotal.toLocaleString());
 	  
-	  
-	  //---------end display settings in modal---
-	  
-	 if (netTotal > 0) {
-    $('#submitBtn').prop('disabled', false);
-    
-    let gstAmount = (netTotal * 0.10);
-    let grandTotal = netTotal + gstAmount;
-
-    $("#subTotal").text("$" + netTotal.toLocaleString());
-    $("#subGST").text("$" + gstAmount.toLocaleString());
-    $("#netTotal").text("$" + grandTotal.toLocaleString());
-	}
+	  if (netTotal>0)
+	$('#submitBtn').prop('disabled', false);
 	else
 	$('#submitBtn').prop('disabled', true);
     }
@@ -2185,26 +2952,6 @@ $("#suggesstion-box").hide();
 
     $('.price-check, .price-check2').on('change', updateTotals);
   });
-  
-  
-  $(document).ready(function () {
-  // Show modal on clicking submitBtn
-  $("#submitBtn").on("click", function () {
-    $("#termsModal").modal("show");
-  });
-
-  // Enable Accept & Submit only when checkbox is checked
-  $("#agreeCheck").on("change", function () {
-    $("#finalSubmitBtn").prop("disabled", !this.checked);
-  });
-
-  // On Accept & Submit inside modal
-  $("#confirmForm").on("submit", function (e) {
-    e.preventDefault();
-    $("#termsModal").modal("hide");
-    $("form[action*='task=adorder']")[0].submit(); // Submit original form
-  });
-});
 
 
 </script>

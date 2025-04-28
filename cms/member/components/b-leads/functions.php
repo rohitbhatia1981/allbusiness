@@ -26,12 +26,17 @@
 
 		}
 		
-		if($_GET['cmbCategory'] != "")
-		{
-
-			$sql .= " and business_category='".$database->filter($_GET['cmbCategory'])."'";
-
+		if (!empty($_GET['cmbCategory'])) {
+		$category = $database->filter($_GET['cmbCategory']);
+	
+		$sql .= " AND (
+			FIND_IN_SET('$category', REPLACE(business_category, ' ', '')) > 0 
+			OR 
+			FIND_IN_SET('$category', REPLACE(business_subcat, ' ', '')) > 0
+			)";
 		}
+
+
 		
 		/*if($_GET['txtSearchByTitle'] != "")
 		{
@@ -70,29 +75,18 @@ function removeSelectedItems()
 
 	{
 
-		global $database,$component;	
-
-		
+		global $database,$component;			
 
 		for($i = 0; $i < count($_GET['deletes']); $i++)
-
 		{
 
 			$provinceIdToPublish = $_GET['deletes'][$i];
-
-			
-
-			
-
 			//Add the WHERE clauses
-
 			$where_clause = array(
-
-				'message_id' => $provinceIdToPublish
-
+				'inquiry_id' => $provinceIdToPublish
 			);
 
-			$delete = $database->delete( 'tbl_messages', $where_clause, 1 );
+			$delete = $database->delete( 'tbl_inquiry', $where_clause, 1 );
 
 		}
 

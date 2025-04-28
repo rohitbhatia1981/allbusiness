@@ -18,7 +18,7 @@ include PATH."include/headerhtml.php";
 		<div class="row align-items-center">
 			<div class="col-sm-6">
 				<h3>Unlimited business listings, one fixed price</h3>
-				<h5 style="padding-bottom:12px"><span>Exclusive Offer:</span> 6 months of Free advertising to get you started</h5>
+				<h5 style="padding-bottom:12px"></h5>
                 <p>Get your listings in front of thousands of buyers. Transform your brokerage business with our unlimited listing subscription. Whether you have 5 or 500 listings, your cost stays the same. No hidden fees, no listing caps, no restrictions.</p>
 				<a href="#reg_broker_form" class="link1">Apply for a Broker Account</a>
 			</div>

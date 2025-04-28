@@ -29,19 +29,35 @@ function saveFormValues() {
     $password = rand(10000, 99999);
 
     $names = array(
-        'member_firstname' => $_POST['txtFirstName'],
-        'member_lastname' => $_POST['txtLastName'],
-        'member_email' => $_POST['txtEmail'],
-        'member_password' => md5($password),
-        'member_phone' => $_POST['txtPhone'],       
-        'member_ip' => $_SERVER['REMOTE_ADDR'],
-        'member_regdate' => $curDateTime,
-        'member_type' => 2,
-        'member_email_verify' => 1,       
-        'member_status' => $_POST['rdoPublished']
+        'agent_name' => $_POST['txtFirstName'],
+        'agent_lastname' => $_POST['txtLastName'],
+        'agent_email' => $_POST['txtEmail'],
+        'agent_mobile' => $_POST['txtPhone'],
+        'agent_agency_id' => $_SESSION['sess_member_id'],      
+        'agent_status' => $_POST['rdoPublished']
     );
 
-    $add_query = $database->insert('tbl_members', $names);
+    $add_query = $database->insert('tbl_member_agents', $names);
+	$lastInsertedId=$database->lastid();
+	
+	if (!empty($_POST['images4ex'])) {			
+		
+				$imageName=$_POST['images4ex'][0];
+				
+				$update = array(
+				'agent_picture' => $imageName			
+				);
+				
+				$where_clause = array(
+				'agent_id' => $lastInsertedId
+				);
+				
+				$updated = $database->update( 'tbl_member_agents', $update, $where_clause, 1 );
+				
+				
+			
+		
+		}
 
     if ($add_query) {
         print "<script>window.location='index.php?c=" . $component . "'</script>";
@@ -50,37 +66,37 @@ function saveFormValues() {
 
 function createFormForPages($id) {
     global $database;
-    $sql = "SELECT * FROM tbl_members WHERE member_id='" . $database->filter($id) . "'";
+    $sql = "SELECT * FROM tbl_member_agents WHERE agent_id='" . $database->filter($id) . "'";
     $results = $database->get_results($sql);
     createFormForPagesHtml($results);
 }
 
-function createFormForPages_detail($id) {
+/*function createFormForPages_detail($id) {
     global $database;
-    $sql = "SELECT * FROM tbl_members WHERE member_id='" . $database->filter($id) . "'";
+    $sql = "SELECT * FROM tbl_member_agents WHERE agent_id='" . $database->filter($id) . "'";
     $results = $database->get_results($sql);
     createFormForPagesHtml_details($results);
-}
+}*/
 
 function saveModificationsOperation() {
     global $database, $component;
 
     $update = array(
-        'member_firstname' => $_POST['txtFirstName'],
-        'member_lastname' => $_POST['txtLastName'],
-        'member_email' => $_POST['txtEmail'],
-        'member_phone' => $_POST['txtPhone'],       
-        'member_status' => $_POST['rdoPublished']
+        'agent_name' => $_POST['txtFirstName'],
+        'agent_lastname' => $_POST['txtLastName'],
+        'agent_email' => $_POST['txtEmail'],
+        'agent_mobile' => $_POST['txtPhone'],
+		'agent_status' => $_POST['rdoPublished']
     );
 
     $where_clause = array(
-        'member_id' => $_POST['pid']
+        'agent_id' => $_POST['pid']
     );
 
-    $updated = $database->update('tbl_members', $update, $where_clause, 1);
+    $updated = $database->update('tbl_member_agents', $update, $where_clause, 1);
 
     if ($updated) {
-        print "<script>window.location='index.php?c=" . $component . "&Cid=6'</script>";
+        print "<script>window.location='index.php?c=" . $component . "'</script>";
     }
 }
 
@@ -89,14 +105,14 @@ function publishSelectedItems() {
 
     foreach ($_GET['deletes'] as $provinceIdToPublish) {
         $update = array(
-            'member_status' => 1
+            'agent_status' => 1
         );
 
         $where_clause = array(
-            'member_id' => $provinceIdToPublish
+            'agent_id' => $provinceIdToPublish
         );
 
-        $updated = $database->update('tbl_members', $update, $where_clause, 1);
+        $updated = $database->update('tbl_member_agents', $update, $where_clause, 1);
     }
 
     if ($updated) {
@@ -109,14 +125,14 @@ function unpublishSelectedItems() {
 
     foreach ($_GET['deletes'] as $provinceIdToPublish) {
         $update = array(
-            'member_status' => 0
+            'agent_status' => 0
         );
 
         $where_clause = array(
-            'member_id' => $provinceIdToPublish
+            'agent_id' => $provinceIdToPublish
         );
 
-        $updated = $database->update('tbl_members', $update, $where_clause, 1);
+        $updated = $database->update('tbl_member_agents', $update, $where_clause, 1);
     }
 
     if ($updated) {
@@ -129,10 +145,10 @@ function removeSelectedItems() {
 
     foreach ($_GET['deletes'] as $provinceIdToPublish) {
         $where_clause = array(
-            'member_id' => $provinceIdToPublish
+            'agent_id' => $provinceIdToPublish
         );
 
-        $delete = $database->delete('tbl_members', $where_clause, 1);
+        $delete = $database->delete('tbl_member_agents', $where_clause, 1);
     }
 
     if ($delete) {
@@ -144,9 +160,9 @@ function removeDeletedItems() {
     global $database, $component;
 
     $where_clause = array(
-        'member_id' => $_GET['id']
+        'agent_id' => $_GET['id']
     );
 
-    $del = $database->delete('tbl_members', $where_clause, 1);
+    $del = $database->delete('tbl_member_agents', $where_clause, 1);
     print "<script>window.location='index.php?c=" . $component . "'</script>";
 }

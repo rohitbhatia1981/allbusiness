@@ -2,7 +2,7 @@
 if ($_POST['type']!="" && $_POST['val']!="" && $_POST['adId']!="" && $_SESSION['sess_member_id']!="")
 {
 
-$adId=decryptId($_POST['adId']);
+$adId=base64_decode($_POST['adId']);
 	
 	
 	
@@ -67,7 +67,7 @@ $adId=decryptId($_POST['adId']);
 				);
 				
 				$where_clause = array(
-					'business_id' => base64_decode($adId),
+					'business_id' => $adId,
 					'business_owner_id' => $_SESSION['sess_member_id']
 					
 				);

@@ -179,8 +179,8 @@
 									</td>
                                     <td class="align-middle">
                                     
-                                   		<table width="100%" style="background-color:#e6f2ff; border:2px solid; border-color:#069">
-                                        <tr><td><strong>Ad Type</strong></td><td>Q<strong>uantity</strong></td><td><strong>Amount</strong></td></tr>
+                                   		<table width="100%" style="background-color:#fff; border:2px solid; border-color:#069">
+                                        <tr><td><strong>Ad Type</strong></td><td><strong>Quantity</strong></td><td><strong>Amount</strong></td></tr>
                                         <?php if ($rowPres['ad_premium_90_qty']!=0) { ?>
                                         	
                                         	<tr><td>Premium Ad (90 Days)</td><td><?php echo $rowPres['ad_premium_90_qty']?></td><td><?php echo CURRENCY.$rowPres['ad_premium_90_amount']?></td></tr>
@@ -199,6 +199,16 @@
                                           <?php if ($rowPres['ad_advance_180_qty']!=0) { ?>
                                         	
                                         	<tr><td>Advanced Ad (180 Days)</td><td><?php echo $rowPres['ad_advance_180_qty']?></td><td><?php echo CURRENCY.$rowPres['ad_advance_180_amount']?></td></tr>
+                                         <?php } ?>
+                                         
+                                          <?php if ($rowPres['ad_total_gst']!=0) { ?>
+                                        	
+                                        	<tr style="background-color:#FF9"><td></td><td><strong>GST</strong></td><td><strong><?php echo "$".$rowPres['ad_total_gst']?></strong></td></tr>
+                                         <?php } ?>
+                                         
+                                          <?php if ($rowPres['ad_net_total']!=0) { ?>
+                                        	
+                                        	<tr style="background-color:#FF9; font-size:17px"><td></td><td><strong>Net Total</strong></td><td><strong><?php echo "$".$rowPres['ad_net_total']?></strong></td></tr>
                                          <?php } ?>
                                          
                                          

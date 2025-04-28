@@ -65,7 +65,9 @@ global $database;
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #4a90e2; color: white; box-shadow: 0 4px 8px rgba(74,144,226,0.3);"><?php echo $postCount; ?></span>
                                         <h5 class="mb-0 mt-3" style="color: #4a90e2;">Posted in <?php echo date("F") ?></h5>
                                     </div>
-                                    
+                                  <?php if ($_SESSION['sess_member_groupid']==5)
+								  {
+									  ?>  
                                     <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #2ecc71; color: white; box-shadow: 0 4px 8px rgba(46,204,113,0.3);">
                                             <?php
@@ -79,6 +81,7 @@ global $database;
                                         </span>
                                         <h5 class="mb-0 mt-3" style="color: #2ecc71;">Upgraded Ads</h5>
                                     </div>
+                                    <?php } ?>
                                     
                                     <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #e67e22; color: white; box-shadow: 0 4px 8px rgba(230,126,34,0.3);">0</span>
@@ -119,6 +122,10 @@ global $database;
                                         <h5 class="mb-0 mt-3" style="color: #4a90e2;">Posted in <?php echo date("F", strtotime("first day of last month")); ?></h5>
                                     </div>
                                     
+                                     <?php if ($_SESSION['sess_member_groupid']==5)
+								 	 {
+									  ?> 
+                                    
                                     <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #2ecc71; color: white;">
                                             <?php
@@ -132,6 +139,8 @@ global $database;
                                         </span>
                                         <h5 class="mb-0 mt-3" style="color: #2ecc71;">Upgraded Ads</h5>
                                     </div>
+                                    
+                                    <?php } ?>
                                     
                                     <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #e67e22; color: white;">15</span>
@@ -170,6 +179,10 @@ global $database;
                                         <h5 class="mb-0 mt-3" style="color: #4a90e2;">Total Ads Posted</h5>
                                     </div>
                                     
+                                     <?php if ($_SESSION['sess_member_groupid']==5)
+								 	 {
+									  ?> 
+                                    
                                     <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #2ecc71; color: white;">
                                             <?php
@@ -181,6 +194,8 @@ global $database;
                                         </span>
                                         <h5 class="mb-0 mt-3" style="color: #2ecc71;">Upgraded Ads</h5>
                                     </div>
+                                    
+                                    <?php } ?>
                                     
                                     <div class="col-md-6 col-lg-2 text-center py-5" style="border-right: 1px dashed #e0e0e0;">
                                         <span class="avatar avatar-md bradius fs-20" style="background-color: #e67e22; color: white;">0</span>
@@ -240,6 +255,10 @@ global $database;
   <!-- Account Header -->
  <div class="row">
   <!-- Ads Card -->
+  
+   <?php if ($_SESSION['sess_member_groupid']==5)
+								 	 {
+									  ?> 
   <div class="col-xl-5 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header border-0">
@@ -323,7 +342,7 @@ global $database;
 								</div>
 							</div>
                             
-                            
+                       <?php } ?>     
                             
                             <!--- 7 cols--->
                             
