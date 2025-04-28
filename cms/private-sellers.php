@@ -83,7 +83,7 @@ include PATH."include/headerhtml.php";
  					<h2>$220</h2>
  					<h5>Basic Ad Listing</h5>
  					<!--<p>List your business for 180 days with basic listing option.</p>-->
- 					<ul class="list_item">
+ 					<ul class="list_item" style="font-weight:bold">
 					  
  						<li>180 days a expiry</li>
                         <li>Buyer enquiries sent directly to your inbox</li>
@@ -100,7 +100,7 @@ include PATH."include/headerhtml.php";
  					<h2>$440</h2>
  					<h5>Advanced Ad Listing</h5>
  					
- 					<ul class="list_item">
+ 					<ul class="list_item" style="font-weight:bold">
  						<li>180 days a expiry</li>
                         <li>Appear above Basic Ad in search results</li>
                         <li>Buyer enquiries sent directly to your inbox</li>
@@ -115,8 +115,8 @@ include PATH."include/headerhtml.php";
  				<div class="plan_box_1">
  					<h2>$660</h2>
  					<h5>Advanced Plan</h5>
- 					<p>Featured Listing Ad above the basic ads for 180 days.</p>
- 					<ul class="list_item">
+ 					
+ 					<ul class="list_item" style="font-weight:bold">
  						<li>180 days a expiry</li>
                         <li>Always displayed at the top of search results</li>
                         <li>Buyer enquiries sent directly to your inbox</li>
