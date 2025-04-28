@@ -7,7 +7,7 @@ include PATH."include/headerhtml.php";
 
 <div class="brokers_banner text-center" style="padding:10px">
 	<div class="container" style="height:70px">
-		<h2>Login to Your Account</h2>
+		<h2 style="font-size:24px; padding-top:20px">Login to Your Account</h2>
        
 		<!--<p>Access your saved inquiries, favorites, and explore exciting business opportunities!</p>-->
 	</div>
