@@ -137,13 +137,28 @@ include PATH."include/headerhtml.php";
  	<div class="container">
     	<div class="text-area-box">
         	<h2><b>Sell your business</b></h2>
-            <p>
-Starting a business from scratch is tough. Buying an established business for sale in Australia can be the answer. By buying an existing business, you can skip the startup hassle and start making profits right away. Magicbricks helps you find the right business for sale in Melbourne and across Victoria, with plans to expand into other states soon. Our platform simplifies the search process, allowing you to find businesses by industry, location, and price range.</p>
-<p>
-With Magicbricks, investing in an Australian business for sale means investing in certainty and a proven formula. Whether you're interested in small businesses or franchises, we can help you find the right opportunity. Buying a business gives you access to systems, clients, inventory, and leases. It's a smart move for any entrepreneur.</p>
-<p>
-Melbourne, as Victoria's capital, is a hub for businesses of all sizes. With its pro-business government and favourable taxation, it's a hub for small and start-up companies. Whether you're looking for large corporations or smaller retail operations, Melbourne has options for you.
-Find your perfect business for sale today with Magicbricks.</p>
+            <div style="flex: 0 0 50%; padding: 20px;">
+    
+    <p>
+      Thinking about selling your business? <strong>AllBusiness</strong> can help you find the right buyer. We connect business owners like you with people who are ready to buy.
+   <br><br>
+      Our platform makes it easy to showcase your business to interested buyers across Australia. From small businesses to established franchises, we help you reach the right audience.
+    <br><br>
+      Start by creating your listing with photos, key business details, and reasons why someone would want to buy it. Manage all your buyer conversations in one place.
+    <br><br>
+      We reach serious buyers in every Australian city - <strong>Sydney</strong>, <strong>Melbourne</strong>, <strong>Brisbane</strong>, <strong>Perth</strong>, <strong>Adelaide</strong>, <strong>Canberra</strong>, <strong>Hobart</strong>, <strong>Darwin</strong>, and beyond.
+    <br><br>
+      Whether you're working with a broker or selling independently, <strong>AllBusiness</strong> gives you the visibility and tools you need for a successful business sale.
+    </p>
+    <div style="margin-top: 15px;">
+      <a href="<?php echo URL?>private-sellers" style="display: inline-block; background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; margin-right: 10px;">
+        Sell Your Business
+      </a>
+      <a href="<?php echo URL?>for-brokers" style="display: inline-block; background: #FC6B35; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+        For Business Brokers
+      </a>
+    </div>
+  </div>
         </div>
     </div>
  </div>
