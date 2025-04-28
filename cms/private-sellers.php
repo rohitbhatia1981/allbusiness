@@ -80,16 +80,16 @@ include PATH."include/headerhtml.php";
  		<div class="row">
  			<div class="col-sm-6 col-lg-4" >
  				<div class="plan_box_1"  >
- 					<h2>$29<small>/monthly</small></h2>
- 					<h5>Basic Plan</h5>
- 					<p>List your business for 180 days with basic listing option.</p>
+ 					<h2>$220</h2>
+ 					<h5>Basic Ad Listing</h5>
+ 					<!--<p>List your business for 180 days with basic listing option.</p>-->
  					<ul class="list_item">
-					  <li> 1 Listing</li>
- 						<li>180 Days Visibility</li>
-                        <li>Simple search listing display</li>
- 						<li>Unlimited Edits to your Ad</li>
+					  
+ 						<li>180 days a expiry</li>
+                        <li>Buyer enquiries sent directly to your inbox</li>
+ 						<li>Unlimited edits</li>
  						<li>No Comission</li>
- 						<li>All leads are sent directly to your email</li>
+ 						<li>Upload 10 pics</li>
  						
 				  </ul>
  					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
@@ -97,32 +97,32 @@ include PATH."include/headerhtml.php";
  			</div>
  			<div class="col-sm-6 col-lg-4">
  				<div class="plan_box_1">
- 					<h2>$49<small>/monthly</small></h2>
- 					<h5>Premium Plan</h5>
- 					<p>List your business for 180 days with highlighted option.</p>
+ 					<h2>$440</h2>
+ 					<h5>Advanced Ad Listing</h5>
+ 					
  					<ul class="list_item">
- 						<li> 1 Listing</li>
- 						<li>180 Days Visibility</li>
- 						<li>Highlighted in Search Results</li>
- 						<li>Unlimited Edits to your Ad</li>
+ 						<li>180 days a expiry</li>
+                        <li>Appear above Basic Ad in search results</li>
+                        <li>Buyer enquiries sent directly to your inbox</li>
+ 						<li>Unlimited edits</li>
  						<li>No Comission</li>
-                        <li>All leads are sent directly to your email</li> 
+ 						<li>Upload 10 pics</li>
  					</ul>
  					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
  			</div>
  			<div class="col-sm-6 col-lg-4">
  				<div class="plan_box_1">
- 					<h2>$89<small>/monthly </small></h2>
+ 					<h2>$660</h2>
  					<h5>Advanced Plan</h5>
  					<p>Featured Listing Ad above the basic ads for 180 days.</p>
  					<ul class="list_item">
- 						<li> 1 Listing</li>
- 						<li>180 Days Visibility</li>
- 						<li>Listing page Featured Ad.</li>
- 						<li>Unlimited Edits to your Ad</li>
-                        <li>No Comission</li>
-                        <li>All leads are sent directly to your email</li> 
+ 						<li>180 days a expiry</li>
+                        <li>Always displayed at the top of search results</li>
+                        <li>Buyer enquiries sent directly to your inbox</li>
+ 						<li>Unlimited edits</li>
+ 						<li>No Comission</li>
+ 						<li>Upload 10 pics</li>
  					</ul>
  					<a href="<?php echo URL?>private-seller-signup"><button class="btn btn-outline-primary">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>
  				</div>	
