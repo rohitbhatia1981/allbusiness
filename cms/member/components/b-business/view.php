@@ -2038,7 +2038,7 @@ $("#suggesstion-box").hide();
  <div style="padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
   
   <h3 style="margin-bottom: 10px;">Order Agreement</h3>
-  <p><strong>By checking the box and clicking "Confirm Order", you acknowledge that:</strong></p>
+  <p><strong>By checking the box and clicking "Confirm Order", you acknowledge that:</strong></p>
   
   <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;">
     <li>You are authorized to place this order on behalf of your organization, forming a binding agreement.</li>
