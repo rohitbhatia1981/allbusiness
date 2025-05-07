@@ -60,6 +60,7 @@ function saveFormValues() {
         'member_phone' => $_POST['txtPhone'],
         'member_company' => $_POST['txtCompany'],
         'member_tradingname' => $_POST['txtTradingName'],
+		'member_director_name' => $_POST['txtDirector'],
 		'member_crm' => $_POST['cmbCRM'],
         'member_website' => $_POST['txtWebsite'],
         'member_address' => $_POST['txtAddress'],
@@ -172,6 +173,7 @@ function saveModificationsOperation() {
         'member_phone' => $_POST['txtPhone'],
         'member_company' => $_POST['txtCompany'],
         'member_tradingname' => $_POST['txtTradingName'],
+		'member_director_name' => $_POST['txtDirector'],
         'member_website' => $_POST['txtWebsite'],
         'member_address' => $_POST['txtAddress'],
         'member_status' => $_POST['rdoPublished']
@@ -182,6 +184,59 @@ function saveModificationsOperation() {
     );
 
     $updated = $database->update('tbl_members', $update, $where_clause, 1);
+	
+	
+	//---------send  email------
+		
+		
+		if ($_POST['ckEmail']==1)
+		{
+		
+					include PATH."include/email-templates/email-template.php";
+					include PATH."mail/sendmail.php";
+					
+					
+					
+				$sqlEmail="select * from tbl_emails where email_id=54 and email_status=1";
+			    $resEmail=$database->get_results($sqlEmail);
+			
+			
+				if (count($resEmail)>0)
+				{
+					$rowEmail=$resEmail[0];
+					$emailContent=fnUpdateHTML($rowEmail['email_description']);
+					
+					$loginLink='<a href="'.URL.'login">Login here</a>';
+					
+					$emailContent=str_replace("<name>",$_POST['txtTradingName'],$emailContent);
+					$emailContent=str_replace("<name_of_crm>",$_POST['cmbCRM'],$emailContent);
+					$emailContent=str_replace("<email>",$_POST['txtEmail'],$emailContent);
+					$emailContent=str_replace("<password>",$password,$emailContent);
+					$emailContent=str_replace("<login_link>",$loginLink,$emailContent);					
+					$emailContent=str_replace("\n","<br>",$emailContent);
+					
+					$headingContent=$emailContent;
+
+				$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+
+
+				$ToEmail=$_POST['txtEmail'];
+				$FromEmail=ADMIN_FORM_EMAIL;
+				$FromName=FROM_NAME;
+				
+				$SubjectSend=$rowEmail['email_heading'];
+				$BodySend=$mailBody;	
+				
+				
+				
+
+				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+				}
+		
+				
+		
+		}
+	
 
     if ($updated) {
         print "<script>window.location='index.php?c=" . $component . "&Cid=6'</script>";
