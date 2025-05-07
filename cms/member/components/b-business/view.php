@@ -1994,7 +1994,7 @@ $("#suggesstion-box").hide();
         <div class="modal-header">
           <h5 class="modal-title" id="termsModalLabel" style="color:#F30; font-size:22px">Confirm your order</h5>
           <button type="button" class="close" onclick="closeModal_terms()" aria-label="Close">
-								<span aria-hidden="true">Ã—</span>
+								<span aria-hidden="true">X</span>
 							</button>
         </div>
         <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
@@ -2050,7 +2050,7 @@ $("#suggesstion-box").hide();
   <h4 style="margin-top: 20px;">Payment Method</h4>
   <p>
     An invoice will be sent within <strong>5 business days</strong>, and payment is <strong>due within 14 days</strong> of invoice generation.
-    Your ad pack will be available immediately after you click &quot;Confirm Order&quot; below.
+    Your ad pack will be available immediately after you click &quot;Confirm Order&quot; below.
   </p>
 
   <h4 style="margin-top: 20px;">Cancellation</h4>
