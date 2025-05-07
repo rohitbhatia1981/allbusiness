@@ -165,6 +165,8 @@ function createFormForPages_detail($id) {
 
 function saveModificationsOperation() {
     global $database, $component;
+	
+	
 
     $update = array(
         'member_firstname' => $_POST['txtFirstName'],
@@ -191,6 +193,21 @@ function saveModificationsOperation() {
 		
 		if ($_POST['ckEmail']==1)
 		{
+			
+			 $password = rand(10000, 99999);
+			 
+			  $update = array(
+        		'member_password' => md5($password)
+       
+   				 );
+
+				$where_clause = array(
+					'member_id' => $_POST['pid']
+				);
+				
+				$updated = $database->update('tbl_members', $update, $where_clause, 1);
+			 
+			 
 		
 					include PATH."include/email-templates/email-template.php";
 					include PATH."mail/sendmail.php";
