@@ -30,25 +30,60 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!=""  && $_POST['txtPhone']!
 		
 		//---------send  email------
 		
-		
-					include PATH."include/email-templates/email-template.php";
+				include PATH."include/email-templates/email-template.php";
 					include PATH."mail/sendmail.php";
-		
 				
-					$emailContent="Dear Admin, <br><br>
-					Received new request from broker, please login in admin to review it.
-					";
-					$headingContent=$emailContent;
-					$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+				//$contactus='<a href="'.URL.'contact-us">contact us</a>';
 				
+				//end Settings all values
 
-				$ToEmail=ADMIN_EMAIL;
+				$sqlEmail="select * from tbl_emails where email_id=53 and email_status=1";
+			    $resEmail=$database->get_results($sqlEmail);
+			
+			
+				if (count($resEmail)>0)
+				{
+					$rowEmail=$resEmail[0];
+					$emailContent=fnUpdateHTML($rowEmail['email_description']);
+					/*$emailContent=str_replace("<name>",$receiverName,$emailContent);
+					$emailContent=str_replace("<verification_link>",$veriLink,$emailContent);
+					$emailContent=str_replace("<contact_us_link>",$contactus,$emailContent);*/
+					$emailContent=str_replace("\n","<br>",$emailContent);
+					
+					$headingContent=$emailContent;
+
+				$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+
+
+				$ToEmail=$_POST['txtEmail'];
 				$FromEmail=ADMIN_FORM_EMAIL;
 				$FromName=FROM_NAME;
 				
-				$SubjectSend="New Broker Request";
-				$BodySend=$mailBody;
+				$SubjectSend=$rowEmail['email_heading'];
+				print $BodySend=$mailBody;	
+				exit;
+
 				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+				}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+				
+				
+				
 		
 		
 		

@@ -13,7 +13,7 @@
       <a class="nav-link active" aria-current="page" href="<?php echo URL?>buy-business">Buy a business</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo URL?>private-sellers">Sell a business</a>
+      <a class="nav-link" href="<?php echo URL?>for-brokers">Sell a business</a>
     </li>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="forBrokersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -24,7 +24,7 @@
         <li><a class="dropdown-item" href="#">Find a broker</a></li>
       </ul>
     </li>
-    <li class="nav-item"><a class="nav-link" href="<?php echo URL?>private-sellers">Private sellers</a></li>
+    <!--<li class="nav-item"><a class="nav-link" href="<?php echo URL?>private-sellers">Private sellers</a></li>-->
     <li class="nav-item"><a class="nav-link" href="<?php echo URL?>news">News</a></li>
   </ul>
 

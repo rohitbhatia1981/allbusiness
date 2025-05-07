@@ -1,8 +1,17 @@
 
-<div class="new_listings_bx buy_business_item">
+
+<?php if ($rowProp['business_plan_id']==3)  
+$styleListing="background-color:#f0f6ff; border:2px solid #016de4; ";
+else if ($rowProp['business_plan_id']==2) 
+$styleListing="background-color:#fff; border:1px solid #ff6b2c; ";
+else
+$styleListing="";
+?>
+
+<div class="new_listings_bx buy_business_item" style="<?php echo $styleListing ?>">
 			
             <?php if ($rowProp['business_plan_id']==3) { ?>
-            <div class="top_bar" style="background-color: #000">
+            <div class="top_bar" style="background-color: #016de4" >
 				<img class="site_log" src="<?php echo URL?>images/site_logo.jpg">
 				<span><?php echo $rowProp['member_tradingname']; ?></span>
 			</div>	
@@ -44,7 +53,7 @@
             
              <!--<a href="#" class="more">more</a>--> 
 			<div class="bottom_bar">
-				<button class="enquire_btn mb-3" data-listing-id="<?php echo $rowProp['business_id']; ?>">Enquire</button>
+				<button class="enquire_btn<?php if ($rowProp['business_plan_id']==3) echo "_blue"; ?> mb-3" data-listing-id="<?php echo $rowProp['business_id']; ?>">Enquire</button>
 				<button class="heart_btn"><i class="fa-light fa-heart"></i> Save</button>
 				 <?php if ($rowProp['business_plan_id']==2) { ?>
                 <span><?php echo $rowProp['member_tradingname']; ?></span>

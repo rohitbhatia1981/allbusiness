@@ -331,7 +331,10 @@ else
 								<input class="form-control mb-4" type="text" name="txtTitle" value="<?php echo $row['email_title']?>" required>
 							</div>
                             
-                            
+                            <div class="form-group">
+								<label class="form-label">Subject *</label>
+								<input class="form-control mb-4" type="text" name="txtSubject" value="<?php echo $row['email_heading']?>" required>
+							</div>
                             
                            
 

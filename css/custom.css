@@ -643,7 +643,21 @@ input:focus + label, input:not(:placeholder-shown) + label {
 	min-width: 96px;
 	border: none;
 }
-.enquire_btn:hover, .Subscribe_now_box .btn-light:hover, .follow_links li a:hover{opacity: .7}
+
+.enquire_btn_blue {
+	background-color: #016de4;
+	font-size: var(--font-size-15);
+	color: #FFF;
+	border-radius: 5px;
+	min-height: 35px;
+	min-width: 96px;
+	border: none;
+}
+
+.enquire_btn:hover, enquire_btn-blue:hover, .Subscribe_now_box .btn-light:hover, .follow_links li a:hover{opacity: .7}
+
+
+
 .Subscribe_now_box {
 	background-color: #597BAA;
 	border-radius: 4px;
@@ -1249,7 +1263,16 @@ ul.site_map li a{margin: 0px;font-size: var(--font-size-14);color: #A3B1CC;text-
 .buy_business {
 	width: 100%;
 	display: flex;
+
 }
+
+.buy_business_item {
+   
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+
 .buy_business .left {
 	flex: 0 0 calc(100% - 200px);
 }

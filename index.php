@@ -60,16 +60,7 @@ include PATH."include/headerhtml.php";
 		
         <?php include PATH."include/search-form.php"; ?>
         
-        <div style="background: #fff; border: 1px solid #e0e0e0; padding: 20px; margin-top: 20px;">
-          <p>
-            <strong>AllBusiness</strong> is Australia’s trusted business-for-sale listing marketplace, offering one of the largest directories for buying and selling businesses. 
-            With thousands of listings across the country, we connect buyers with incredible business opportunities in 
-            <strong>Melbourne</strong>, <strong>Sydney</strong>, <strong>Brisbane</strong>, <strong>Perth</strong>, <strong>Adelaide</strong>, <strong>Canberra</strong>, <strong>Gold Coast</strong>, <strong>Hobart</strong>, and beyond.
-          </p>
-          <p>
-            Our mission is to simplify the process of buying and selling businesses, making it efficient, transparent, and stress-free for everyone involved.
-          </p>
-        </div>
+        
 
 </div>
     
@@ -108,11 +99,29 @@ include PATH."include/headerhtml.php";
            
 		</div>
 	</div>
+    
+    
+    
 </section>
+
+
 
 
 <section class="new_listings">
 	<div class="container">
+    
+    <div style="padding-bottom:50px ">
+          <p>
+            <strong>AllBusiness</strong> is Australia’s trusted business-for-sale listing marketplace, offering one of the largest directories for buying and selling businesses. 
+            With thousands of listings across the country, we connect buyers with incredible business opportunities in 
+            <strong>Melbourne</strong>, <strong>Sydney</strong>, <strong>Brisbane</strong>, <strong>Perth</strong>, <strong>Adelaide</strong>, <strong>Canberra</strong>, <strong>Gold Coast</strong>, <strong>Hobart</strong>, and beyond.
+          </p>
+          <p>
+            Our mission is to simplify the process of buying and selling businesses, making it efficient, transparent, and stress-free for everyone involved.
+          </p>
+        </div>
+    
+    
 		<h3 class="title_h3 text-center">New listings</h3>
 		<div class="new_listings_row">
         

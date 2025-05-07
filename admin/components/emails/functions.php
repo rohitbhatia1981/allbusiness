@@ -62,7 +62,8 @@
 
 		$names = array(
 
-			'email_title' => $_POST['txtTitle'], 			
+			'email_title' => $_POST['txtTitle'], 
+			'email_heading' => $_POST['txtSubject'], 			
 			'email_description' => $_POST['page_description'],						  
 			'email_status' => $_POST['rdoPublished'] //Random thing to insert
 
@@ -130,7 +131,8 @@
 
 			$update = array(
 
-			'email_title' => $_POST['txtTitle'], 			
+			'email_title' => $_POST['txtTitle'], 
+			'email_heading' => $_POST['txtSubject'], 			
 			'email_description' => $_POST['page_description'],						  
 			'email_status' => $_POST['rdoPublished'] 
 

@@ -89,7 +89,7 @@ exit;
 	                    
                                 
  <div class="table-responsive mb-5">
-    <table class="table card-table table-vcenter text-nowrap table-primary mb-0">
+    <table class="table card-table table-vcenter  table-primary mb-0">
      
       <tbody>
         <tr style="font-size:16px">
@@ -98,7 +98,7 @@ exit;
           
             <strong>Available: <span id="credits_p_90"><?php echo $credits90; ?></span></strong>            
           </td>
-          <td class="price-display"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_p_90" type="button" <?php if ($credits90<=0) echo "disabled"; ?> onclick="upgradeAd('p','90')">Click to Upgrade</button> </td>
+          <td class="price-display"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_p_90" type="button" <?php if ($credits90<=0) echo "disabled"; ?> onclick="confirmUpgradeInsideModal('p','90', this)">Click to Upgrade</button> </td>
         </tr>
         
         <tr style="font-size:16px">
@@ -107,7 +107,7 @@ exit;
           
             <strong>Available: <span id="credits_p_180"><?php echo $credits180; ?></span></strong>            
           </td>
-          <td class="price-display"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_p_180" type="button" <?php if ($credits180<=0) echo "disabled"; ?> onclick="upgradeAd('p','180')">Click to Upgrade</button> </td>
+          <td class="price-display" style="width:60%"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_p_180" type="button" <?php if ($credits180<=0) echo "disabled"; ?> onclick="confirmUpgradeInsideModal('p','180', this)">Click to Upgrade</button> </td>
         </tr>
        
        
@@ -118,7 +118,7 @@ exit;
   else if ($_GET['name']=="Adavnced") { ?>
   
   <div class="table-responsive mb-5">
-    <table class="table card-table table-vcenter text-nowrap table-primary mb-0">
+    <table class="table card-table table-vcenter  table-primary mb-0">
      
       <tbody>
         <tr style="font-size:16px">
@@ -127,7 +127,7 @@ exit;
           
             <strong>Available: <span id="credits_a_90"><?php echo $credits90_a; ?></span></strong>            
           </td>
-          <td class="price-display"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_a_90" type="button" <?php if ($credits90_a<=0) echo "disabled"; ?> onclick="upgradeAd('a','90')">Click to Upgrade</button> </td>
+          <td class="price-display" style="width:60%"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_a_90" type="button" <?php if ($credits90_a<=0) echo "disabled"; ?> onclick="confirmUpgradeInsideModal('a','90', this)">Click to Upgrade</button> </td>
         </tr>
         
         <tr style="font-size:16px">
@@ -136,7 +136,7 @@ exit;
           
             <strong>Available: <span id="credits_a_180"><?php echo $credits180_a; ?></span></strong>            
           </td>
-          <td class="price-display"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_a_180" type="button" <?php if ($credits180_a<=0) echo "disabled"; ?> onclick="upgradeAd('a','180')">Click to Upgrade</button> </td>
+          <td class="price-display"> <button class="btn btn-indigo btn-md mb-1" id="btnUpgrade_a_180" type="button" <?php if ($credits180_a<=0) echo "disabled"; ?> onclick="confirmUpgradeInsideModal('a','180', this)">Click to Upgrade</button> </td>
         </tr>
        
        
@@ -174,31 +174,47 @@ exit;
               
                     
                     
-          <script>
+<script>
 
 
-	$(document).ready(function(){
-
+function confirmUpgradeInsideModal(type, val, btnElement) {
 	
+    // Optional: Remove previous confirmation boxes
+    $('.upgrade-confirm-box').remove();
 
-		
+    var duration = val;
+    var $btn = $(btnElement);
+    var $parentTd = $btn.closest('td');
 
-		// City form validation
+    // Inject a temporary confirmation box under the button
+   var confirmBox = `
+    <div class="upgrade-confirm-box mt-2">
+        <div class="d-flex flex-column" style="background:#fff;border:1px solid #FD811E; padding:20px">
+            <div class="mb-3">
+                By clicking the <strong>'Confirm'</strong> button, you agree to proceed with the upgrade
+                and acknowledge that <strong>one credit</strong> will be used to complete the transaction.
+                <br><br>Duration: <strong>${duration} days</strong>
+            </div>
+            <div>
+                <button class="btn btn-md btn-success me-1" onclick="proceedWithUpgrade('${type}', '${val}', this)">Confirm</button>
+                <button class="btn btn-md btn-danger" onclick="$(this).closest('.upgrade-confirm-box').remove()">Cancel</button>
+            </div>
+        </div>
+    </div>
+`;
 
-	
 
-		$("#frmAction").validate({
+    $parentTd.append(confirmBox);
+}
 
-		
+function proceedWithUpgrade(type, val, btnElement) {
+    // Optional: disable the confirm buttons to avoid duplicate clicks
+    $(btnElement).closest('.upgrade-confirm-box').find('button').prop('disabled', true);
 
-		});
+    // Call your original function
+    upgradeAd(type, val);
+}
 
-	
-
-	
-
-	});
-	
 
 function upgradeAd(type, val) {
     var adId = "<?php echo $encryptedAdId; ?>";
@@ -223,6 +239,8 @@ function upgradeAd(type, val) {
                     .removeClass('btn-indigo')
                     .addClass('btn-success')
                     .html('<i class="fe fe-check-circle"></i> Upgraded');
+					
+					$('.upgrade-confirm-box').remove();
 
                 // Deduct 1 credit visually
                 var currentCredits = parseInt($credits.text());

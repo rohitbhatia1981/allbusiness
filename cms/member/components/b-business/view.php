@@ -226,7 +226,7 @@ $dropdownOptions = generateCategoryOptions($resCategories);
 											</div>
 										</div>
                                         <?php if ($_GET['payment']==1 && $_SESSION['sessListingId']!="") { ?>
-                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+                                        <div class="alert alert-success" role="alert"><button class="close" data-dismiss="alert" aria-hidden="true">Ãƒâ€”</button>
 										<i class="fa fa-check-circle-o mr-2" aria-hidden="true"></i> Thank you for making payment, your Listing ID: AB-<?php echo $_SESSION['sessListingId']; ?> is upgraded and Live.</div>
                                         <?php 
 											unset($_SESSION['sessListingId']);
@@ -1032,7 +1032,7 @@ else
         <!-- Price -->
         <div class="row pt-3">
             <div class="col-lg-6">
-                <label class="form-label">Price *</label>
+                <label class="form-label">Price (Asking Price)*</label>
                 <input type="text" placeholder="" class="form-control" name="txtAskingPrice" value="<?php  echo $rowBusiness['business_asking_price']?>" required>
                 
             </div>
@@ -1100,7 +1100,7 @@ else
                 <div class="row align-items-end" style="padding-top:15px">
     <div class="col-12">
         <div class="dash-input-wrapper mb-30">
-            <label class="form-label d-block mb-2">Period Count *</label>
+            <label class="form-label d-block mb-2">Period Count </label>
             
                <?php //if ($rowBusiness['business_takings']=="Weekly") echo "checked"; ?>
             <div class="btn-radio-group d-flex flex-wrap">
@@ -1419,7 +1419,7 @@ $(document).ready(function () {
             'rdAddressDisp[]': ""
         },
         errorPlacement: function (error, element) {
-            // do nothing — suppress error messages
+            // do nothing â€” suppress error messages
         },
         highlight: function(element) {
             $(element).addClass('input-error'); // highlight with a CSS class
@@ -1636,7 +1636,7 @@ $("#suggesstion-box").hide();
 										<div class="table-responsive">
 											<div class="ad-success-container">
     <div class="ad-success-message">
-        <h2>🎉 Your Ad has been successfully created!</h2>
+        <h2>Your Ad has been successfully created!</h2>
         <p>Your advertisement is now live. You can view, edit, or upgrade your ad.
         <p>Ad ID: <strong><?php echo $row['business_id']; ?></strong><br>
         Ad Type: 
@@ -1656,7 +1656,7 @@ $("#suggesstion-box").hide();
                                    <strong> Premium Ad</strong>
                                     <font style="font-size:14px">| Expiry date: <?php echo fn_GiveMeDateInDisplayFormat($row['business_plan_expiry_date']); ?></font>
                                     <?php } ?>
-                                    </div>
+                      </div>
         
         </p>
     </div>
@@ -1670,7 +1670,7 @@ $("#suggesstion-box").hide();
         <a href="#" data-toggle="modal" data-target="#newModel" data-id="<?php echo base64_encode($row['business_id'])?>" data-name="Premium" class="btn btn-indigo btn-sm mb-1">Upgrade to Premium</a> 
         <a href="#" data-toggle="modal" data-target="#newModel" data-id="<?php echo base64_encode($row['business_id'])?>" data-name="Adavnced" class="btn btn-orange btn-sm mb-1">Upgrade to Advanced</a>
         <?php } ?>
-        <a href="#" class="btn-outline btn-sm mb-1">Edit Ad</a>
+        <a href="?c=b-business&task=edit&id=<?php echo base64_decode($_GET['id'])?>" class="btn-outline btn-sm mb-1">Edit Ad</a>
     </div>
 </div>
 
@@ -1969,10 +1969,10 @@ $("#suggesstion-box").hide();
 <br /><br />
 		<div style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 15px; border-radius: 5px; font-size: 15px; line-height: 1.6;">
   <strong>How ad packs work</strong><br>
-  • No upfront payment required<br>
-  • No lock-in contract<br>
-  • Ad packs do not expire<br>
-  • You can add a mix of premium and advanced ad packs to suit your needs.<br><br>
+  â€¢ No upfront payment required<br>
+  â€¢ No lock-in contract<br>
+  â€¢ Ad packs do not expire<br>
+  â€¢ You can add a mix of premium and advanced ad packs to suit your needs.<br><br>
 
   <strong>Need Help?</strong> Email us at <a href="mailto:sales@allbusiness.com.au">sales@allbusiness.com.au</a>, and we'll assist you with your ad packs.
 </div>
@@ -1994,7 +1994,7 @@ $("#suggesstion-box").hide();
         <div class="modal-header">
           <h5 class="modal-title" id="termsModalLabel" style="color:#F30; font-size:22px">Confirm your order</h5>
           <button type="button" class="close" onclick="closeModal_terms()" aria-label="Close">
-								<span aria-hidden="true">×</span>
+								<span aria-hidden="true">Ã—</span>
 							</button>
         </div>
         <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
@@ -2038,19 +2038,19 @@ $("#suggesstion-box").hide();
  <div style="padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
   
   <h3 style="margin-bottom: 10px;">Order Agreement</h3>
-  <p><strong>By checking the box and clicking “Confirm Order”, you acknowledge that:</strong></p>
+  <p><strong>By checking the box and clicking â€œConfirm Orderâ€, you acknowledge that:</strong></p>
   
   <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;">
     <li>You are authorized to place this order on behalf of your organization, forming a binding agreement.</li>
-    <li>You have read and understood AllBusiness’s Terms and Conditions, including limitations on liability.</li>
+    <li>You have read and understood AllBusinessâ€™s Terms and Conditions, including limitations on liability.</li>
     <li>You accept the obligation to pay according to the Advertising Terms.</li>
-    <li>You agree to comply with AllBusiness’s platform policies and usage guidelines.</li>
+    <li>You agree to comply with AllBusinessâ€™s platform policies and usage guidelines.</li>
   </ul>
 
   <h4 style="margin-top: 20px;">Payment Method</h4>
   <p>
     An invoice will be sent within <strong>5 business days</strong>, and payment is <strong>due within 14 days</strong> of invoice generation.
-    Your ad pack will be available immediately after you click “Confirm Order” below.
+    Your ad pack will be available immediately after you click â€œConfirm Orderâ€ below.
   </p>
 
   <h4 style="margin-top: 20px;">Cancellation</h4>
