@@ -565,7 +565,7 @@ td[class="spechide"]
 
 
 
-			 <a href="$siteurl"><img  src="$logoURL" alt="" style="max-width:150px"></a>
+			 <a href="$siteurl"><img  src="$logoURL" alt="" style="max-width:200px"></a>
 
 
 
@@ -671,7 +671,7 @@ td[class="spechide"]
 
 
 
-                          <tr><td height='55'></td></tr>
+                          <tr><td height='25'></td></tr>
 
 
 
@@ -775,7 +775,7 @@ td[class="spechide"]
 
 
 
-                          <tr><td height='55'></td></tr>
+                          <tr><td height='25'></td></tr>
 
 
 
@@ -819,11 +819,8 @@ td[class="spechide"]
 
 
 
-                                  
 
-
-
-                                    <br><br>Cheers,
+                                    <br><br>Best Regards,
 
 
 
