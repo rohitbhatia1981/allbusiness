@@ -95,7 +95,7 @@ include PATH."include/headerhtml.php";
   <div class="form-group">
     <div class="input-container">
       <input type="text" class="form-control" id="txtCompanyName" name="txtCompanyName" placeholder="Agency Name *" required>
-      <label for="txtCompanyName">Company Name *</label>
+      <label for="txtCompanyName">Agency Name *</label>
     </div>
   </div>
   
