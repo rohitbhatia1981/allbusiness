@@ -550,7 +550,7 @@ else
 						$website=$row['member_website'];
 						$crm=$row['member_crm'];
 						$address=$row['member_address'];
-						$director=$row['member_director'];
+						$director=$row['member_director_name'];
 						$tradingName=$row['member_tradingname'];
 						
 						}
