@@ -81,34 +81,46 @@ function saveFormValues() {
 		
 					include PATH."include/email-templates/email-template.php";
 					include PATH."mail/sendmail.php";
-		
-				
-					$emailContent="Dear ".$_POST['txtTradingName'].", <br><br>
-					Congratulations! Your agency account on AllBusiness has been approved. You can now log in and start managing your business listings seamlessly.
-					<br><br>
-					Here are your login details:
-					<br><br>
-					Portal URL: <a href='".URL."login'>Click here</a> <br>
-					Username: ".$_POST['txtEmail']." <br>
-					Password: ".$password." <br>
-					<br><br>
-					For security reasons, we recommend changing your password after logging in.
-					<br><br>
-					If you have any questions or need assistance, feel free to reach out to our support team at support@allbusiness.com.au.
-					<br><br>
-					Welcome aboard, and we look forward to working with you!
-					";
+					
+					
+					
+				$sqlEmail="select * from tbl_emails where email_id=54 and email_status=1";
+			    $resEmail=$database->get_results($sqlEmail);
+			
+			
+				if (count($resEmail)>0)
+				{
+					$rowEmail=$resEmail[0];
+					$emailContent=fnUpdateHTML($rowEmail['email_description']);
+					
+					$loginLink='<a href="'.URL.'">contact us</a>';
+					
+					$emailContent=str_replace("<name>",$_POST['txtTradingName'],$emailContent);
+					$emailContent=str_replace("<name_of_crm>",$_POST['cmbCRM'],$emailContent);
+					$emailContent=str_replace("<email>",$_POST['txtEmail'],$emailContent);
+					$emailContent=str_replace("<password>",$password,$emailContent);
+					$emailContent=str_replace("<login_link>",$loginLink,$emailContent);					
+					$emailContent=str_replace("\n","<br>",$emailContent);
+					
 					$headingContent=$emailContent;
-					 $mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
-				
+
+				$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+
 
 				$ToEmail=$_POST['txtEmail'];
 				$FromEmail=ADMIN_FORM_EMAIL;
 				$FromName=FROM_NAME;
 				
-				$SubjectSend="Welcome to AllBusiness – Your Agency Account is Approved!";
-				$BodySend=$mailBody;
+				$SubjectSend=$rowEmail['email_heading'];
+				$BodySend=$mailBody;	
+				
+				
+				
+
 				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+				}
+		
+				
 		
 		}
 		
