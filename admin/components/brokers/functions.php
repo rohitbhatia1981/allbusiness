@@ -93,7 +93,7 @@ function saveFormValues() {
 					$rowEmail=$resEmail[0];
 					$emailContent=fnUpdateHTML($rowEmail['email_description']);
 					
-					$loginLink='<a href="'.URL.'">contact us</a>';
+					$loginLink='<a href="'.URL.'login">Login here</a>';
 					
 					$emailContent=str_replace("<name>",$_POST['txtTradingName'],$emailContent);
 					$emailContent=str_replace("<name_of_crm>",$_POST['cmbCRM'],$emailContent);
