@@ -55,13 +55,13 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!=""  && $_POST['txtPhone']!
 				$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
 
 
-				$ToEmail=$_POST['txtEmail'];
+				$ToEmail=ADMIN_EMAIL;
 				$FromEmail=ADMIN_FORM_EMAIL;
 				$FromName=FROM_NAME;
 				
 				$SubjectSend=$rowEmail['email_heading'];
-				print $BodySend=$mailBody;	
-				exit;
+				$BodySend=$mailBody;	
+				
 
 				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
 				}
