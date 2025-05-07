@@ -50,7 +50,7 @@ $siteurl=URL;
 
 
 
-$logoURL=$siteurl."images/allbusiness_Logo.svg";
+$logoURL=$siteurl."images/logo.png";
 
 
 
