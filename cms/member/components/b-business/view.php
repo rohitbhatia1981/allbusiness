@@ -1969,10 +1969,10 @@ $("#suggesstion-box").hide();
 <br /><br />
 		<div style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 15px; border-radius: 5px; font-size: 15px; line-height: 1.6;">
   <strong>How ad packs work</strong><br>
-  â€¢ No upfront payment required<br>
-  â€¢ No lock-in contract<br>
-  â€¢ Ad packs do not expire<br>
-  â€¢ You can add a mix of premium and advanced ad packs to suit your needs.<br><br>
+  &bull;&nbsp;No upfront payment required<br>
+  &bull;&nbsp;No lock-in contract<br>
+  &bull;&nbsp;Ad packs do not expire<br>
+  &bull;&nbsp;You can add a mix of premium and advanced ad packs to suit your needs.<br><br>
 
   <strong>Need Help?</strong> Email us at <a href="mailto:sales@allbusiness.com.au">sales@allbusiness.com.au</a>, and we'll assist you with your ad packs.
 </div>
