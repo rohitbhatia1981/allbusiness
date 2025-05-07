@@ -241,7 +241,7 @@ function saveModificationsOperation() {
 				$FromEmail=ADMIN_FORM_EMAIL;
 				$FromName=FROM_NAME;
 				
-				$SubjectSend=$rowEmail['email_heading'];
+				$SubjectSend=fnUpdateHTML($rowEmail['email_heading']);
 				$BodySend=$mailBody;	
 				
 				
