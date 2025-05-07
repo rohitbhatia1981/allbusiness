@@ -2038,19 +2038,19 @@ $("#suggesstion-box").hide();
  <div style="padding: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
   
   <h3 style="margin-bottom: 10px;">Order Agreement</h3>
-  <p><strong>By checking the box and clicking â€œConfirm Orderâ€, you acknowledge that:</strong></p>
+  <p><strong>By checking the box and clicking &quot;Confirm Order&quot;, you acknowledge that:</strong></p>
   
   <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;">
     <li>You are authorized to place this order on behalf of your organization, forming a binding agreement.</li>
-    <li>You have read and understood AllBusinessâ€™s Terms and Conditions, including limitations on liability.</li>
+    <li>You have read and understood AllBusiness - Terms and Conditions, including limitations on liability.</li>
     <li>You accept the obligation to pay according to the Advertising Terms.</li>
-    <li>You agree to comply with AllBusinessâ€™s platform policies and usage guidelines.</li>
+    <li>You agree to comply with AllBusiness's platform policies and usage guidelines.</li>
   </ul>
 
   <h4 style="margin-top: 20px;">Payment Method</h4>
   <p>
     An invoice will be sent within <strong>5 business days</strong>, and payment is <strong>due within 14 days</strong> of invoice generation.
-    Your ad pack will be available immediately after you click â€œConfirm Orderâ€ below.
+    Your ad pack will be available immediately after you click &quot;Confirm Order&quot; below.
   </p>
 
   <h4 style="margin-top: 20px;">Cancellation</h4>
