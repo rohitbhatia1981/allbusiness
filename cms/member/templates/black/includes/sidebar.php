@@ -54,8 +54,9 @@
 			<div class="user-info">
 				
                 <h5 style="color:#06C"><?php echo $uTypeMember; ?></h5>
-              
-                <h6 style="color:#999">Trial Period: <strong>10 days left</strong></h5>
+               <?php if ($_SESSION['trial_status']!="") { ?>
+                <h6 style="color:#999"><?php echo $_SESSION['trial_status'];?>: <strong><?php echo $_SESSION['trial_remaining_days']; ?> days remaining</strong></h5>
+                <?php } ?>
 			</div>
 		</div>
 	</div>

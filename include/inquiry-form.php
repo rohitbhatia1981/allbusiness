@@ -1,5 +1,5 @@
 
-<div class="datail_sidebar">
+<div class="datail_sidebar sticky-form">
 <h5><?php if ($rowProp['member_type']==2) echo "Private Seller";
 				else if ($rowProp['member_type']==1) echo $rowProp['member_company']." Broker";
 ?></h5>
@@ -38,7 +38,7 @@
      <?php if ($bid!="") { 
 	 $txtMessage="I am interested in ".getBusinessName($bid);
 	 } ?>
- 		<textarea class="form-control" rows="2" placeholder="" name="txtMessage" id="txtMessage"><?php echo $txtMessage; ?></textarea>
+ 		<textarea class="form-control" rows="2" placeholder="" name="txtMessage" id="txtMessage" style="color:#000"><?php echo $txtMessage; ?></textarea>
      </div>
  	</div>
   
@@ -50,11 +50,22 @@
   
   <button type="submit" id="submitBtn" class="btn btn-primary w100p mt-3 mb-2">Submit</button>
   
+   
    <div id="error-container" style="color:#F00"></div>
    
   
    
    <input type="hidden" id="listingId" name="listingId" value="<?php echo $bid; ?>">
 </form>
+<div id="success-container" style="color:#093;display:none">Thank you for contacting us! Your inquiry has been sent, and you will be contacted soon.</div>
 </div>
+
+<style>
+.sticky-form {
+  position: sticky;
+  top: 50px; /* Adjust this offset as needed (e.g., height of your header) */
+  z-index: 99;
+}
+
+</style>
 

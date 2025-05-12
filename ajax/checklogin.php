@@ -30,7 +30,24 @@ if ($_POST['txtEmail']!="" && $_POST['txtPassword']!="")
 					$_SESSION['sess_member_tradingname'] = $rowMemberid['member_tradingname'];
 					
 					
+					$_SESSION['trial_status'] = '';
+					$_SESSION['trial_remaining_days'] = '';
 					
+					if ($rowMemberid['member_trial'] == 1 && !empty($rowMemberid['member_trial_date'])) {
+						$expiryDate = $rowMemberid['member_trial_date'];
+						$today = date("Y-m-d");
+					
+						$expiryTimestamp = strtotime($expiryDate);
+						$todayTimestamp = strtotime($today);
+					
+						if ($expiryTimestamp < $todayTimestamp) {
+							$_SESSION['trial_status'] = 'Trial Expired';
+						} else {
+							$remainingDays = ceil(($expiryTimestamp - $todayTimestamp) / (60 * 60 * 24));
+							$_SESSION['trial_status'] = 'Trial Active';
+							$_SESSION['trial_remaining_days'] = $remainingDays;
+						}
+					}
 					
 					//
 					

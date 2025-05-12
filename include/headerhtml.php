@@ -8,7 +8,7 @@
     <title><?php echo $SEO_TITLE; ?></title>
      <meta name="description" content="<?php echo $SEO_DESCRIPTION?>">
  	 <meta name="keywords" content="<?php echo $SEO_KEYWORDS?>">
-    <meta property="og:site_name" content="">
+    <meta property="og:site_name" content="<?php echo URL?>">
     <meta property="og:url" content="<?php echo $ogURL?>">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo $SEO_TITLE; ?>">

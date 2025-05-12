@@ -83,6 +83,10 @@ function getParentCategory($id)
 	
 	
 }
+
+
+
+
 function getRegionId($regionName)
 {
 	global $database;
@@ -1024,17 +1028,24 @@ function generateBusinessLink($id)
 {
 	global $database;
 	
-	$sqlBusiness="select * from tbl_business where business_id='".$database->filter($id)."'";
-	$resBusiness=$database->get_results($sqlBusiness);
-	$rowProp=$resBusiness[0];
+	$sqlBusiness = "SELECT * FROM tbl_business WHERE business_id='" . $database->filter($id) . "'";
+	$resBusiness = $database->get_results($sqlBusiness);
+	$rowProp = $resBusiness[0];
 	
-	$address=getBusinessAddress($rowProp['business_id']);
+	$address = getBusinessAddress($rowProp['business_id']);
+
+	// Decode HTML entities first
+	$businessHeading = html_entity_decode($rowProp['business_heading'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+	$addressDecoded = html_entity_decode($address, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+	$detailLink = URL . "business-" . fnLinkName($businessHeading) . "-" . fnLinkName($addressDecoded) . "-" . $rowProp['business_id'];
+
+	// Clean up any double dashes
+	$detailLink = preg_replace('/-+/', '-', $detailLink);
 	
-	 $detailLink=URL."business-".fnLinkName($rowProp['business_heading'])."-".fnLinkName($address)."-".$rowProp['business_id'];
-	 $detailLink = preg_replace('/-+/', '-', $detailLink);
-	 return $detailLink;
-	
+	return $detailLink;
 }
+
 
 
 

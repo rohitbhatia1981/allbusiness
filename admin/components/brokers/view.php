@@ -295,10 +295,10 @@
                                       </div>
 										</div>
 								<div class="table-responsive table-lg mt-3">
-									<table class="table table-bordered border-top" id="example1">
+									<table class="table table-bordered border-top" width="100%" id="example1">
 										<thead>
 											<tr>
-												<th width="10%" class="border-bottom-0 wd-5" style="width:10%">
+												<th width="9%" class="border-bottom-0 wd-5" style="width:10%">
 												<label class="custom-control custom-checkbox">
 		<input type="checkbox" class="custom-control-input" name="chkControl" value="yes" onClick="checkAll(this.form,this.checked);" />
 														<span class="custom-control-label"></span>
@@ -306,15 +306,15 @@
 												</th>
 												
                                                 
-                                                <th width="19%" class="border-bottom-0">Broker Name</th>
-                                                <th width="19%" class="border-bottom-0">Company</th>                                                
-                                              <th width="13%" class="border-bottom-0">Email</th>                                                
-                                              <th width="13%" class="border-bottom-0">Phone</th>
+                                                <th width="15%" class="border-bottom-0">Broker Name</th>
+                                                <th width="15%" class="border-bottom-0">Company</th>                                                
+                                              <th width="10%" class="border-bottom-0">Email</th>                                                
+                                              <th width="8%" class="border-bottom-0">Phone</th>
                                               <!--  <th width="13%" class="border-bottom-0">Mobile </th>
                                                 <th width="13%" class="border-bottom-0">Email </th>-->
-                                                <th width="13%" class="border-bottom-0">Registered Date</th>                                               
-											  
-												<th width="9%" class="border-bottom-0 w-20">Status</th>
+                                                <th width="8%" class="border-bottom-0">Registered Date</th>                                               
+											    <th width="20%" class="border-bottom-0">Account Type</th>
+												<th width="10%" class="border-bottom-0 w-20">Status</th>
 											</tr>
 										</thead>
 							<?php
@@ -391,8 +391,36 @@
 											</div>
 											
 									</td>-->
-                                    <td><?php echo displayDateTimeFormat($row['member_regdate']); ?></td>
-                                    
+                                    <td><?php echo displayDateFormat($row['member_regdate']); ?></td>
+                                    <td><?php
+if ($row['member_trial'] == 1) {
+    $expiryDate = $row['member_trial_date'];
+    $today = date("Y-m-d");
+
+    if (!empty($expiryDate)) {
+        $expiryTimestamp = strtotime($expiryDate);
+        $todayTimestamp = strtotime($today);
+
+        if ($expiryTimestamp < $todayTimestamp) {
+            echo '<span style="color: red; font-weight: bold;">Trial Expired on: ' . displayDateFormat($expiryDate) . '</span>';
+        } else {
+            echo '<span style="color: orange; font-weight: bold;">Trial</span>';
+            echo "<br><br><span style=\"color: #333;\">Expiry Date: " . displayDateFormat($expiryDate) . "</span>";
+
+            // Show remaining days
+            $remainingDays = ceil(($expiryTimestamp - $todayTimestamp) / (60 * 60 * 24));
+            echo "<br><span style=\"color: green; font-weight: bold;\">Remaining Days: $remainingDays</span>";
+        }
+    } else {
+        echo '<span style="color: orange; font-weight: bold;">Trial</span>';
+    }
+} elseif ($row['member_trial'] == 0) {
+    echo '<span style="color: green; font-weight: bold;">Paid</span>';
+}
+?>
+
+
+                                    </td>
                                     
                                     
                                     
@@ -709,7 +737,36 @@ else
                                   </div>	
                    				</div>
                                 
-                             </div>   
+                             </div>  
+                             
+                             
+                             <div class="card">
+									<div class="card-header border-bottom-0">
+										<h3 class="card-title">Account Type</h3>
+									</div>
+									<div class="card-body pb-2">
+                                    
+											<div class="form-group ">
+                                                
+                                                <div class="custom-controls-stacked">
+                                                    <label class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" name="rdoTrial" id="rdoTrial" onchange="fnTrial(1)" value="1" <?php if($row['member_trial']=="1" || $row['member_trial']=='') echo 'checked="checked"'; ?>>
+                                                        <span class="custom-control-label">Trial Active</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" name="rdoTrial" id="rdoTrial" onchange="fnTrial(0)" value="0" <?php if($row['member_trial']==0 && $row['member_trial']!='') echo 'checked="checked"'; ?>>
+                                                        <span class="custom-control-label">Paid</span>
+                                                    </label>
+                                                    </div>
+                                  			</div>
+                                        
+                    						 <div class="col-lg-4" id="rowTrial">
+                                            	<label class="form-label">Trial Period Expiry</label>
+												<input class="form-control mb-4" placeholder="" type="date" value="<?php echo $row['member_trial_date']?>" name="txtTrialDate" >
+											</div>	
+                </div>
+                                
+                             </div> 
                                 
                                 
                              
@@ -751,6 +808,15 @@ else
                             	
             
             <script language="javascript">
+			
+			function fnTrial(id)
+			{
+				if (id==1)
+				$("#rowTrial").show();
+				else
+				$("#rowTrial").hide();
+				
+			}
 			
 			function addMoreFile(val)
 					{

@@ -11,7 +11,7 @@ $styleListing="";
 <div class="new_listings_bx buy_business_item" style="<?php echo $styleListing ?>">
 			
             <?php if ($rowProp['business_plan_id']==3) { ?>
-            <div class="top_bar" style="background-color: #016de4" >
+            <div class="top_bar" style="background-color: #016de4;" >
 				<img class="site_log" src="<?php echo URL?>images/site_logo.jpg">
 				<span><?php echo $rowProp['member_tradingname']; ?></span>
 			</div>	

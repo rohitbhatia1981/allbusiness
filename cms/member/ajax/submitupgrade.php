@@ -101,6 +101,71 @@ $adId=base64_decode($_POST['adId']);
 	
 				$add_query = $database->insert( 'tbl_ad_usage', $names );
 				
+				
+				
+				include PATH."include/email-templates/email-template.php";
+				include_once PATH."mail/sendmail.php";
+				
+				
+				
+				//--------Fetch ad Title---
+				
+				$sqlBusiness="select business_heading from tbl_business where business_id='".$database->filter($adId)."'";
+			    $resBusiness=$database->get_results($sqlBusiness);
+				$rowBusiness=$resBusiness[0];
+				
+				$adTitle=str_replace("amp;","",$rowBusiness['business_heading']);
+				
+				//--------end fetch ad title
+				
+				//-------Fetch user information-----
+				
+				$sqlMember="select * from tbl_members where member_id='".$_SESSION['sess_member_id']."'";
+			    $resMember=$database->get_results($sqlMember);
+				$rowMember=$resMember[0];
+				
+				$membername=$rowMember['member_firstname']." ".$rowMember['member_lastname'];
+				$memberemail=$rowMember['member_email'];			
+				
+				
+				//-------end fetch user information---
+				
+				$sqlEmail="select * from tbl_emails where email_id=56 and email_status=1";
+			    $resEmail=$database->get_results($sqlEmail);			
+			
+				if (count($resEmail)>0)
+				{
+									
+					$rowEmail=$resEmail[0];
+					$emailContent=fnUpdateHTML($rowEmail['email_description']);					
+					$emailContent=str_replace("<ad_title>","<strong>".$adTitle."</strong>",$emailContent);
+					$emailContent=str_replace("<ad_id>","<strong>".$adId."</strong>",$emailContent);
+					$emailContent=str_replace("<name>",$membername,$emailContent);														
+					$emailContent=str_replace("\n","<br>",$emailContent);
+					
+					
+					$headingContent=$emailContent;
+
+					$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+					
+					
+				
+				
+
+
+				$ToEmail=$memberemail;
+				$FromEmail=ADMIN_FORM_EMAIL;
+				$FromName=FROM_NAME;
+				
+				$SubjectSend=$rowEmail['email_heading'];
+				$BodySend=$mailBody;	
+				
+				
+
+				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+				}
+				
+				
 				//-----------end Ad redemption of ads log
 			
 			

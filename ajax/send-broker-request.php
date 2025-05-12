@@ -68,6 +68,47 @@ if ($_POST['txtFirstName']!="" && $_POST['txtEmail']!=""  && $_POST['txtPhone']!
 		
 		
 		
+				//--------send acknowledgement email to broker---				
+				
+				$sqlEmail="select * from tbl_emails where email_id=59 and email_status=1";
+			    $resEmail=$database->get_results($sqlEmail);			
+			
+				if (count($resEmail)>0)
+				{
+					
+					$receiverName=$_POST['txtFirstName']." ".$_POST['txtLastName'];
+					$receiverEmail=$_POST['txtEmail'];
+					
+					$rowEmail=$resEmail[0];
+					$emailContent=fnUpdateHTML($rowEmail['email_description']);
+					$emailContent=str_replace("<name>",$receiverName,$emailContent);
+					
+					$emailContent=str_replace("\n","<br>",$emailContent);
+					
+					$headingContent=$emailContent;
+
+					$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+	
+	
+					$ToEmail=$receiverEmail;
+					$FromEmail=ADMIN_FORM_EMAIL;
+					$FromName=FROM_NAME;
+					
+					$SubjectSend=$rowEmail['email_heading'];
+					$BodySend=$mailBody;	
+					
+					
+	
+					SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+				}
+				
+				
+				
+				
+				
+				//--------end sending acknowledgement email to broker--
+		
+		
 		
 		
 		

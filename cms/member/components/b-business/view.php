@@ -355,7 +355,13 @@ $shortTitle = mb_substr($fullTitle, 0, 45) . (strlen($fullTitle) > 45 ? '...' : 
     <?php echo htmlspecialchars($shortTitle, ENT_QUOTES, 'UTF-8'); ?>
 </span> <br />
                                     
-                                    <font style="color:#999"><?php echo getBusinessCategoryName($row['business_category']); ?></font>
+                                    <font style="color:#999">
+                                    <ul class="breadcrumb">
+                                        <li><?php echo getBusinessCategoryName($row['business_category']) ?></li>
+                                        <li>&nbsp;&nbsp;>&nbsp;&nbsp; </li>
+                                        <li><?php echo getBusinessCategoryName($row['business_subcat']) ?></li>
+                                    </ul>
+                                    </font>
                                     <div style="padding-top:10px">
                                     
                                      <?php if ($row['business_plan_id']==1) { ?>
@@ -2000,7 +2006,7 @@ $("#suggesstion-box").hide();
         <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
         <h4 align="center">You've selected the following ad packs</h4>
         
-        <div style="margin:auto;border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; max-width: 600px;  font-size: 14px; color: #1c1e21;">
+  <div style="margin:auto;border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; max-width: 600px;  font-size: 14px; color: #1c1e21;">
   <div style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Order summary</div>
 
   <div id="dispPremium" style="display: none; justify-content: space-between; margin-bottom: 4px;">
@@ -2099,7 +2105,7 @@ $("#suggesstion-box").hide();
 <div class="table-responsive mb-5">
     <table class="table card-table table-vcenter text-nowrap table-primary mb-0">
     	<tr><td><h4>Ad Upgraded</h4>Thank you for your recent Ad package purchase! Credits purchased now credited under your account.<br /><br />   	      
-    	Your  Order ID is: <strong><?php echo decryptId($_GET['cI']); ?></strong></td></tr>
+    	Your  Order ID is: <strong><?php echo base64_decode($_GET['cI']); ?></strong></td></tr>
     
     </table>
 </div>
@@ -2290,7 +2296,7 @@ $("#suggesstion-box").hide();
  					<h5><?php echo $rowPlans['plan_name']; ?></h5>
  					<p><?php echo $rowPlans['plan_short_desc']; ?></p>
  					<?php echo $rowPlans['plan_description']; ?>
-         <a href="payment_redirect.php?p=<?php echo $rowPlans['plan_id']?>&l=<?php echo encryptId($_GET['id'])?>"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>	
+         <a href="payment_redirect.php?p=<?php echo $rowPlans['plan_id']?>&l=<?php echo base64_encode($_GET['id'])?>"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>	
  			</div>
  			
 
@@ -2321,7 +2327,7 @@ $("#suggesstion-box").hide();
  					<h5><?php echo $rowPlans['plan_name']; ?></h5>
  					<p><?php echo $rowPlans['plan_short_desc']; ?></p>
  					<?php echo $rowPlans['plan_description']; ?>
-         <a href="payment_redirect.php?p=<?php echo $rowPlans['plan_id']?>&l=<?php echo encryptId($_GET['id'])?>"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>	
+         <a href="payment_redirect.php?p=<?php echo $rowPlans['plan_id']?>&l=<?php echo base64_encode($_GET['id'])?>"><button class="btn btn-outline-primary" id="checkout-button">Buy Now <i class="fa-light fa-arrow-up-right"></i></button></a>	
  			</div>
  			
 

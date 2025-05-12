@@ -12,7 +12,17 @@ if ($totalProp == 0) {
     $rowProp = $getProp[0];
 }
 
-$SEO_TITLE = showAddress($rowProp['business_address']);
+$categoryName=getBusinessCategoryName($rowProp['business_category']);
+$address = getBusinessAddress($rowProp['business_id']);
+
+$SEO_TITLE = $categoryName." | Business for Sale | ".$address;
+$ogTitle = $categoryName." | Business for Sale | ".$address;
+
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || 
+$_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$ogURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+
 updateStats('impressions', $rowProp['business_id'], $rowProp['business_agent_id']);
 
 $sqlImages = "SELECT * FROM tbl_business_images WHERE image_business_id='" . $rowProp['business_id'] . "'";
@@ -23,7 +33,7 @@ if ($totalImages > 0) {
     $ogImg = $getImages[0]['image_s3'];
 }
 
-$address = getBusinessAddress($rowProp['business_id']);
+
 // $address = str_replace(", AUS", "", $rowProp['business_address']);
 
 // Get the current URL
@@ -51,7 +61,7 @@ if ($getImages[0]['image_s3'] == "") {
     $mainImageURL = $getImages[0]['image_s3'];
 }
 
-$ogTitle = $address;
+
 $ogDescription = substr($propertyDesc, 0, 100);
 $ogImage = $mainImageURL; // URL to an image representing the page
 
@@ -60,6 +70,39 @@ $ogImage = $mainImageURL; // URL to an image representing the page
 include PATH."include/headerhtml.php"; 
 
  ?>
+ <style>
+ .share-dropdown {
+  position: relative;
+}
+
+.share-dropdown .share-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding: 5px 0;
+  z-index: 999;
+  min-width: 140px;
+}
+
+.share-dropdown:hover .share-list {
+  display: block;
+}
+
+.share-dropdown .share-list li {
+  padding: 5px 15px;
+}
+
+.share-dropdown .share-list li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+</style>
   <body>
 
   	<?php include PATH."include/header.php"; ?>
@@ -71,9 +114,9 @@ include PATH."include/headerhtml.php";
  <div class="list_detail">
  	<div class="container">
  	<div class="row">
- 		<div class="col-sm-8 pe-2 pe-lg-4">
+ 		<div class="col-sm-8 pe-2 pe-lg-4" id="information_containter">
           <?php if ($rowProp['business_plan_id']==3) { ?>
-            <div class="top_bar" style="background-color: #000">
+            <div class="top_bar" style="background-color: #016de4; color:#FFF">
 				<img class="site_log" src="<?php echo URL?>images/site_logo.jpg">
 				<span><?php echo $rowProp['member_tradingname']; ?></span>
 			</div>	
@@ -83,10 +126,21 @@ include PATH."include/headerhtml.php";
  			<div class="product_img">
  				<img class="detail-image" <?php echo $styleBorderRadius; ?>  src="<?php echo $mainImageURL; ?>">
  				<ul class="share_icon">
- 					<li><a href="#"><i class="fa-light fa-bookmark"></i> Save</a></li>
- 					<li><a href="#"><i class="fa-solid fa-share-nodes"></i> Share</a></li>
- 					<li><a href="#"><i class="fa-solid fa-print"></i> Print</a></li>
- 				</ul>
+  <li><a href="#"><i class="fa-light fa-bookmark"></i> Save</a></li>
+
+  <li class="share-dropdown">
+    <a href="#"><i class="fa-solid fa-share-nodes"></i> Share</a>
+    <ul class="share-list">
+      <li><a href="javascript:;" onclick="shareTo('facebook')">Facebook</a></li>
+      <li><a href="javascript:;" onclick="shareTo('twitter')">Twitter</a></li>
+      <li><a href="javascript:;" onclick="shareTo('linkedin')">LinkedIn</a></li>
+      <li><a href="javascript:;" onclick="shareTo('whatsapp')">WhatsApp</a></li>
+    </ul>
+  </li>
+
+  <!--<li><a href="javascript:;" onclick=""><i class="fa-solid fa-print"></i> Print</a></li>-->
+</ul>
+
  			</div>	
  			<div class="new_listings_bx">
  			<h4><?php echo str_replace("amp;","",$rowProp['business_heading']); ?></h4>
@@ -172,23 +226,13 @@ include PATH."include/headerhtml.php";
 					</div>
  		</div>
  		<div class="col-sm-4">
-         
-      
-        
-        
- 			
-                
-                
- 				                
-                <?php include PATH."include/inquiry-form.php"; ?>
- 			
-          
+     	 <?php include PATH."include/inquiry-form.php"; ?>
  		</div>
  	</div>
  	</div>
  </div>
  
- <div class="links_box">
+ <!--<div class="links_box">
  	<div class="container">
  		<div class="row">
  			<div class="col-sm-3">
@@ -235,18 +279,20 @@ include PATH."include/headerhtml.php";
  			</div>
  		</div>
  	</div>
- </div>
+ </div>-->
 
-<section class="about_section">
+<!--<section class="about_section">
 	<div class="container">
-		<!-- <h6>About Allbusinesses.com.au</h6> -->
+	
 		<h3 class="title_h3">Buy a Business</h3>
 		<p>Starting a business from scratch is tough. Buying an established business for sale in Australia can be the answer. By buying an existing business, you can skip the startup hassle and start making profits right away. Magicbricks helps you find the right business for sale in Melbourne and across Victoria, with plans to expand into other states soon. Our platform simplifies the search process, allowing you to find businesses by industry, location, and price range.</p>
 		<p>With Magicbricks, investing in an Australian business for sale means investing in certainty and a proven formula. Whether you're interested in small businesses or franchises, we can help you find the right opportunity. Buying a business gives you access to systems, clients, inventory, and leases. It's a smart move for any entrepreneur.</p>
 		<p>Melbourne, as Victoria's capital, is a hub for businesses of all sizes. With its pro-business government and favourable taxation, it's a hub for small and start-up companies. Whether you're looking for large corporations or smaller retail operations, Melbourne has options for you.
 Find your perfect business for sale today with Magicbricks.</p>
 	</div>
-</section>
+</section>-->
+
+<div style="height:60px"></div>
 
 </div>
 
@@ -296,9 +342,10 @@ Find your perfect business for sale today with Magicbricks.</p>
           type: 'POST',
           data: $(form).serialize(),
           success: function(response) {
+			
             if (response == 1) {
              $("#success-container").show();
-			 $("#frmContainer").hide();
+			 $("#frmContact").hide();
 			 
             } else  {
               $("#error-container").html(response);
@@ -315,4 +362,36 @@ Find your perfect business for sale today with Magicbricks.</p>
       }
     });
   });
+  
+
+function shareTo(platform) {
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent(document.title);
+
+  let shareUrl = '';
+
+  switch (platform) {
+    case 'facebook':
+      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+      break;
+    case 'twitter':
+      shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+      break;
+    case 'linkedin':
+      shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+      break;
+    case 'whatsapp':
+      shareUrl = `https://wa.me/?text=${title}%20${url}`;
+      break;
+    default:
+      return;
+  }
+
+  window.open(shareUrl, '_blank', 'width=600,height=500');
+}
+
+
+
+
+
 </script>

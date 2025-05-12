@@ -111,12 +111,12 @@ include PATH."include/headerhtml.php";
 	<div class="container">
     
     <div style="padding-bottom:50px ">
-          <p>
+          <p style="font-size:16px">
             <strong>AllBusiness</strong> is Australia’s trusted business-for-sale listing marketplace, offering one of the largest directories for buying and selling businesses. 
             With thousands of listings across the country, we connect buyers with incredible business opportunities in 
             <strong>Melbourne</strong>, <strong>Sydney</strong>, <strong>Brisbane</strong>, <strong>Perth</strong>, <strong>Adelaide</strong>, <strong>Canberra</strong>, <strong>Gold Coast</strong>, <strong>Hobart</strong>, and beyond.
           </p>
-          <p>
+          <p style="font-size:16px">
             Our mission is to simplify the process of buying and selling businesses, making it efficient, transparent, and stress-free for everyone involved.
           </p>
         </div>

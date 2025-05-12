@@ -125,7 +125,7 @@ RewriteRule ^business-for-sale/wa$ cms/buy-business.php?state=WA&landing=state [
 
 $htaccess_str
 
-RewriteRule ^([^/]+)/vic/melbourne/([0-9]+)/([0-9]+)$ cms/buy-business.php?type=$1&lid=$2&category=$3&landing=city [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([0-9]+)/([0-9]+)$ cms/buy-business.php?type=$1&state=$2&city=$3&lid=$4&category=$5&landing=city [L,QSA]
 
 #ErrorDocument 404 /pharmahealth/pages/404.php
 

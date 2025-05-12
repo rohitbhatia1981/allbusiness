@@ -87,6 +87,15 @@
                                              
                                             
 											<div class="card-body">
+                                            
+                                            <div class="form-group">
+													<div class="row">
+														<div class="col-md-12">
+															<h3>Contact Details</h3>
+														</div>
+														
+													</div>
+											</div>
 												
 												<div class="form-group">
 													<div class="row">
@@ -134,6 +143,15 @@
 														</div>
 													</div>
 												</div>
+                                                <div style="height:50px"></div>
+                                                <div class="form-group">
+													<div class="row">
+														<div class="col-md-12">
+															<h3>Profile Details</h3>
+														</div>
+														
+													</div>
+											</div>
                                                 
                                                 <div class="form-group">
 													<div class="row">
@@ -512,8 +530,7 @@ $.validator.addMethod("passwordComplexity", function(value, element) {
                                                 
                                                <div class="table-responsive">
                                               
-                                              <p style="font-size:18px; font-weight:bold">Basic Details
-                                              </p> 
+                                             
                                               
                                             
                                             
@@ -556,26 +573,8 @@ $.validator.addMethod("passwordComplexity", function(value, element) {
 												<tbody>
                                                 
                                                 
-                                                
-                                                	<tr>
-														<td>
-															<span class="w-50">Agency Logo</span>
-														</td>
-														<td>:</td>
-														<td>
-															<span class="font-weight-semibold">
-															<?php if ($row['member_agency_logo']!="") { ?>
-                                                            
-                                                            <div style="width: 200px; height: 100px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; padding: 10px; background: #f9f9f9;">
-                                                              <img src="<?php echo URL ?>images/agencylogo/<?php echo $row['member_agency_logo']; ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="Agency Logo">
-                                                            </div>
-
-                                                            
-                                                            <?php } ?>
-                                                           
-                                                            </span>
-														</td>
-													</tr>
+                                                <tr><td colspan="2"><h3>Contact Details</h3></td></tr>
+                                                	
 													
 													<tr>
 														<td>
@@ -619,6 +618,29 @@ $.validator.addMethod("passwordComplexity", function(value, element) {
 														<td>:</td>
 														<td>
 															<span class="font-weight-semibold"><?php echo $row['member_phone']; ?></span>
+														</td>
+													</tr>
+                                                    
+                                                    <tr><td height="50px"></td></tr>
+                                                    <tr><td colspan="2"><h3>Profile Details</h3></td></tr>
+                                                    
+                                                    <tr>
+														<td>
+															<span class="w-50">Agency Logo</span>
+														</td>
+														<td>:</td>
+														<td>
+															<span class="font-weight-semibold">
+															<?php if ($row['member_agency_logo']!="") { ?>
+                                                            
+                                                            <div style="width: 200px; height: 100px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; padding: 10px; background: #f9f9f9;">
+                                                              <img src="<?php echo URL ?>images/agencylogo/<?php echo $row['member_agency_logo']; ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="Agency Logo">
+                                                            </div>
+
+                                                            
+                                                            <?php } ?>
+                                                           
+                                                            </span>
 														</td>
 													</tr>
                                                     

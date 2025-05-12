@@ -333,7 +333,7 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 
 		$add_query = $database->insert( 'tbl_ads_order', $names );		
 		$lastInsertedId=$database->lastid();
-		$encryptOrderId=encryptId($lastInsertedId);
+		$encryptOrderId=base64_encode($lastInsertedId);
 		
 		$sqlCheck="select * from tbl_agency_ads_inventory where inventory_agency_id='".$database->filter($_SESSION['sess_member_id'])."'";
 		$resCheck=$database->get_results($sqlCheck);
@@ -378,6 +378,117 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 		$updated = $database->update( 'tbl_agency_ads_inventory', $update, $where_clause, 1 );
 			
 		}
+		
+		
+ $orderSummary='<div style="margin:auto;border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; max-width: 600px;  font-size: 14px; color: #1c1e21;">
+  <div style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Order summary</div>';
+
+
+  if ($number_of_premium_ad_90_days>0) {
+  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
+    <div><span id="dispcountPremium"></span>'.$number_of_premium_ad_90_days.' X Premium Ad 90 days</div>
+   
+  </div>';
+  }
+  
+  if ($number_of_premium_ad_180_days>0) {
+  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
+    <div><span id="dispcountPremium"></span>'.$number_of_premium_ad_180_days.' X Premium Ad 180 days</div>
+    
+  </div>';
+  }
+  
+   if ($number_of_advance_ad_90_days>0) {
+  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
+    <div><span id="dispcountPremium"></span>'.$number_of_advance_ad_90_days.' X Advanced Ad 90 days</div>
+    
+  </div>';
+  }
+  
+  
+ if ($number_of_advance_ad_180_days>0) {
+  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
+    <div><span id="dispcountPremium"></span>'.$number_of_advance_ad_180_days.' X Advanced Ad 180 days</div>
+    
+  </div>';
+  }
+  
+  $orderSummary.='<div style="color: #6a6a6a; font-size: 13px; margin-bottom: 15px;"></div>
+
+  <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
+
+  <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+    <div>Subtotal</div>
+    <div><span id="subTotal">$'. $sumTotal.'</span></div>
+  </div>
+  <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+    <div>GST</div>
+    <div><span id="subGST">$'.$gst.'</span></div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 15px;">
+    <div>Total to pay</div>
+    <div><span id="netTotal">$'.$netTotal.'</span></div>
+  </div>
+</div>';
+		
+		
+		
+				include PATH."include/email-templates/email-template.php";
+				include_once PATH."mail/sendmail.php";
+				
+				
+				//-------Fetch user information-----
+				
+				$sqlMember="select * from tbl_members where member_id='".$_SESSION['sess_member_id']."'";
+			    $resMember=$database->get_results($sqlMember);
+				$rowMember=$resMember[0];
+				
+				$membername=$rowMember['member_firstname']." ".$rowMember['member_lastname'];
+				$memberemail=$rowMember['member_email'];
+				
+				
+				
+				//-------end fetch user information---
+				
+				$sqlEmail="select * from tbl_emails where email_id=55 and email_status=1";
+			    $resEmail=$database->get_results($sqlEmail);
+			
+				
+			
+				if (count($resEmail)>0)
+				{
+					
+					
+					
+					$rowEmail=$resEmail[0];
+					$emailContent=fnUpdateHTML($rowEmail['email_description']);					
+					$emailContent=str_replace("<name>",$membername,$emailContent);														
+					$emailContent=str_replace("\n","<br>",$emailContent);
+					$emailContent=str_replace("<summary_of_order>",$orderSummary,$emailContent);
+					
+					$headingContent=$emailContent;
+
+					$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+					
+					
+				
+				
+
+
+				$ToEmail=$memberemail;
+				$FromEmail=ADMIN_FORM_EMAIL;
+				$FromName=FROM_NAME;
+				
+				$SubjectSend=$rowEmail['email_heading'];
+				$BodySend=$mailBody;	
+				
+				
+
+				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+				}
+		
+		
 		
 		
 		//--------end creating ads-------

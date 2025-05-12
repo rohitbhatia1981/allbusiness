@@ -3,6 +3,17 @@
 if ($_POST['txtName']!="" && $_POST['txtEmail']!="" && $_POST['txtPhone']!="")
 {
 
+	$businessId=$_POST['listingId'];
+	
+	$sqlBusiness="select business_agent_id from tbl_business where business_id='".$database->filter($businessId)."'";
+	$resBusiness=$database->get_results($sqlBusiness);
+	$rowBusiness=$resBusiness[0];
+	
+	$agentIds=$rowBusiness['business_agent_id'];
+	
+	$arrAgentIds=explode(",",$agentIds);
+	
+	
 	
 	//$sqlCheck="select * from tbl_members where member_email='".$database->filter($_POST['txtEmail'])."'";
 	//$resCheck=$database->get_results($sqlCheck);
@@ -21,22 +32,36 @@ if ($_POST['txtName']!="" && $_POST['txtEmail']!="" && $_POST['txtPhone']!="")
 			);			
 
 			$add_query = $database->insert( 'tbl_inquiry', $values );
-			$lastInsertedId=$database->lastid();			
+			$lastInsertedId=$database->lastid();
+			
+			echo "1";			
 			
 			//$_SESSION['uid']=$lastInsertedId;			
 			
 				include PATH."include/email-templates/email-template.php";
 				include_once PATH."mail/sendmail.php";
 				
-				//--------Settings all values--------
-				/*
-				$receiverName=$_POST['txtTitle']." ".$_POST['txtFirstName']." ".$_POST['txtMiddleName']." ".$_POST['txtLastName'];
-				$veriLink='<a href="'.URL.'crm/activate?auth='.$verificationCode.'&e='.encryptId($lastInsertedId).'">Verify email address</a>';
-				$contactus='<a href="'.URL.'contact-us">contact us</a>';
 				
+				//--------Fetch ad Title---
+				
+				$sqlBusiness="select business_id,business_heading,business_category from tbl_business where business_id='".$database->filter($_POST['listingId'])."'";
+			    $resBusiness=$database->get_results($sqlBusiness);
+				$rowBusiness=$resBusiness[0];
+				
+				$adTitle=str_replace("amp;","",$rowBusiness['business_heading']);
+				$adId=$_POST['listingId'];
+				$category=getBusinessCategoryName($rowBusiness['business_category']);
+				$address = getBusinessAddress($rowBusiness['business_id']);
+				
+				//--------end fetch ad title
+				
+				//--------Settings all values--------
+				
+				
+						
 				
 
-				$sqlEmail="select * from tbl_emails where email_id=15 and email_status=1";
+				$sqlEmail="select * from tbl_emails where email_id=57 and email_status=1";
 			    $resEmail=$database->get_results($sqlEmail);
 			
 			
@@ -44,30 +69,59 @@ if ($_POST['txtName']!="" && $_POST['txtEmail']!="" && $_POST['txtPhone']!="")
 				{
 					$rowEmail=$resEmail[0];
 					$emailContent=fnUpdateHTML($rowEmail['email_description']);
-					$emailContent=str_replace("<name>",$receiverName,$emailContent);
-					$emailContent=str_replace("<verification_link>",$veriLink,$emailContent);
-					$emailContent=str_replace("<contact_us_link>",$contactus,$emailContent);
-					$emailContent=str_replace("\n","<br>",$emailContent);
 					
-					$headingContent=$emailContent;
+					
+					if (count($arrAgentIds)>0)
+					{
+					
+						for ($k=0;$k<count($arrAgentIds);$k++)
+						{
+							$sqlAgent="select * from tbl_member_agents where agent_id='".$database->filter($arrAgentIds[$k])."'";
+							$resAgent=$database->get_results($sqlAgent);
+							$rowAgent=$resAgent[0];
+							$receiverName=$rowAgent['agent_name']." ".$rowAgent['agent_lastname'];
+							$receiverEmail=$rowAgent['agent_email'];
+							
+							
+							$emailContent=str_replace("<agent_name>",$receiverName,$emailContent);
+							$emailContent=str_replace("<ad_title>","<strong>".$adTitle."</strong>",$emailContent);	
+							$emailContent=str_replace("<ad_id>","<strong>".$adId."</strong>",$emailContent);
+							$emailContent=str_replace("<category>","<strong>".$category."</strong>",$emailContent);
+							$emailContent=str_replace("<location>","<strong>".$address."</strong>",$emailContent);
+							$emailContent=str_replace("<broker_name>","<strong>".$receiverName."</strong>",$emailContent);
+							
+							$emailContent=str_replace("<contact_name>","<strong>".$_POST['txtName']."</strong>",$emailContent);
+							$emailContent=str_replace("<contact_email>","<strong>".$_POST['txtEmail']."</strong>",$emailContent);
+							$emailContent=str_replace("<contact_phone>","<strong>".$_POST['txtPhone']."</strong>",$emailContent);
+							$emailContent=str_replace("<contact_message>","<strong>".$_POST['txtMessage']."</strong>",$emailContent);
+												
+							$emailContent=str_replace("\n","<br>",$emailContent);					
+							$headingContent=$emailContent;
+							$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
+							
+							$ToEmail=$receiverEmail;
+							$FromEmail=ADMIN_FORM_EMAIL;
+							$FromName=FROM_NAME;
+						
+							$SubjectSend=$rowEmail['email_heading'];
+							$BodySend=$mailBody;	
+							
+		
+							SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+							
+						}
+					
+					}
 
-				$mailBody=generateEmailBody($headingTemplate,$headingContent,$buttonTitle,$buttonLink,$bottomHeading,$bottomText);				
 
 
-				$ToEmail=$_POST['txtEmail'];
-				$FromEmail=ADMIN_FORM_EMAIL;
-				$FromName=FROM_NAME;
-				
-				$SubjectSend="Buyer Account Email Verification";
-				$BodySend=$mailBody;	
-
-				SendMail($ToEmail, $FromEmail, $FromName, $SubjectSend, $BodySend);
+					
 				}
 	
-		*/
+		
 	
 
-		echo "1";
+		
 						
 	}
 

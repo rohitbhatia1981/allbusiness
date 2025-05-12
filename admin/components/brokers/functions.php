@@ -67,12 +67,19 @@ function saveFormValues() {
         'member_ip' => $_SERVER['REMOTE_ADDR'],
         'member_regdate' => $curDateTime,
         'member_type' => 1,
+		'member_trial' => $_POST['rdoTrial'],
+		'member_trial_date' => $_POST['txtTrialDate'],
+		
         'member_email_verify' => 1,
         'member_phone_verify' => 1,
         'member_status' => $_POST['rdoPublished']
     );
 
     $add_query = $database->insert('tbl_members', $names);
+	
+	
+	
+	
 	
 	//---------send  email------
 		
@@ -178,6 +185,8 @@ function saveModificationsOperation() {
 		'member_director_name' => $_POST['txtDirector'],
         'member_website' => $_POST['txtWebsite'],
         'member_address' => $_POST['txtAddress'],
+		'member_trial' => $_POST['rdoTrial'],
+		'member_trial_date' => $_POST['txtTrialDate'],
         'member_status' => $_POST['rdoPublished']
     );
 
