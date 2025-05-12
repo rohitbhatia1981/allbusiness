@@ -53,7 +53,7 @@ $styleListing="";
             
              <!--<a href="#" class="more">more</a>--> 
 			<div class="bottom_bar">
-				<button class="enquire_btn<?php if ($rowProp['business_plan_id']==3) echo "_blue"; ?> mb-3" data-listing-id="<?php echo $rowProp['business_id']; ?>">Enquire</button>
+				<button id="enquire_btn" class="enquire_btn<?php if ($rowProp['business_plan_id']==3) echo "_blue"; ?> mb-3" data-listing-id="<?php echo $rowProp['business_id']; ?>">Enquire</button>
 				<button class="heart_btn"><i class="fa-light fa-heart"></i> Save</button>
 				 <?php if ($rowProp['business_plan_id']==2) { ?>
                 <span><?php echo $rowProp['member_tradingname']; ?></span>

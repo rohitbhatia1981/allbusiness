@@ -21,7 +21,7 @@
       </a>
       <ul class="dropdown-menu" aria-labelledby="forBrokersDropdown">
         <li><a class="dropdown-item" href="<?php echo URL?>for-brokers">Advertise with us</a></li>
-        <li><a class="dropdown-item" href="#">Find a broker</a></li>
+        <li><a class="dropdown-item" href="<?php echo URL?>cms/find-a-broker">Find a broker</a></li>
       </ul>
     </li>
     <!--<li class="nav-item"><a class="nav-link" href="<?php echo URL?>private-sellers">Private sellers</a></li>-->

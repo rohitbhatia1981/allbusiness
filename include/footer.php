@@ -181,7 +181,7 @@ $(document).ready(function () {
     }
 
     // Attach open modal function to the button
-    $('.enquire_btn').on('click', function() {
+    $('#enquire_btn').on('click', function() {
     var listingId = $(this).data('listing-id');
     var businessTitle = $(this).data('business-title');
     openInquiryModal(listingId, businessTitle); // Call the function with parameters
@@ -201,7 +201,7 @@ $(document).ready(function () {
 });
 </script>
 
-<?php if ($frontPageName=="index.php" || $frontPageName=="buy-business.php" || $frontPageName=="city.php" || $frontPageName=="bdetail.php") { ?>
+<?php if ($frontPageName=="index.php" || $frontPageName=="buy-business.php" || $frontPageName=="city.php" || $frontPageName=="bdetail.php" || $frontPageName=="find-a-broker.php") { ?>
 
 
 
