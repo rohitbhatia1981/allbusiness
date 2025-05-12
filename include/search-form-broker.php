@@ -1,5 +1,5 @@
 <div class="top_from" style="display: block;">
-        <form action="<?php echo URL?>buy-business" method="GET">
+        <form action="" method="GET">
     <div class="row">
         <!-- Row 1 -->
         <div class="col-sm-5 mb-2">
