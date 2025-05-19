@@ -37,26 +37,21 @@ $rowProp = $getProp[0];
                     <?php } ?>
  				</div>
 
-<form  id="frmContact" method="POST">
+<form  id="frmContact" method="POST" class="compact-contact-form">
   <div class="form-group">
-    <div class="input-container" style="margin-bottom:10px">
-      <input type="text" class="form-control" id="txtName" name="txtName" placeholder="Full Name" required>
-      <label for="txtName">Your Full Name *</label>
-    </div>
+   <div class="form-group icon-input">
+    <span class="input-icon">👤</span>
+    <input type="text" class="form-control" id="txtName" name="txtName" placeholder="Full Name *" required>
   </div>
   
-  <div class="form-group">
-    <div class="input-container" style="margin-bottom:10px">
-      <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email" required>
-      <label for="txtEmail">Your Email *</label>
-    </div>
+  <div class="form-group icon-input">
+    <span class="input-icon">✉️</span>
+    <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email *" required>
   </div>
   
-  <div class="form-group" >
-    <div class="input-container" style="margin-bottom:10px">
-      <input type="text" class="form-control" id="txtPhone" name="txtPhone" placeholder="Phone" required>
-      <label for="txtPhone">Your Phone *</label>
-    </div>
+  <div class="form-group icon-input">
+    <span class="input-icon">📞</span>
+    <input type="text" class="form-control" id="txtPhone" name="txtPhone" placeholder="Phone *" required>
   </div>
   
   <div class="form-group" >

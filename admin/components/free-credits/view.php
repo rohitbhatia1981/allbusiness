@@ -86,6 +86,36 @@
                         
                             
 							<div class="row">
+                            
+                            				<div class="col-md-12 col-lg-12 col-xl-3">
+												<div class="form-group">
+													<label class="form-label">Filter by Agency:</label>
+                                                                                            
+                                                                                          
+                                                                                            
+                                                                                            <?php
+                                        // Fetch categories from the database
+                                            $sqlCategories = "SELECT member_tradingname,member_id FROM tbl_members WHERE member_type=1  and member_imported=0 ORDER BY member_tradingname asc";
+                                            $resCategories = $database->get_results($sqlCategories);
+                                        
+                                        
+                                        ?>
+                                        
+                                        <select name="cmbAgency" class="form-control " data-placeholder="All">
+                                            <option label="All"></option>
+                                            <?php if (count($resCategories)>0) {
+                                                
+                                                for ($j=0;$j<count($resCategories);$j++)
+                                                {
+                                                    $rowCategories=$resCategories[$j];
+                                                 ?>
+                                            <option value="<?php echo $rowCategories['member_id'] ?>" <?php if ($rowCategories['member_id']==$_GET['cmbAgency']) echo "selected"; ?>><?php echo $rowCategories['member_tradingname'] ?></option>
+                                            <?php }
+                                            }?>
+                                        </select>
+
+												</div>
+											</div>
                            
                            					<div class="col-md-12 col-lg-12 col-xl-3">
 														<div class="form-group">
@@ -100,7 +130,7 @@
                                                  
                                                  
                                                     
-                                                    <div class="col-md-12 col-lg-12 col-xl-3">
+                                                    <div class="col-md-12 col-lg-12 col-xl-2">
 												<div class="form-group">
 													<label class="form-label">From:</label>
                                                     
@@ -111,7 +141,7 @@
 											</div>
                                             
                                             
-                                            <div class="col-md-12 col-lg-12 col-xl-3">
+                                            <div class="col-md-12 col-lg-12 col-xl-2">
 												<div class="form-group">
 													<label class="form-label">To:</label>
                                                     

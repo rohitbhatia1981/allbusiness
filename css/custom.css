@@ -295,59 +295,8 @@ p {
 /*--------Form label slide from placeholder
 
 /* General styles */
-.form_box {
-  font-family: Arial, sans-serif;
-}
 
-.input-container {
-  position: relative;
-  margin-bottom: 25px;
 
-}
-
-.input-container input {
-  width: 100%;
-  padding: 10px 5px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.input-container label {
-  position: absolute;
-  left: 10px;
-  top: 20%;
-  transform: translateY(-20%);
-  font-size: 15px;
-  color: #aaa;
-  background: white;
-  padding: 0 3px;
-  pointer-events: none;
-  transition: all 0.1s ease;
-  opacity: 0; /* Initially hidden */
-}
-
-/* Show label and move it up on focus or if input has value */
-.input-container input:focus + label,
-.input-container input:not(:placeholder-shown) + label {
-  top: -10px;
-  left: 10px;
-  font-size: 14px;
-  color:#666;
-  opacity: 1; /* Make it visible */
-}
-
-.input-container input:focus {
-  outline: none;
-    box-shadow: 0 0 2px rgba(81, 203, 238, 1); /* Optional custom glow */
-    border-color:#CCC /* Optional custom border color */
-	
-    transition: all 0.2s ease-in-out; /* Smooth transition for effects */
-  
-}
-.input-container input:focus::placeholder {
-  color: transparent; /* Hides the placeholder when the input is focused */
-}
 
 label.error {
   color: red; /* Error message text color */
@@ -369,22 +318,83 @@ label.error {
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
 
-/* Floating label compatibility */
-label {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  transition: 0.2s ease all;
-  pointer-events: none; /* Prevent label interference */
+.compact-contact-form {
+  max-width: 100%;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* Float label on focus or input */
-input:focus + label, input:not(:placeholder-shown) + label {
-  top: -5px;
-  left: 5px;
-  font-size: 12px;
-  color: #333;
+.compact-contact-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.compact-contact-form .icon-input {
+  position: relative;
+}
+
+.compact-contact-form .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  font-size: 16px;
+}
+
+.compact-contact-form .form-control {
+  width: 100%;
+  padding: 10px 15px 10px 38px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.compact-contact-form .form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.compact-contact-form textarea.form-control {
+  padding: 12px 15px;
+  min-height: 100px;
+  resize: vertical;
+}
+
+.compact-contact-form .btn-primary {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.compact-contact-form .btn-primary:hover {
+  background-color: #0069d9;
+}
+
+.compact-contact-form .error-message {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+  padding: 6px 10px;
+  background-color: #fff5f5;
+  border-radius: 4px;
+  border-left: 3px solid #dc3545;
+}
+
+@media (max-width: 768px) {
+  .compact-contact-form {
+    padding: 12px;
+  }
 }
 
 .nav-item.dropdown:hover .dropdown-menu {

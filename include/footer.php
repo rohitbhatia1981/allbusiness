@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-2">
-				<a href="#" class="mb-3 d-inline-block"><img src="<?php echo URL?>images/footer-logo.png"></a>
+				<a href="#" class="mb-3 d-inline-block"><img src="<?php echo URL?>images/footer-logo.svg"></a>
 				<p>Search businesses for sale in Australia. No. 1 website for Business dales in Australia. </p>
 				<div class="Contact_info">
 				<h5>Contact us</h5>
@@ -36,7 +36,7 @@
 				<ul class="site_map">
                 
                  <?php 
-			$sqlCities="select * from tbl_cities where city_status=1";
+			$sqlCities="select * from tbl_cities where city_status=1 and city_popular=1";
 			$resCities=$database->get_results($sqlCities);
 			
 			if (count($resCities)>0)
@@ -181,7 +181,7 @@ $(document).ready(function () {
     }
 
     // Attach open modal function to the button
-    $('#enquire_btn').on('click', function() {
+   $('.enquire_btn, .enquire_btn_blue').on('click', function() {
     var listingId = $(this).data('listing-id');
     var businessTitle = $(this).data('business-title');
     openInquiryModal(listingId, businessTitle); // Call the function with parameters

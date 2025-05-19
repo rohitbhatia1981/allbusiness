@@ -2104,7 +2104,7 @@ $("#suggesstion-box").hide();
 
 <div class="table-responsive mb-5">
     <table class="table card-table table-vcenter text-nowrap table-primary mb-0">
-    	<tr><td><h4>Ad Upgraded</h4>Thank you for your recent Ad package purchase! Credits purchased now credited under your account.<br /><br />   	      
+    	<tr><td>Thank you for your recent Ad package purchase! Credits purchased now credited under your account.<br /><br />   	      
     	Your  Order ID is: <strong><?php echo base64_decode($_GET['cI']); ?></strong></td></tr>
     
     </table>

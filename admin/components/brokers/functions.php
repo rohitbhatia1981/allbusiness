@@ -60,6 +60,7 @@ function saveFormValues() {
         'member_phone' => $_POST['txtPhone'],
         'member_company' => $_POST['txtCompany'],
         'member_tradingname' => $_POST['txtTradingName'],
+		'member_agency_color' => $_POST['txtBrandColor'],		
 		'member_director_name' => $_POST['txtDirector'],
 		'member_crm' => $_POST['cmbCRM'],
         'member_website' => $_POST['txtWebsite'],
@@ -68,8 +69,7 @@ function saveFormValues() {
         'member_regdate' => $curDateTime,
         'member_type' => 1,
 		'member_trial' => $_POST['rdoTrial'],
-		'member_trial_date' => $_POST['txtTrialDate'],
-		
+		'member_trial_date' => $_POST['txtTrialDate'],		
         'member_email_verify' => 1,
         'member_phone_verify' => 1,
         'member_status' => $_POST['rdoPublished']
@@ -77,7 +77,22 @@ function saveFormValues() {
 
     $add_query = $database->insert('tbl_members', $names);
 	
-	
+	if (!empty($_POST['images4ex'])) {			
+		
+				$imageName=$_POST['images4ex'][0];
+				
+				$update = array(
+				'member_agency_logo' => $imageName			
+				);
+				
+				$where_clause = array(
+				'member_id' => $_POST['pid']
+				);
+				
+				$updated = $database->update( 'tbl_members', $update, $where_clause, 1 );				
+			
+		
+		}
 	
 	
 	
@@ -186,6 +201,7 @@ function saveModificationsOperation() {
         'member_website' => $_POST['txtWebsite'],
         'member_address' => $_POST['txtAddress'],
 		'member_trial' => $_POST['rdoTrial'],
+		'member_agency_color' => $_POST['txtBrandColor'],
 		'member_trial_date' => $_POST['txtTrialDate'],
         'member_status' => $_POST['rdoPublished']
     );
@@ -195,6 +211,25 @@ function saveModificationsOperation() {
     );
 
     $updated = $database->update('tbl_members', $update, $where_clause, 1);
+	
+	
+	
+	if (!empty($_POST['images4ex'])) {			
+		
+				$imageName=$_POST['images4ex'][0];
+				
+				$update = array(
+				'member_agency_logo' => $imageName			
+				);
+				
+				$where_clause = array(
+				'member_id' => $_POST['pid']
+				);
+				
+				$updated = $database->update( 'tbl_members', $update, $where_clause, 1 );				
+			
+		
+		}
 	
 	
 	//---------send  email------

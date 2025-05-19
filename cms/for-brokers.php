@@ -67,62 +67,54 @@ include PATH."include/headerhtml.php";
 		
 		<div class="col-xl-6 offset-xl-3">
 			<form class="form_box" id="frmReg" method="POST">
-  <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" placeholder="First Name *" required>
+  <div class="form-row">
+    <div class="form-group">
       <label for="txtFirstName">First Name *</label>
+      <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" required>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtLastName" name="txtLastName" placeholder="Last Name *" required>
+    <div class="form-group">
       <label for="txtLastName">Last Name *</label>
+      <input type="text" class="form-control" id="txtLastName" name="txtLastName" required>
     </div>
   </div>
   
-  <div class="form-group">
-    <div class="input-container">
-      <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email *" required>
+  <div class="form-row">
+    <div class="form-group">
       <label for="txtEmail">Email *</label>
+      <input type="email" class="form-control" id="txtEmail" name="txtEmail" required>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtPhone" name="txtPhone" placeholder="Phone *" required>
+    <div class="form-group">
       <label for="txtPhone">Phone *</label>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtCompanyName" name="txtCompanyName" placeholder="Agency Name *" required>
-      <label for="txtCompanyName">Agency Name *</label>
+      <input type="text" class="form-control" id="txtPhone" name="txtPhone" required>
     </div>
   </div>
   
-  <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtDirector" name="txtDirector" placeholder="Director Name *" required>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="txtCompanyName">Agency Name *</label>
+      <input type="text" class="form-control" id="txtCompanyName" name="txtCompanyName" required>
+    </div>
+    <div class="form-group">
       <label for="txtDirector">Director Name *</label>
+      <input type="text" class="form-control" id="txtDirector" name="txtDirector" required>
     </div>
   </div>
+   <div class="form-row">
   <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtBusinessTradingName" name="txtBusinessTradingName" placeholder="Business Trading Name *" required>
-      <label for="txtBusinessTradingName">Business Trading Name *</label>
-    </div>
+    <label for="txtBusinessTradingName">Business Trading Name *</label>
+    <input type="text" class="form-control" id="txtBusinessTradingName" name="txtBusinessTradingName" required>
   </div>
+  
   <div class="form-group">
-    <div class="input-container">
+    <label for="cmbCRM">Select CRM *</label>
     
-    <?php
+ <?php
 		$sqlCRM="select * from tbl_crm where crm_status=1";
 		$resCRM=$database->get_results($sqlCRM);
 			
 			
 	?>
-    
-    
-      <select class="form-control form-select" name="cmbCRM" id="cmbCRM" required>
+<select class="form-control form-select" name="cmbCRM" id="cmbCRM" required>
       <option value="">Select CRM *</option>
          <?php if (count($resCRM)>0)
 			{
@@ -137,37 +129,117 @@ include PATH."include/headerhtml.php";
             
             
       </select>
-    </div>
   </div>
-  <div class="form-group">
-    <div class="input-container">
-      <input type="url" class="form-control" id="txtWebsite" name="txtWebsite" placeholder="Website">
-      <label for="txtWebsite">Website (full url with http)</label>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="input-container">
-      <input type="text" class="form-control" id="txtAddress" name="txtAddress" placeholder="Address" required>
-      <label for="txtAddress">Address *</label>
-    </div>
-  </div>
-  <div class="form-check mt-3">
-    <input type="checkbox" class="form-check-input" id="chkAgreement" name="chkAgreement" required>
-    Kindly accept <a href="#">Terms and Conditions</a> of Allbusiness	
-    </div>
   
+   <div class="form-group">
+    <label for="txtAddress">Address *</label>
+    <input type="text" class="form-control" id="txtAddress" name="txtAddress" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="txtWebsite">Website (full url with http)</label>
+    <input type="url" class="form-control" id="txtWebsite" name="txtWebsite">
+  </div>
+  
+ 
+  
+  <div class="form-check mt-3" style="padding-left:40px">
+    <input type="checkbox" class="form-check-input" id="chkAgreement" name="chkAgreement" required>
+    <label class="form-check-label" for="chkAgreement">Kindly accept <a href="#">Terms and Conditions</a> of Allbusiness</label>
+  </div>
+ </div> 
   <div class="form-check mt-3">
-    
-    
+    <p class="disclaimer-text">
       By providing your information, you agree to receive emails, phone calls, and/or texts from 
       <strong>Allbusinesses.com.au</strong> for the purpose of promoting products and services that may interest you 
       or benefit your business.
-    
+    </p>
   </div>
+  
   <button type="submit" id="submitBtn" class="btn btn-primary w100p mt-3 mb-2">Submit</button>
   
-   <div id="error-container" style="color:#F00"></div>
+  <div id="error-container" style="color:#F00"></div>
 </form>
+
+<style>
+.form_box {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border:2px solid #069;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.form-group {
+  flex: 0 0 50%;
+  padding: 0 15px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.form-select {
+  height: calc(2.25rem + 2px);
+}
+
+.form-check {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-check-input {
+  margin-top: 0.3rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.disclaimer-text {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.w100p {
+  width: 100%;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    flex: 0 0 100%;
+  }
+}
+</style>
 
 
 	

@@ -27,21 +27,14 @@
 </p>
 				</div>
 				<div class="right">
-					<button class="enquire_btn mb-3" data-listing-id="<?php echo $rowProp['business_id']; ?>" data-business-title="<?php echo $btitle; ?>" >Enquire</button>
+					<button class="enquire_btn mb-3" id="enquire_btn" data-listing-id="<?php echo $rowProp['business_id']; ?>" data-business-title="<?php echo $btitle; ?>" >Enquire</button>
 					<!--<img alt="" src="<?php echo URL?>images/site_logo.jpg">-->
 				</div>
 			</div>
             
             
             
-            <div id="inquiryModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
             
-            
-    <div class="modal-content"  style="position: relative; margin: 2% auto; width: 80%; max-width: 500px; background: #fff; padding: 20px; border-radius: 8px;">
-     <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
-      <div id="modalContent"></div>
-    </div>
-</div>
 
 
 

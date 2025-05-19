@@ -11,52 +11,42 @@
                     <?php } ?>
  				</div>
 
-<form  id="frmContact" method="POST">
-  <div class="form-group">
-    <div class="input-container" style="margin-bottom:10px">
-      <input type="text" class="form-control" id="txtName" name="txtName" placeholder="Full Name" required>
-      <label for="txtName">Your Full Name *</label>
-    </div>
+<form id="frmContact" method="POST" class="compact-contact-form">
+  <div class="form-group icon-input">
+    <span class="input-icon">👤</span>
+    <input type="text" class="form-control" id="txtName" name="txtName" placeholder="Full Name *" required>
+  </div>
+  
+  <div class="form-group icon-input">
+    <span class="input-icon">✉️</span>
+    <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email *" required>
+  </div>
+  
+  <div class="form-group icon-input">
+    <span class="input-icon">📞</span>
+    <input type="text" class="form-control" id="txtPhone" name="txtPhone" placeholder="Phone *" required>
   </div>
   
   <div class="form-group">
-    <div class="input-container" style="margin-bottom:10px">
-      <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email" required>
-      <label for="txtEmail">Your Email *</label>
-    </div>
+    <textarea class="form-control" rows="3" name="txtMessage" id="txtMessage" placeholder="Your message..."><?php 
+      if ($bid != "") { 
+        echo "I am interested in ".getBusinessName($bid); 
+      } 
+    ?></textarea>
   </div>
   
-  <div class="form-group" >
-    <div class="input-container" style="margin-bottom:10px">
-      <input type="text" class="form-control" id="txtPhone" name="txtPhone" placeholder="Phone" required>
-      <label for="txtPhone">Your Phone *</label>
-    </div>
-  </div>
+  <input type="hidden" id="listingId" name="listingId" value="<?php echo $bid; ?>">
   
-  <div class="form-group" >
-  	 <div class="input-container" style="margin-bottom:10px">
-     <?php if ($bid!="") { 
-	 $txtMessage="I am interested in ".getBusinessName($bid);
-	 } ?>
- 		<textarea class="form-control" rows="2" placeholder="" name="txtMessage" id="txtMessage" style="color:#000"><?php echo $txtMessage; ?></textarea>
-     </div>
- 	</div>
+  <button type="submit" id="submitBtn" class="btn btn-primary w100p">Send Message</button>
   
- 
- <!-- <div class="form-check mt-3">
-    <input type="checkbox" class="form-check-input" id="chkAgreement" name="chkAgreement" >
-   		<span style="font-size:13px">I I'd like to setup an account for quicker inquiries during my next visit.</span>
-    </div>-->
-  
-  <button type="submit" id="submitBtn" class="btn btn-primary w100p mt-3 mb-2">Submit</button>
-  
-   
-   <div id="error-container" style="color:#F00"></div>
-   
-  
-   
-   <input type="hidden" id="listingId" name="listingId" value="<?php echo $bid; ?>">
+  <!--<div id="error-container" class="error-message"></div>-->
 </form>
+
+<style>
+
+</style>
+
+
 <div id="success-container" style="color:#093;display:none">Thank you for contacting us! Your inquiry has been sent, and you will be contacted soon.</div>
 </div>
 

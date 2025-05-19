@@ -580,6 +580,7 @@ else
 						$address=$row['member_address'];
 						$director=$row['member_director_name'];
 						$tradingName=$row['member_tradingname'];
+						$brandColor=$row['member_agency_color'];
 						
 						}
 						else
@@ -599,6 +600,7 @@ else
 						$address=$rowReq['br_address'];
 						$director=$rowReq['br_director_name'];
 						$tradingName=$rowReq['br_trading_name'];
+						$brandColor=$row['member_agency_color'];
 						
 						
 						}
@@ -700,10 +702,24 @@ else
                                             	<label class="form-label">Business Trading Name *</label>
 												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $tradingName?>" name="txtTradingName" required>
 											</div>
-											
                                             
+                                            
+                                             <div class="col-lg-2">
+                                            	<label class="form-label">Business Brand Color code</label>
+												<input class="form-control mb-4" placeholder="" type="text" value="<?php echo $brandColor?>" name="txtBrandColor" >
+											</div>
+                                            
+                                            </div>
+                                            
+											
+                                            <div class="row" style="padding-top:15px">
+                                                <div class="col-12">
+                                               
+                                                    <div id="images4ex" orakuploader="on"></div>
+                                                </div>
+                                            </div>
                                             										
-										</div>
+										
                                        
 		</div>
                                 
@@ -841,7 +857,43 @@ $("#adminForm").validate({
 				}			
 		});
 
-</script>                
+</script>   
+
+ <?php 
+	 if ($row['member_agency_logo']!="")
+	 $pImageStr="'".$row['member_agency_logo']."'"; ?>                                      
+	<script language="javascript">
+	$(document).ready(function(){
+	$('#images4ex').orakuploader({
+		orakuploader : true,
+		orakuploader_path : 'orakuploader/',
+
+		orakuploader_main_path : '../images/agencylogo',
+		orakuploader_thumbnail_path : '../images/agencylogo',
+		
+		orakuploader_use_main : true,
+		orakuploader_use_sortable : true,
+		orakuploader_use_dragndrop : true,
+		
+		orakuploader_add_image : 'orakuploader/images/add.png',
+		orakuploader_add_label : 'Browser for images',
+		
+		orakuploader_resize_to	     : 700,
+		orakuploader_thumbnail_size  : 700,
+		orakuploader_maximum_uploads : 1,
+		orakuploader_attach_images: [<?php echo $pImageStr?>],
+		
+		orakuploader_main_changed    : function (filename) {
+			$("#mainlabel-images").remove();
+			$("div").find("[filename='" + filename + "']").append("<div id='mainlabel-images' class='maintext'>Main Image</div>");
+		}
+
+	});
+	
+	
+});
+
+</script>             
                           
 					
 						</div>

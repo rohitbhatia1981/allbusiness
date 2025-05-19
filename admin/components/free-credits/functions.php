@@ -7,6 +7,12 @@
 
 		//$sql = "SELECT * FROM tbl_pages where 1 order by page_title asc";
 		$sql = "SELECT * from tbl_ads_order where 1 ";
+		
+		if($_GET['cmbAgency'] != "")
+		{
+			$sql.=" and ad_agency_id='".$database->filter($_GET['cmbAgency'])."'";
+		}
+		
 		if($_GET['txtSDate'] != "")
 		{
 			$sql.=" and ad_order_date >='".$_GET['txtSDate']."'";

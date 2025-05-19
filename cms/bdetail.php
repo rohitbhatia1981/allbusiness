@@ -15,6 +15,11 @@ if ($totalProp == 0) {
 $categoryName=getBusinessCategoryName($rowProp['business_category']);
 $address = getBusinessAddress($rowProp['business_id']);
 
+$suburb=ucfirst(strtolower($rowProp['business_suburb']));
+$fullLocation=ucwords(strtolower($rowProp['business_suburb']))." ".strtoupper($rowProp['business_state'])." ".$rowProp['business_postcode'];
+
+$categoryNameLink=htCategoryName($categoryName)."-for-sale";
+
 $SEO_TITLE = $categoryName." | Business for Sale | ".$address;
 $ogTitle = $categoryName." | Business for Sale | ".$address;
 
@@ -107,7 +112,7 @@ include PATH."include/headerhtml.php";
 
   	<?php include PATH."include/header.php"; ?>
     
-    <div class="busiess_tag"><div class="container">Business for Sale - <?php echo $address; ?></div></div>
+    <div class="busiess_tag"><div class="container"><a href="<?php echo URL?>buy-business" style="color:#7A7F87;text-decoration:none " >Business for Sale</a> - <a href="<?php echo URL?>buy-business?location=<?php echo $suburb?>&txtLocation=<?php echo $fullLocation;?>" style="color:#7A7F87; text-decoration:none"><?php echo $suburb;?> Business for Sale</a> - <a href="<?php echo URL?><?php echo $categoryNameLink; ?>" style="color:#7A7F87; text-decoration:none "><?php echo $categoryName; ?> Business </a> - <?php echo $address; ?></div></div>
 <div class="listing_screen">
 	
  
@@ -115,11 +120,24 @@ include PATH."include/headerhtml.php";
  	<div class="container">
  	<div class="row">
  		<div class="col-sm-8 pe-2 pe-lg-4" id="information_containter">
-          <?php if ($rowProp['business_plan_id']==3) { ?>
-            <div class="top_bar" style="background-color: #016de4; color:#FFF">
-				<img class="site_log" src="<?php echo URL?>images/site_logo.jpg">
-				<span><?php echo $rowProp['member_tradingname']; ?></span>
-			</div>	
+          <?php if ($rowProp['business_plan_id']==3) {
+			  
+			  if ($rowProp['member_agency_color']=="")
+				$agencyColor="#016de4";
+				else
+				$agencyColor=$rowProp['member_agency_color'];
+			  
+			   ?>
+            <div class="top_bar" style="background-color: <?php echo $agencyColor; ?>; color:#FFF; display: flex; align-items: center; justify-content: space-between; padding: 10px;">
+    <?php if ($rowProp['member_agency_logo'] != "") { ?>
+        <div style="width: 200px; height: 40px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+            <img src="<?php echo URL ?>images/agencylogo/<?php echo $rowProp['member_agency_logo']; ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="">
+        </div>
+        <span style="font-size: 18px; font-weight: 500;"><?php echo $rowProp['member_tradingname']; ?></span>
+    <?php } ?>
+</div>
+
+	
             <?php 
 			$styleBorderRadius='style="border-radius:0px !important"';
 			} ?>
@@ -131,10 +149,10 @@ include PATH."include/headerhtml.php";
   <li class="share-dropdown">
     <a href="#"><i class="fa-solid fa-share-nodes"></i> Share</a>
     <ul class="share-list">
-      <li><a href="javascript:;" onclick="shareTo('facebook')">Facebook</a></li>
-      <li><a href="javascript:;" onclick="shareTo('twitter')">Twitter</a></li>
-      <li><a href="javascript:;" onclick="shareTo('linkedin')">LinkedIn</a></li>
-      <li><a href="javascript:;" onclick="shareTo('whatsapp')">WhatsApp</a></li>
+      <li><a href="javascript:;" onClick="shareTo('facebook')">Facebook</a></li>
+      <li><a href="javascript:;" onClick="shareTo('twitter')">Twitter</a></li>
+      <li><a href="javascript:;" onClick="shareTo('linkedin')">LinkedIn</a></li>
+      <li><a href="javascript:;" onClick="shareTo('whatsapp')">WhatsApp</a></li>
     </ul>
   </li>
 

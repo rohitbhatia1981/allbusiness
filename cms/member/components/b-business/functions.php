@@ -380,56 +380,67 @@ $sumTotal=$number_of_premium_ad_90_total_amount+$number_of_premium_ad_180_total_
 		}
 		
 		
- $orderSummary='<div style="margin:auto;border: 1px solid #e0e0e0; border-radius: 6px; padding: 20px; max-width: 600px;  font-size: 14px; color: #1c1e21;">
-  <div style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Order summary</div>';
+ $orderSummary = '
+<div style="font-family: Arial, sans-serif; color: #333333; max-width: 600px; margin: 10px auto;">
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
+        
+        
+        <div style="margin-bottom: 15px;">';
 
+// Premium Ad 90 days
+if ($number_of_premium_ad_90_days > 0) {
+    $orderSummary .= '
+            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eeeeee;">
+                <span style="color: #6a6a6a;">'.$number_of_premium_ad_90_days.' × Premium Ad (90 days)</span>
+                <span style="font-weight: 500;">$'.($number_of_premium_ad_90_total_amount ?? '').'</span>
+            </div>';
+}
 
-  if ($number_of_premium_ad_90_days>0) {
-  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
-    <div><span id="dispcountPremium"></span>'.$number_of_premium_ad_90_days.' X Premium Ad 90 days</div>
-   
-  </div>';
-  }
-  
-  if ($number_of_premium_ad_180_days>0) {
-  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
-    <div><span id="dispcountPremium"></span>'.$number_of_premium_ad_180_days.' X Premium Ad 180 days</div>
-    
-  </div>';
-  }
-  
-   if ($number_of_advance_ad_90_days>0) {
-  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
-    <div><span id="dispcountPremium"></span>'.$number_of_advance_ad_90_days.' X Advanced Ad 90 days</div>
-    
-  </div>';
-  }
-  
-  
- if ($number_of_advance_ad_180_days>0) {
-  $orderSummary.='<div id="dispPremium" style="justify-content: space-between; margin-bottom: 4px;">
-    <div><span id="dispcountPremium"></span>'.$number_of_advance_ad_180_days.' X Advanced Ad 180 days</div>
-    
-  </div>';
-  }
-  
-  $orderSummary.='<div style="color: #6a6a6a; font-size: 13px; margin-bottom: 15px;"></div>
+// Premium Ad 180 days
+if ($number_of_premium_ad_180_days > 0) {
+    $orderSummary .= '
+            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eeeeee;">
+                <span style="color: #6a6a6a;">'.$number_of_premium_ad_180_days.' × Premium Ad (180 days)</span>
+                <span style="font-weight: 500;">$'.($number_of_premium_ad_180_total_amount ?? '').'</span>
+            </div>';
+}
 
-  <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
+// Advanced Ad 90 days
+if ($number_of_advance_ad_90_days > 0) {
+    $orderSummary .= '
+            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eeeeee;">
+                <span style="color: #6a6a6a;">'.$number_of_advance_ad_90_days.' × Advanced Ad (90 days)</span>
+                <span style="font-weight: 500;">$'.($number_of_advance_ad_90_total_amount ?? '').'</span>
+            </div>';
+}
 
-  <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-    <div>Subtotal</div>
-    <div><span id="subTotal">$'. $sumTotal.'</span></div>
-  </div>
-  <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-    <div>GST</div>
-    <div><span id="subGST">$'.$gst.'</span></div>
-  </div>
+// Advanced Ad 180 days
+if ($number_of_advance_ad_180_days > 0) {
+    $orderSummary .= '
+            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eeeeee;">
+                <span style="color: #6a6a6a;">'.$number_of_advance_ad_180_days.' × Advanced Ad (180 days)</span>
+                <span style="font-weight: 500;">$'.($number_of_advance_ad_180_total_amount ?? '').'</span>
+            </div>';
+}
 
-  <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 15px;">
-    <div>Total to pay</div>
-    <div><span id="netTotal">$'.$netTotal.'</span></div>
-  </div>
+// Summary totals
+$orderSummary .= '
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eeeeee;">
+            <span style="color: #6a6a6a;">Subtotal</span>
+            <span style="font-weight: 500;">$'.$sumTotal.'</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; margin-bottom: 12px;">
+            <span style="color: #6a6a6a;">GST</span>
+            <span style="font-weight: 500;">$'.$gst.'</span>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; background-color: #f1f8fe; padding: 12px; border-radius: 6px; margin-top: 10px;">
+            <span style="font-weight: bold; color: #2c3e50;">Total to pay</span>
+            <span style="font-weight: bold; font-size: 16px; color: #0066cc;">$'.$netTotal.'</span>
+        </div>
+    </div>
 </div>';
 		
 		

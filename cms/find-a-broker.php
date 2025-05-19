@@ -82,10 +82,11 @@ if ($_GET['landing']!="")
 else
 {
 $headingTop="Brokers in Australia";
-$pageDesc="<p>Starting a business from scratch is tough. Buying an established business for sale in Australia can be the answer. By buying an existing business, you can skip the startup hassle and start making profits right away. Magicbricks helps you find the right business for sale in Melbourne and across Victoria, with plans to expand into other states soon. Our platform simplifies the search process, allowing you to find businesses by industry, location, and price range.</p>
-		<p>With Magicbricks, investing in an Australian business for sale means investing in certainty and a proven formula. Whether you're interested in small businesses or franchises, we can help you find the right opportunity. Buying a business gives you access to systems, clients, inventory, and leases. It's a smart move for any entrepreneur.</p>
-		<p>Melbourne, as Victoria's capital, is a hub for businesses of all sizes. With its pro-business government and favourable taxation, it's a hub for small and start-up companies. Whether you're looking for large corporations or smaller retail operations, Melbourne has options for you.
-Find your perfect business for sale today with Magicbricks.</p>";
+$pageDesc = "<p>Navigating the business buying or selling process can be overwhelming. That&rsquo;s where experienced <strong data-start=\"314\" data-end=\"347\">business brokers in Australia</strong> come in. Whether you're looking to sell your existing business or buy one, partnering with a broker ensures you get expert advice, accurate valuations, and a smoother transaction process.</p>
+<p>AllBusiness connects you with trusted <strong>business brokers in Melbourne and across Australia</strong>, with expansion plans into other Australian states. Our platform helps you easily filter brokers by location, industry specialization, and experience—making it easier to find the right partner for your business journey.</p>
+<p>Working with a broker gives you access to market insights, negotiation support, and a vetted buyer or seller network. Whether you're focused on small businesses, franchises, or large commercial operations, a professional broker can make all the difference in achieving the best outcome.</p>
+";
+
 }
 
 include PATH."include/headerhtml.php"; 
@@ -233,9 +234,9 @@ a.btn-custom:focus {
 		<div class="filter_box">
 			<span><?php //echo $totalPropMax?> 2 Brokers</span>
 
-			<div class="right">
+			<!--<div class="right">
 				Sort by: <select class="form-select"><option>Featured</option></select>
-			</div>
+			</div>-->
 			<button style="display: none;" class="filter_button">Filters <i class="fa-light fa-sliders-simple"></i></button>
 		</div>
 		<div class="filter_box only_for_mobile" style="display: none;">
@@ -301,11 +302,7 @@ if ($totalProp > 0) {
     <h3><a href="#" style="text-decoration:none; color: #333;">DoddePage in City Centre</a></h3>
     <h5>123 Main Street, Melbourne VIC 3000</h5>
 
-    <ul class="breadcrumb" style="padding-left: 0; list-style: none; display: flex; gap: 5px;">
-      <li>Food & Hospitality</li>
-      <li>&gt;</li>
-      <li><a href="#" style="text-decoration:none;">Cafes</a></li>
-    </ul>
+    
 
    
 
@@ -338,7 +335,7 @@ if ($totalProp > 0) {
 </div>		
 	</div>
 	<div class="right">
-		<img class="adds_" src="<?php echo URL?>images/right_side_bar.png">
+		<!--<img class="adds_" src="<?php echo URL?>images/right_side_bar.png">-->
 	</div>
 </div>
 

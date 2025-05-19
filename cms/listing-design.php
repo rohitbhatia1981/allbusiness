@@ -1,7 +1,7 @@
 
 
 <?php if ($rowProp['business_plan_id']==3)  
-$styleListing="background-color:#f0f6ff; border:2px solid #016de4; ";
+$styleListing="background-color:#f9f9f9; border:2px solid #e2e2e2; ";
 else if ($rowProp['business_plan_id']==2) 
 $styleListing="background-color:#fff; border:1px solid #ff6b2c; ";
 else
@@ -10,9 +10,24 @@ $styleListing="";
 
 <div class="new_listings_bx buy_business_item" style="<?php echo $styleListing ?>">
 			
-            <?php if ($rowProp['business_plan_id']==3) { ?>
-            <div class="top_bar" style="background-color: #016de4;" >
-				<img class="site_log" src="<?php echo URL?>images/site_logo.jpg">
+            <?php if ($rowProp['business_plan_id']==3) {
+				
+				if ($rowProp['member_agency_color']=="")
+				$agencyColor="#016de4";
+				else
+				$agencyColor=$rowProp['member_agency_color'];
+				
+				
+				 ?>
+            <div class="top_bar" style="background-color: <?php echo $agencyColor; ?>" >
+            
+            
+            	<?php if ($rowProp['member_agency_logo']!="") { ?>
+				<div style="width: 200px; height: 50px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 0px solid #ddd; padding: 10px; background: transparent">
+                      <img src="<?php echo URL ?>images/agencylogo/<?php echo $rowProp['member_agency_logo']; ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="">
+                 </div>
+                 <?php } ?>
+                 
 				<span><?php echo $rowProp['member_tradingname']; ?></span>
 			</div>	
             <?php } ?>
@@ -63,15 +78,7 @@ $styleListing="";
 	</div>
             
             
-            
-            <div id="inquiryModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
-            
-            
-    <div class="modal-content"  style="position: relative; margin: 2% auto; width: 80%; max-width: 500px; background: #fff; padding: 20px; border-radius: 8px;">
-     <span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
-      <div id="modalContent"></div>
-    </div>
-</div>
+  
 
 
 

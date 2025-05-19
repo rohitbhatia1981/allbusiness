@@ -21,9 +21,40 @@
       </a>
       <ul class="dropdown-menu" aria-labelledby="forBrokersDropdown">
         <li><a class="dropdown-item" href="<?php echo URL?>for-brokers">Advertise with us</a></li>
-        <li><a class="dropdown-item" href="<?php echo URL?>cms/find-a-broker">Find a broker</a></li>
+        <li><a class="dropdown-item" href="<?php echo URL?>for-brokers#reg_broker_form">Apply for a Broker Account</a></li>
+        <!--<li><a class="dropdown-item" href="<?php echo URL?>cms/find-a-broker">Find a broker</a></li>-->
       </ul>
     </li>
+    
+    <?php 
+$sqlCities = "SELECT * FROM tbl_cities WHERE city_status=1 AND city_popular=1";
+$resCities = $database->get_results($sqlCities);
+?>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="popularCitiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Locations
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="popularCitiesDropdown">
+    <?php if (count($resCities) > 0): ?>
+      <?php foreach ($resCities as $rowCities): ?>
+        <?php 
+          $cityName = htCategoryName($rowCities['city_name']);
+          $cityState = strtolower($rowCities['city_state']);
+        ?>
+        <li>
+          <a class="dropdown-item" href="<?php echo URL ?>business-for-sale/<?php echo $cityState; ?>/<?php echo $cityName; ?>">
+            <?php echo $rowCities['city_name']; ?>
+          </a>
+        </li>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </ul>
+</li>
+
+    
+    
+    
     <!--<li class="nav-item"><a class="nav-link" href="<?php echo URL?>private-sellers">Private sellers</a></li>-->
     <li class="nav-item"><a class="nav-link" href="<?php echo URL?>news">News</a></li>
   </ul>
@@ -32,7 +63,7 @@
    <?php if ($_SESSION['sess_member_id']=="") { $sellBusinessLink=URL."private-sellers";?> <li class="nav-item ms-auto login"><a class="nav-link" href="<?php echo URL?>login">Log in</a></li>
     <li class="nav-item"><a class="nav-link" href="<?php echo URL?>buyer-signup">Sign up</a></li>
     <?php } else {
-	$sellBusinessLink=URL."cms/member/index.php?c=business&task=add";	
+	$sellBusinessLink=URL."cms/member/index.php?c=b-business&task=add";	
 		 ?>
     <li class="nav-item"><a class="nav-link" href="<?php echo URL?>cms/member/">My Account</a></li>
     <?php } ?>
